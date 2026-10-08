@@ -34,3 +34,38 @@
 | Intensity | Characteristics | When |
 |-----------|----------------|------|
 | Low | Subtle opacity, tiny shifts | Ambient, routine |
+| Medium | Visible but not demanding | Most UI interactions |
+| High | Demands attention, large displacement | Errors, celebrations, onboarding |
+
+## Color Psychology
+
+| Color | Emotion | Animation Pairing |
+|-------|---------|------------------|
+| Blue | Trust, calm | Smooth, medium transitions |
+| Green | Success, growth | Upward, expansion, gentle overshoot |
+| Red | Alert, urgency | Sharp, fast, horizontal shakes |
+| Orange | Energy, warmth | Bouncy, diagonal paths |
+| Purple | Premium, mystery | Slow reveals, elegant easing |
+| Yellow | Optimism, caution | Quick pulses |
+| Teal | Modern, clarity | Clean, snappy transitions |
+
+### Color Transition Rules
+- Success: transition TO green (don't start with it)
+- Error: flash red then settle (don't sustain)
+- Warning: pulse yellow/amber for urgency
+- Neutral: use opacity rather than color change
+
+## Context-Based Emotion Defaults
+
+| Context | Default Emotion |
+|---------|----------------|
+| Form success | Joy + Confidence |
+| Validation error | Mild urgency |
+| Page load | Calm + Confidence |
+| Navigation | Confidence |
+| Notification | Mild surprise |
+| Loading | Calm |
+| Onboarding | Curiosity + Delight |
+| Dashboard | Calm + Confidence |
+| Purchase complete | Joy + Confidence |
+| Delete/remove | Calm (respectful departure) |
