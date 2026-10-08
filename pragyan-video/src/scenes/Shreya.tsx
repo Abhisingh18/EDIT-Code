@@ -104,3 +104,38 @@ export const Shreya: React.FC = () => {
             <div
               key={t}
               style={{
+                position: "absolute", left: CORE.x + Math.cos(a) * 340 - 90, top: CORE.y + Math.sin(a) * 210 - 22,
+                width: 180, textAlign: "center", opacity: p, transform: `scale(${0.85 + 0.15 * p})`,
+              }}
+            >
+              <span style={{ ...mono(15, C.text), padding: "10px 16px", borderRadius: 999, background: "rgba(255,255,255,0.07)", border: "1px solid rgba(255,255,255,0.13)" }}>
+                {t}
+              </span>
+            </div>
+          );
+        })}
+        <div style={{ position: "absolute", left: 830, width: 970, top: 798, display: "flex", justifyContent: "center" }}>
+          <Chip f={f} at={W("security", 0)} icon="lock" label="Your security boundary" />
+        </div>
+        <Chip f={f} at={W("boundary") + 4} icon="shield" label="Zero external API calls" tone="ok" style={{ position: "absolute", left: 1450, top: 140 }} />
+      </Beat>
+
+      {/* B2 — one server, open-weight models, smart router */}
+      <Beat f={f} from={306} to={718}>
+        <Header f={f} at={310} text="Smart model routing" />
+        {(() => {
+          const srvP = sp(f, W("one") - 4);
+          const rtP = sp(f, W("router") - 4, theme.spring.bouncy);
+          const wire = ei(f, [W("router"), W("router") + 16], [0, 1], theme.ease.inOut);
+          const fan = ei(f, [W("router") + 6, W("router") + 28], [0, 1], theme.ease.inOut);
+          return (
+            <>
+              {/* wires */}
+              <svg width={1920} height={1080} style={{ position: "absolute", inset: 0 }}>
+                <line x1={1040} y1={545} x2={lerp(1040, ROUTER.x - 74, wire)} y2={545} stroke="rgba(255,255,255,0.35)" strokeWidth={2} />
+                {MODELS.map((m, i) => (
+                  <path
+                    key={i}
+                    d={`M${ROUTER.x + 74},545 C1352,545 1352,${m.cy} 1420,${m.cy}`}
+                    pathLength={1}
+                    strokeDasharray={1}
