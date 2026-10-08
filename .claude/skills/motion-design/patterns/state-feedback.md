@@ -70,3 +70,27 @@ Hover enter <100ms; hover exit 150-200ms (slower = polished).
 
 ### Spinner
 - Continuous 360°, linear, 1000-1500ms/rev; optional breathing pulse (2-3s)
+
+### Skeleton
+- Gradient sweep L→R, 1500-2000ms; base 10-20% opacity, peak 30-40%
+
+### Progress Bar
+- Width/transform, ease-in-out; optional color milestones + shimmer
+
+### Indeterminate
+- Oscillating position/width, 1500-2500ms, ease-in-out; continuous, never frantic
+
+## Warning State
+1. Yellow/amber border (150ms)
+2. Warning icon scales in (150ms, subtle overshoot)
+3. Optional icon pulse (2-3s, sine); text fades in (200ms, 50ms delay)
+
+## Disabled / Enabled
+
+- **Disabling**: opacity to 50-60% (200ms); optional scale to 98%
+- **Enabling**: opacity to 100% (200ms); optional scale pulse 98%→100%
+
+## Focus States
+- Focus ring: scale 95%→100% + opacity (150ms)
+- Card focus: scale 1.01, shadow increase (150ms)
+- Tab nav focus: <100ms; must work with reduced-motion
