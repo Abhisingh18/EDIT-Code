@@ -31,3 +31,36 @@ if [[ $# -lt 1 ]]; then
 fi
 
 INPUT_VIDEO="$1"
+shift
+
+TEXT=""
+START="0"
+END=""
+POSITION="center"
+FONTSIZE="48"
+FONTCOLOR="white"
+BG=""
+OUTPUT=""
+
+while [[ $# -gt 0 ]]; do
+    case "$1" in
+        --text)
+            TEXT="$2"
+            shift 2
+            ;;
+        --start)
+            START="$2"
+            shift 2
+            ;;
+        --end)
+            END="$2"
+            shift 2
+            ;;
+        --position)
+            POSITION="$2"
+            shift 2
+            ;;
+        --fontsize)
+            FONTSIZE="$2"
+            shift 2
+            ;;
