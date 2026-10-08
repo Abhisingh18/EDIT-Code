@@ -70,3 +70,26 @@ Primary property carries meaning; secondary adds polish. Two properties is the s
 | Entrance | position | opacity | rotation |
 | Exit | position | opacity | scale up |
 | Button press | scale | color | position |
+| Hover | scale or color | opacity | position |
+| Success | scale | color + opacity | position |
+| Error | position (shake) | color | scale |
+| Loading | rotation | opacity | position |
+| Toggle | position | color | rotation |
+| Notification | position + scale | opacity | rotation |
+| Delete | scale + opacity | position | grow |
+| Selection | scale | color, opacity | rotation |
+| Progress | position or scale | color | opacity |
+
+## Performance
+
+| Property | Performance |
+|----------|-------------|
+| transform (translate, scale, rotate) | Excellent — GPU-accelerated |
+| opacity | Excellent — GPU-accelerated |
+| color / background-color | Good — triggers paint |
+| clip-path | Good — GPU on modern browsers |
+| width / height | Poor — triggers layout |
+| margin / padding | Poor — triggers layout |
+| box-shadow | Poor — expensive paint |
+
+**Rule**: Prefer transform + opacity for all motion.
