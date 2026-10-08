@@ -89,3 +89,34 @@ export const Outro: React.FC = () => {
           <AbsoluteFill style={{ opacity: 1 - out, transform: `translateY(${-30 * out}px)` }}>
             <div style={{ position: "absolute", left: 135, top: 250 }}>
               <MaskLine f={i} at={4}>
+                <div style={mono(18, C.dim)}>Potential impact · MRPL deployment</div>
+              </MaskLine>
+            </div>
+            {STATS.map((s, k) => {
+              const a = 18 + k * 18;
+              const p = sp(i, a, theme.spring.smooth);
+              const v = lerp(s.from, s.to, ei(i, [a, a + 34], [0, 1], theme.ease.out));
+              return (
+                <div
+                  key={s.kick}
+                  style={{
+                    position: "absolute", left: 135 + k * 420, top: 330, width: 390, height: 360, ...glass(),
+                    padding: "34px 34px", boxSizing: "border-box", opacity: p, transform: `translateY(${(1 - p) * 60}px)`,
+                  }}
+                >
+                  <div style={mono(14, C.dim)}>{s.kick}</div>
+                  <div style={{ ...display(80, 700), fontVariantNumeric: "tabular-nums", marginTop: 40, whiteSpace: "nowrap", color: k === 1 ? C.hero : C.text }}>
+                    {s.fmt(v)}
+                  </div>
+                  <div style={{ fontFamily: theme.fonts.body, fontSize: 23, color: C.dim, marginTop: 26, lineHeight: 1.35 }}>{s.label}</div>
+                </div>
+              );
+            })}
+          </AbsoluteFill>
+        );
+      })()}
+
+      {/* the human moment — slow down */}
+      {o >= 396 && o < 506 && (() => {
+        const h = o - 396;
+        const out = ei(h, [96, 108], [0, 1], theme.ease.in);
