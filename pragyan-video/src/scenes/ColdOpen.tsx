@@ -30,3 +30,34 @@ const PHRASES: { text: string; at: number; frags: Frag[] }[] = [
     text: "HOURS OF MANUAL WORK.",
     at: 180,
     frags: [
+      { img: "frag/refinery.jpg", x: 80, y: 260, w: 520, ry: 26, rz: 1, dx: -35 },
+      { img: "frag/scan.jpg", x: 1240, y: 180, w: 600, ry: -26, rz: -2, dx: 35 },
+    ],
+  },
+  {
+    text: "PUBLIC AI? NOT ALLOWED.",
+    at: 198,
+    frags: [
+      { img: "frag/graph.jpg", x: 120, y: 600, w: 600, ry: 20, rz: 2, dx: -30 },
+      { img: "frag/admin.jpg", x: 1180, y: 80, w: 620, ry: -18, rz: -3, dx: 30 },
+    ],
+  },
+];
+
+const Fragment: React.FC<{ fr: Frag; l: number; tint?: string }> = ({ fr, l, tint }) => {
+  const enter = ei(l, [0, 5], [1, 0]);
+  const x = fr.x + fr.dx * enter * 2.2 + fr.dx * (l / 18) * 0.6;
+  return (
+    <div
+      style={{
+        position: "absolute",
+        left: x,
+        top: fr.y,
+        width: fr.w,
+        transform: `perspective(1600px) rotateY(${fr.ry}deg) rotateZ(${fr.rz}deg)`,
+        borderRadius: 14,
+        overflow: "hidden",
+        border: "1px solid rgba(255,255,255,0.14)",
+        boxShadow: "0 40px 90px -30px rgba(0,0,0,0.9)",
+        opacity: 0.5 * (1 - enter * 0.6),
+        filter: `grayscale(0.92) brightness(0.62) contrast(1.15) blur(${enter * 6}px)`,
