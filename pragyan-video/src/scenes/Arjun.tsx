@@ -278,3 +278,38 @@ const Graphic: React.FC<{ g: string; f: number; t0: number }> = ({ g, f, t0 }) =
               {["#FF5F57", "#FEBC2E", "#28C840"].map((c2) => <div key={c2} style={{ width: 5, height: 5, borderRadius: 3, background: c2 }} />)}
             </div>
             <div style={{ display: "flex" }}>
+              <div style={{ width: 130, padding: "4px 8px" }}>{line(90, C.accent + "aa")}{line(70)}{line(100, C.warn + "aa")}{line(60)}{line(80)}</div>
+              <div style={{ width: 90, borderLeft: "1px solid rgba(255,255,255,0.1)", padding: "4px 6px" }}>
+                <div style={mono(8, C.hero)}>Pragyan</div>{line(60)}{line(40)}
+              </div>
+            </div>
+          </div>
+          <div style={{ position: "absolute", left: 140, top: 214, ...stag(f, A("coding")), ...mono(11, C.dim) }}>IDE · coding workspace</div>
+        </div>
+      );
+    }
+    case "roles":
+      return (
+        <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+          <div style={{ ...stag(f, A("employees")), ...glass({ borderRadius: 14 }), padding: "14px 16px", border: `1px solid ${C.ok}66` }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 10 }}><Icon name="user" size={20} color={C.ok} /><span style={display(22, 600)}>Operations engineer</span></div>
+            <div style={{ ...mono(12, C.ok), marginTop: 8 }}>Full answer · cited</div>
+          </div>
+          <div style={{ ...stag(f, A("allowed") - 4), ...glass({ borderRadius: 14 }), padding: "14px 16px", border: `1px solid ${C.bad}66` }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 10 }}><Icon name="lock" size={20} color={C.bad} /><span style={display(22, 600)}>Restricted employee</span></div>
+            <div style={{ ...mono(12, C.bad), marginTop: 8 }}>Document stays hidden</div>
+          </div>
+        </div>
+      );
+    case "audit": {
+      const rows = Array.from({ length: 14 }).map((_, k) => ({
+        who: ["Ops engineer", "IT support", "Admin", "Ops engineer"][k % 4],
+        act: ["document_get", "tag_lookup", "graph.view", "catalog_browse"][(k * 3) % 4],
+        ok: !(k === 4 || k === 9 || k === 12),
+      }));
+      const scroll = Math.max(0, f - b - 10) * 0.9;
+      return (
+        <div>
+          <div style={{ height: 210, overflow: "hidden", position: "relative", ...glass({ borderRadius: 12 }), ...stag(f, b + 8) }}>
+            <div style={{ position: "absolute", left: 0, right: 0, top: 10 - (scroll % (14 * 34)) }}>
+              {[...rows, ...rows].map((r, k) => (
