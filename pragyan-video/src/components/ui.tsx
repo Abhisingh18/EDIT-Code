@@ -164,3 +164,36 @@ export const ChapterTag: React.FC<{ f: number; at: number; num: string; title: s
   const line = ei(f, [at + 4, at + 26], [0, 1]);
   return (
     <div style={{ position: "absolute", display: "flex", alignItems: "center", gap: 16, ...style }}>
+      <MaskLine f={f} at={at}>
+        <span style={mono(17, C.text)}>{num}</span>
+      </MaskLine>
+      <div style={{ width: 56 * line, height: 1.5, background: "rgba(255,255,255,0.45)" }} />
+      <MaskLine f={f} at={at + 6}>
+        <span style={mono(17, C.dim)}>{title}</span>
+      </MaskLine>
+    </div>
+  );
+};
+
+/* ---------- chip ---------- */
+export const Chip: React.FC<{
+  f: number;
+  at: number;
+  icon?: string;
+  label: string;
+  tone?: "neutral" | "ok" | "bad" | "hero" | "accent";
+  style?: React.CSSProperties;
+  size?: number;
+}> = ({ f, at, icon, label, tone = "neutral", style, size = 17 }) => {
+  const p = sp(f, at, theme.spring.snappy);
+  const col =
+    tone === "ok" ? C.ok : tone === "bad" ? C.bad : tone === "hero" ? C.hero : tone === "accent" ? C.accent : C.text;
+  return (
+    <div
+      style={{
+        display: "inline-flex",
+        alignItems: "center",
+        gap: 10,
+        padding: "11px 18px",
+        borderRadius: 999,
+        background: tone === "neutral" ? "rgba(255,255,255,0.06)" : `${col}14`,
