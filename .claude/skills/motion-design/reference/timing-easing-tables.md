@@ -25,3 +25,29 @@ Entrance = base (100%). Exit = 65-75% of entrance.
 | Interaction | Max Latency |
 |------------|-------------|
 | Hover | <100ms |
+| Press/tap | <150ms |
+| Release/settle | 200-300ms |
+| Error shake | 300-400ms |
+| Long press | 500-800ms |
+| Drag start | <50ms |
+
+## Duration by Personality
+
+| Personality | Quick | Standard | Slow |
+|------------|-------|----------|------|
+| Playful | 150ms | 250ms | 400ms |
+| Premium | 350ms | 500ms | 800ms |
+| Corporate | 200ms | 300ms | 450ms |
+| Energetic | 100ms | 180ms | 300ms |
+
+## Easing: Directional Rules
+
+Entrance=ease-out | Exit=ease-in | On-screen=ease-in-out | Looping=sine | Rotation/progress=linear
+
+## Easing: Industry Standards
+
+| Name | Cubic Bezier | Use |
+|------|-------------|-----|
+| MD3 Standard | (0.2, 0, 0, 1) | Default on-screen |
+| MD3 Emphasized | (0.05, 0.7, 0.1, 1) | Entrances |
+| MD3 Accelerate | (0.3, 0, 1, 1) | Exits |
