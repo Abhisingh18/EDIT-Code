@@ -64,3 +64,35 @@ while [[ $# -gt 0 ]]; do
             FONTSIZE="$2"
             shift 2
             ;;
+        --fontcolor)
+            FONTCOLOR="$2"
+            shift 2
+            ;;
+        --bg)
+            BG="$2"
+            shift 2
+            ;;
+        --output)
+            OUTPUT="$2"
+            shift 2
+            ;;
+        *)
+            echo "Error: Unknown option '$1'"
+            print_usage
+            exit 1
+            ;;
+    esac
+done
+
+if [[ ! -f "$INPUT_VIDEO" ]]; then
+    echo "Error: Input video not found: $INPUT_VIDEO"
+    exit 1
+fi
+
+if [[ -z "$TEXT" ]]; then
+    echo "Error: --text is required"
+    print_usage
+    exit 1
+fi
+
+INPUT_DIR="$(dirname "$INPUT_VIDEO")"
