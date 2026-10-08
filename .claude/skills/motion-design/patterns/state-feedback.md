@@ -46,3 +46,27 @@ Hover enter <100ms; hover exit 150-200ms (slower = polished).
 
 ### Payment Success
 1. Spinner → checkmark crossfade (200ms)
+2. Checkmark draws (200ms); container → success color (200ms)
+3. Text fades in (200ms, 100ms delay); optional confetti (300-500ms)
+
+## Error State
+
+### Error Shake
+- Horizontal oscillation ±10-15px, 2-3 cycles decreasing amplitude
+- ease-in-out, 300-400ms total; red tint; no overshoot; settles at origin
+
+### Inline Validation
+1. Error text slides down + fades in (200ms)
+2. Border → red (150ms); icon scales in (150ms, 50ms delay)
+3. Optional single shake (200ms)
+
+### Form Submission Error
+1. Button returns to normal (200ms)
+2. Error message slides in (250ms)
+3. Affected fields highlight red (150ms, staggered 30ms)
+4. Smooth scroll to first error (300ms, ease-in-out)
+
+## Loading States
+
+### Spinner
+- Continuous 360°, linear, 1000-1500ms/rev; optional breathing pulse (2-3s)
