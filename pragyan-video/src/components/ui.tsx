@@ -32,3 +32,36 @@ export const BgField: React.FC<{ intensity?: number; grid?: boolean }> = ({ inte
         style={{
           position: "absolute", width: 1300, height: 1300, borderRadius: "50%",
           right: -520 - d2, bottom: -760,
+          background: `radial-gradient(circle, rgba(255,122,26,${0.075 * intensity}), transparent 62%)`,
+          filter: "blur(40px)",
+        }}
+      />
+      {grid && (
+        <AbsoluteFill
+          style={{
+            backgroundImage: "radial-gradient(rgba(255,255,255,0.09) 1px, transparent 1.3px)",
+            backgroundSize: "34px 34px",
+            backgroundPosition: `${(f * 0.15) % 34}px 0px`,
+            WebkitMaskImage: "radial-gradient(ellipse at 50% 45%, black 20%, transparent 72%)",
+            maskImage: "radial-gradient(ellipse at 50% 45%, black 20%, transparent 72%)",
+            opacity: 0.55,
+          }}
+        />
+      )}
+    </AbsoluteFill>
+  );
+};
+
+/* ---------- layers 4-5: grade, grain, vignette ---------- */
+export const Grade: React.FC = () => (
+  <AbsoluteFill style={{ pointerEvents: "none" }}>
+    <AbsoluteFill style={{ backgroundColor: "#2B3A66", mixBlendMode: "soft-light", opacity: 0.16 }} />
+    <AbsoluteFill
+      style={{
+        background:
+          "linear-gradient(180deg, rgba(0,0,0,0.16), transparent 22%, transparent 78%, rgba(0,0,0,0.26))",
+      }}
+    />
+  </AbsoluteFill>
+);
+
