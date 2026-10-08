@@ -29,3 +29,34 @@ const vol = (keys: [number, number][]) => (f: number) =>
   interpolate(f, keys.map((k) => k[0]), keys.map((k) => k[1]), CLAMP);
 
 export const Main: React.FC = () => (
+  <AbsoluteFill style={{ background: "#05070D" }}>
+    <Sequence from={T.COLD} durationInFrames={T.COLD_LEN}>
+      <ColdOpen />
+    </Sequence>
+    <Sequence from={T.BHAWNA} durationInFrames={T.BHAWNA_LEN}>
+      <Bhawna />
+    </Sequence>
+    <Sequence from={T.SHREYA} durationInFrames={T.SHREYA_LEN}>
+      <Shreya />
+    </Sequence>
+    <Sequence from={T.GAP} durationInFrames={T.REVEAL_LEN}>
+      <Reveal />
+    </Sequence>
+    <Sequence from={T.STING} durationInFrames={T.STING_LEN}>
+      <Sting />
+    </Sequence>
+    <Sequence from={T.ARJUN} durationInFrames={T.ARJUN_LEN}>
+      <Arjun2 />
+    </Sequence>
+    <Sequence from={T.OUTRO} durationInFrames={T.OUTRO_LEN}>
+      <Outro />
+    </Sequence>
+
+    {PLAY_MUSIC && <Audio src={staticFile("sfx/music_bed_long.wav")} volume={vol(BED)} />}
+    {PLAY_MUSIC && <Audio src={staticFile("sfx/music_drums_long.wav")} volume={vol(DRUMS)} />}
+
+    <Grade />
+    <Grain />
+    <Vignette />
+  </AbsoluteFill>
+);
