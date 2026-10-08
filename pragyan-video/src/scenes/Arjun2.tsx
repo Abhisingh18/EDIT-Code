@@ -410,3 +410,37 @@ export const Arjun2: React.FC = () => {
         background: "rgba(6,9,16,0.62)", border: "1px solid rgba(255,255,255,0.14)", opacity: enter,
       }}>
         <span style={display(24, 650)}>Arjun</span>
+        <span style={mono(11, C.dim)}>Live demo · Team Data_Jarvis GGV</span>
+        <div style={{ width: 1, height: 28, background: "rgba(255,255,255,0.14)" }} />
+        <VoiceMeter who="arjun2" i={f} h={22} bars={18} />
+      </div>
+
+      {/* cinematic chapter stingers replace the plain "Next:" cards */}
+      {CH.map((c, i) => (c.card && i > 0 ? <Stinger key={c.n} f={f} a={c.card[0]} b={c.card[1]} ch={c} prev={CH[i - 1]} /> : null))}
+
+      {/* payoff over the closing card */}
+      {f >= endA - 2 && (() => {
+        const p = ei(f, [endA, endA + 10], [0, 1], theme.ease.out);
+        return (
+          <AbsoluteFill style={{ opacity: p }}>
+            <BgField intensity={1.1} grid={false} />
+            <AbsoluteFill style={{ alignItems: "center", justifyContent: "center", textAlign: "center" }}>
+              <div>
+                <MaskLine f={f} at={endA + 2}><div style={{ ...display(40, 600), color: C.dim }}>100% local. Open-weight models.</div></MaskLine>
+                <MaskLine f={f} at={endA + 10}>
+                  <div style={{ ...display(104, 750), marginTop: 10 }}>Zero <span style={{ color: C.hero }}>third-party</span> API calls.</div>
+                </MaskLine>
+                <div style={{ display: "flex", justifyContent: "center", alignItems: "center", gap: 14, marginTop: 28, ...stag(f, endA + 22) }}>
+                  <Img src={staticFile("logo_dark.png")} style={{ width: 64 }} />
+                  <span style={mono(14, C.dim)}>Pragyan · sovereign by design</span>
+                </div>
+              </div>
+            </AbsoluteFill>
+          </AbsoluteFill>
+        );
+      })()}
+
+      {SFX.map((s, k) => <Sfx key={k} at={S(s.t)} name={s.name} vol={s.vol} />)}
+    </AbsoluteFill>
+  );
+};
