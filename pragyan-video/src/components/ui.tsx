@@ -65,3 +65,36 @@ export const Grade: React.FC = () => (
   </AbsoluteFill>
 );
 
+const NOISE = `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E")`;
+export const Grain: React.FC = () => {
+  const f = useCurrentFrame();
+  return (
+    <AbsoluteFill
+      style={{
+        pointerEvents: "none",
+        backgroundImage: NOISE,
+        backgroundSize: "220px",
+        backgroundPosition: `${(f * 37) % 220}px ${(f * 53) % 220}px`,
+        opacity: 0.075,
+        mixBlendMode: "overlay",
+      }}
+    />
+  );
+};
+export const Vignette: React.FC = () => (
+  <AbsoluteFill
+    style={{
+      pointerEvents: "none",
+      background: "radial-gradient(ellipse at center, transparent 55%, rgba(0,0,0,0.42) 100%)",
+    }}
+  />
+);
+
+/* ---------- glass surface ---------- */
+export const glass = (extra?: React.CSSProperties): React.CSSProperties => ({
+  background: "linear-gradient(180deg, rgba(255,255,255,0.075), rgba(255,255,255,0.022))",
+  border: "1px solid rgba(255,255,255,0.11)",
+  borderRadius: 22,
+  boxShadow: "0 34px 80px -26px rgba(0,0,0,0.8), inset 0 1px 0 rgba(255,255,255,0.09)",
+  backdropFilter: "blur(16px)",
+  ...extra,
