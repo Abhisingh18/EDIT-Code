@@ -123,3 +123,34 @@ export const ColdOpen: React.FC = () => {
         const split = ei(l, [0, 7], [10, 0]);
         return (
           <AbsoluteFill>
+            {p.frags.map((fr, i) => (
+              <Fragment key={i} fr={fr} l={l} tint={phrase === 3 ? "rgba(242,85,85,0.35)" : undefined} />
+            ))}
+            <AbsoluteFill style={{ alignItems: "center", justifyContent: "center" }}>
+              <div
+                style={{
+                  ...display(122, 800),
+                  letterSpacing: "-0.035em",
+                  color: phrase === 3 ? C.bad : C.text,
+                  opacity: ei(l, [0, 2], [0, 1]),
+                  transform: `scale(${ei(l, [0, 9], [1.12, 1])})`,
+                  textShadow: `${-split}px 0 rgba(255,70,70,0.65), ${split}px 0 rgba(70,170,255,0.65), 0 10px 60px rgba(0,0,0,0.8)`,
+                  whiteSpace: "nowrap",
+                }}
+              >
+                {p.text}
+              </div>
+            </AbsoluteFill>
+          </AbsoluteFill>
+        );
+      })()}
+
+      {/* identity card */}
+      {f >= 216 && (
+        <AbsoluteFill
+          style={{
+            alignItems: "center",
+            justifyContent: "center",
+            opacity: ei(f, [254, 266], [1, 0], theme.ease.in),
+            transform: `scale(${ei(f, [216, 266], [1, 1.04], theme.ease.std)})`,
+          }}
