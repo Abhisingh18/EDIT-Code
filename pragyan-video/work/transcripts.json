@@ -1139,3 +1139,41 @@
    },
    {
     "w": "of",
+    "s": 50.09,
+    "e": 50.29
+   },
+   {
+    "w": "internal",
+    "s": 50.29,
+    "e": 50.59
+   },
+   {
+    "w": "data",
+    "s": 50.59,
+    "e": 50.89
+   },
+   {
+    "w": "fragmentation.",
+    "s": 50.89,
+    "e": 51.43
+   }
+  ]
+ },
+ "arjun": {
+  "lang": "en",
+  "segments": [
+   "[0.37-3.13]  Here's Pryagyan handling a refinery inspection.",
+   "[4.93-6.21]  I asked what field.",
+   "[6.57-10.67]  It reads the scanned report, checks the current procedure, and shows where each finding came",
+   "[10.67-10.93]  from.",
+   "[13.95-17.15]  I then asked it to turn those findings into a replacement note for review.",
+   "[20.12-22.08]  This view connects equipment and documents.",
+   "[24.98-27.56]  Pryagyan chooses the right AI for reports or code.",
+   "[29.12-32.98]  Pryagyan remembers my reporting preferences and I control what it keeps.",
+   "[35.47-38.77]  The assistant is available on my phone and in my coding workspace.",
+   "[40.31-42.73]  Employees see only the documents they are allowed to access.",
+   "[45.53-50.77]  Administrators manage documents, review the access request, and track activity.",
+   "[53.81-56.93]  From scattered information to useful draft, that's Pryagyan."
+  ],
+  "words": [
+   {
