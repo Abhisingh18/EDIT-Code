@@ -131,3 +131,36 @@ export const MaskLine: React.FC<{
     <div style={{ overflow: "hidden", padding: "0.06em 0 0.22em", margin: "-0.06em 0 -0.22em", ...style }}>
       <div
         style={{
+          transform: `translateY(${(1 - p) * dist}%)`,
+          opacity: ei(f, [at, at + 10], [0, 1]),
+        }}
+      >
+        {children}
+      </div>
+    </div>
+  );
+};
+
+// per-word masked reveal synced to explicit frames
+export const SyncWords: React.FC<{
+  f: number;
+  items: { t: string; at: number; color?: string }[];
+  style?: React.CSSProperties;
+  gap?: number;
+}> = ({ f, items, style, gap = 22 }) => (
+  <div style={{ display: "flex", flexWrap: "wrap", columnGap: gap, ...style }}>
+    {items.map((w, i) => (
+      <MaskLine key={i} f={f} at={w.at} style={{ color: w.color }}>
+        {w.t}
+      </MaskLine>
+    ))}
+  </div>
+);
+
+/* ---------- chapter tag ---------- */
+export const ChapterTag: React.FC<{ f: number; at: number; num: string; title: string; style?: React.CSSProperties }> = ({
+  f, at, num, title, style,
+}) => {
+  const line = ei(f, [at + 4, at + 26], [0, 1]);
+  return (
+    <div style={{ position: "absolute", display: "flex", alignItems: "center", gap: 16, ...style }}>
