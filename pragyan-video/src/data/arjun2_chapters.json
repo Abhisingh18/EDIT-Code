@@ -1,0 +1,18 @@
+{
+  "chapters": [
+    { "n": "01", "t": 0.0,   "card": null,          "title": "The prototype",    "sub": "One platform — web, phone, terminal and IDE, plus an admin panel.", "g": "platform" },
+    { "n": "02", "t": 16.7,  "card": [14.2, 16.7],  "title": "Admin catalogue",  "sub": "Collections, sensitivity levels, scanned pages read, revisions linked.", "g": "catalogue" },
+    { "n": "03", "t": 34.0,  "card": [31.5, 34.0],  "title": "Knowledge graph",  "sub": "Equipment, reports and procedures — connected.", "g": "graph" },
+    { "n": "04", "t": 50.6,  "card": [47.7, 50.6],  "title": "Access controls",  "sub": "Two checks, both must pass: collection permission AND clearance.", "g": "access" },
+    { "n": "05", "t": 74.3,  "card": [71.8, 74.3],  "title": "Access requests",  "sub": "Ask with a reason. Admin reviews. Access expires on its own.", "g": "requests" },
+    { "n": "06", "t": 100.7, "card": [98.3, 100.7], "title": "Assistant tools",  "sub": "Permission-checked tools that act as the employee — never as the database.", "g": "tools" },
+    { "n": "07", "t": 122.4, "card": [120.0, 122.4],"title": "Inspection task",  "sub": "Scanned report → failed checks → a cited replacement note.", "g": "inspect" },
+    { "n": "08", "t": 150.3, "card": [147.9, 150.3],"title": "Developers",       "sub": "Terminal and IDE agents that read the current rule, then code and test.", "g": "dev" },
+    { "n": "09", "t": 178.6, "card": [175.8, 178.6],"title": "Personal memory",  "sub": "Your facts and preferences — separate from company knowledge, under your control.", "g": "memory" },
+    { "n": "10", "t": 208.8, "card": [206.4, 208.8],"title": "Phone app",        "sub": "Same account, same permissions, attachments and offline reading.", "g": "phone" },
+    { "n": "11", "t": 226.9, "card": [224.5, 226.9],"title": "Workspace",        "sub": "Projects, files, tables, code, diagrams — plus agents and skills.", "g": "workspace" },
+    { "n": "12", "t": 250.2, "card": [247.7, 250.2],"title": "Together",         "sub": "Today: configured model services. Deployment: fully local, open-weight.", "g": "status" }
+  ],
+  "endCard": [284.8, 286.8],
+  "duration": 286.8
+}
