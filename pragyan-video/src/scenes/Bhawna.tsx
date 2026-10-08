@@ -99,3 +99,37 @@ export const Bhawna: React.FC = () => {
       {f < 800 && (
         <AbsoluteFill style={{ opacity: ei(f, [786, 800], [1, 0], theme.ease.in) }}>
           <ChapterTag f={f} at={100} num="01" title="The problem" style={{ left: 72, top: 62 }} />
+        </AbsoluteFill>
+      )}
+
+      {/* P1 — highly sensitive data */}
+      <Beat f={f} from={95} to={182}>
+        <div style={{ position: "absolute", left: PX, top: 196 }}>
+          <MaskLine f={f} at={100}>
+            <span style={mono(17, C.dim)}>Refinery data · classified</span>
+          </MaskLine>
+        </div>
+        {[
+          { t: "P&ID DRAWING", x: -190, r: -10, d: 0 },
+          { t: "SOP-CDU-014", x: 190, r: 10, d: 5 },
+          { t: "INSPECTION REPORT", x: 0, r: 0, d: 10 },
+        ].map((d, i) => {
+          const p = sp(f, 102 + d.d, theme.spring.smooth);
+          return (
+            <div
+              key={i}
+              style={{
+                position: "absolute", left: PCX - 150 + d.x, top: 330,
+                transform: `translateY(${(1 - p) * 140}px) rotate(${d.r * p}deg)`, opacity: p,
+              }}
+            >
+              <DocCard f={f} at={102} kind={i === 2 ? "report" : "plain"} title={d.t} />
+            </div>
+          );
+        })}
+        <Stamp f={f} at={W("sensitive") - 2} text="CONFIDENTIAL" style={{ left: PCX - 150, top: 470 }} />
+      </Beat>
+
+      {/* P2 — analyse report -> approval-ready note */}
+      <Beat f={f} from={182} to={334}>
+        <div style={{ position: "absolute", left: PX, top: 196 }}>
