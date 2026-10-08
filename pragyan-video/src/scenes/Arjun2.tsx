@@ -376,3 +376,37 @@ export const Arjun2: React.FC = () => {
               <div style={{ ...mono(13, C.dim), letterSpacing: "0.06em", textTransform: "none", padding: "5px 18px", borderRadius: 8, background: "rgba(255,255,255,0.06)", display: "flex", alignItems: "center", gap: 8 }}>
                 <Icon name="lock" size={13} color={C.dim} /> pragyan.local · on-premise
               </div>
+            </div>
+          </div>
+          <div style={{ position: "relative", width: VW, height: VH, overflow: "hidden" }}>
+            <div style={{ position: "absolute", inset: 0, transformOrigin: "60% 45%", transform: `scale(${z})` }}>
+              <OffthreadVideo src={staticFile("arjun2.mp4")} muted={!PLAY_VOICE} style={{ width: VW, height: VH, display: "block" }} />
+            </div>
+            {sweep > 0 && sweep < 1 && (
+              <div style={{ position: "absolute", top: 0, bottom: 0, width: 360, left: lerp(-400, VW + 40, sweep), background: "linear-gradient(100deg, transparent, rgba(255,255,255,0.12), transparent)", transform: "skewX(-14deg)" }} />
+            )}
+          </div>
+        </div>
+      </div>
+      <SpeakerDecor f={f} x={WIN.x} y={WIN.y} w={VW} h={winH} r={16} appear={14} who="arjun2" envFrame={f}
+        name="Arjun" role="Live demo" index="03 / 03" plate="none" />
+
+      {/* explainer column */}
+      <div key={ch.n} style={{ position: "absolute", left: RX, top: 120, width: RW, opacity: enter * (1 - colOut), transform: `translateY(${-14 * colOut}px)` }}>
+        <MaskLine f={f} at={cStart + 2}>
+          <span style={{ ...display(92, 800), color: "transparent", WebkitTextStroke: "1.5px rgba(255,255,255,0.6)" }}>{ch.n}</span>
+        </MaskLine>
+        <MaskLine f={f} at={cStart + 6}>
+          <div style={{ ...display(38, 700), marginTop: 4 }}>{ch.title}</div>
+        </MaskLine>
+        <div style={{ fontFamily: theme.fonts.body, fontSize: 18, lineHeight: 1.4, color: C.dim, marginTop: 10, ...stag(f, cStart + 10) }}>{ch.sub}</div>
+        <div style={{ height: 1, background: "rgba(255,255,255,0.1)", margin: "20px 0 18px", width: RW * ei(f, [cStart + 8, cStart + 24], [0, 1]) }} />
+        <Graphic g={ch.g} f={f} t0={ch.t} />
+      </div>
+
+      {/* presenter plate */}
+      <div style={{
+        position: "absolute", left: WIN.x, top: 996, height: 58, padding: "0 18px", borderRadius: 14, display: "flex", alignItems: "center", gap: 16,
+        background: "rgba(6,9,16,0.62)", border: "1px solid rgba(255,255,255,0.14)", opacity: enter,
+      }}>
+        <span style={display(24, 650)}>Arjun</span>
