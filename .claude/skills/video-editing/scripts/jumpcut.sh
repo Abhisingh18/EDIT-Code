@@ -153,3 +153,34 @@ for i in "${!SILENCE_STARTS[@]}"; do
     CURRENT_POS="$NEXT_START"
 done
 
+# Add final segment (after last silence to end of video)
+if float_lt "$CURRENT_POS" "$VIDEO_DURATION"; then
+    SEGMENT_FILE="${TEMP_DIR}/seg_${SEGMENT_COUNT}.${INPUT_EXT}"
+    ffmpeg -y -i "$INPUT_VIDEO" \
+        -ss "$CURRENT_POS" \
+        -c copy -avoid_negative_ts make_zero \
+        "$SEGMENT_FILE" 2>/dev/null
+
+    if [[ -f "$SEGMENT_FILE" && "$(stat -f%z "$SEGMENT_FILE" 2>/dev/null || stat -c%s "$SEGMENT_FILE" 2>/dev/null)" -gt 0 ]]; then
+        echo "file '${SEGMENT_FILE}'" >> "$SEGMENT_LIST"
+        SEGMENT_COUNT=$((SEGMENT_COUNT + 1))
+    fi
+fi
+
+if [[ $SEGMENT_COUNT -eq 0 ]]; then
+    echo "Error: No non-silent segments found"
+    exit 1
+fi
+
+echo "Concatenating $SEGMENT_COUNT segments..."
+
+ffmpeg -y -f concat -safe 0 -i "$SEGMENT_LIST" \
+    -c copy "$OUTPUT" 2>&1 | tail -3
+
+# Report savings
+OUTPUT_DURATION="$(ffprobe -v error -show_entries format=duration -of csv=p=0 "$OUTPUT")"
+SAVED="$(awk "BEGIN { printf \"%.1f\", $VIDEO_DURATION - $OUTPUT_DURATION }")"
+PERCENT="$(awk "BEGIN { printf \"%.0f\", ($VIDEO_DURATION - $OUTPUT_DURATION) / $VIDEO_DURATION * 100 }")"
+
+echo "Output: $OUTPUT"
+echo "Original: ${VIDEO_DURATION}s → Edited: ${OUTPUT_DURATION}s (removed ${SAVED}s / ${PERCENT}%)"
