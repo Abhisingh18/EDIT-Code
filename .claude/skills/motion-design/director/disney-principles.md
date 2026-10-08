@@ -75,3 +75,28 @@ Enter-exit asymmetry: entrances 30-50% longer than exits.
 | Playful | 15-25% |
 | Energetic | 20-30% |
 | Corporate | 0-5% |
+| Premium | 0% |
+
+- Scale overshoot: 10-30% beyond target; rotation: ±5-15°
+
+## 11. Solid Drawing
+
+- Maintain consistent proportions across keyframes
+- Use scale + rotation together for depth
+- Shadow behavior matches implied light source
+
+## 12. Appeal
+
+- Smooth curves over sharp angles; satisfying timing
+- Personality consistency across all elements
+- Appeal killers: jerky motion, inconsistent timing, abrupt stops, uniform animation
+
+## Combining Principles
+
+| Recipe | Principles Used |
+|--------|----------------|
+| Button press | Anticipation + Squash/Stretch + Follow-Through + Secondary + Timing |
+| Card entrance | Anticipation + Arcs + Slow In/Out + Follow-Through + Staging |
+| Success celebration | Exaggeration + Secondary + Timing + Squash/Stretch + Appeal |
+| Error shake | Timing + Slow In/Out + Staging (no exaggeration) |
+| Loading spinner | Timing + Slow In/Out + Appeal |
