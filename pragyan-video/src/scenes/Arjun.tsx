@@ -488,3 +488,37 @@ export const Arjun: React.FC = () => {
                   <div style={{ ...mono(14, "#1E3A8A"), fontWeight: 700 }}>Draft for review — PSV-2034 replacement note</div>
                   <div style={{ ...mono(11, "#047857"), fontWeight: 700, border: "1.5px solid #047857", borderRadius: 999, padding: "4px 10px" }}>Cited</div>
                 </div>
+                <div style={{ height: 2, background: "#1C2333", margin: "14px 0 18px", opacity: 0.8 }} />
+                {[
+                  ["Problem", "PSV-2034 failed its bench test (INS-2026-118 Rev 0)."],
+                  ["Evidence", "Pop pressure 13.0 barg vs 12.25–12.75 required; seat leakage."],
+                  ["Required action", "Replace with DS-PSV-2034. Keep standby PSV-2035 in service."],
+                  ["Approval request", "PO approved against vendor quotation KVQ-2026-0457."],
+                ].map(([k, v], i) => (
+                  <div key={k} style={{ display: "flex", gap: 18, marginBottom: 16, opacity: ei(g, [draftAt + 8 + i * 4, draftAt + 18 + i * 4], [0, 1]) }}>
+                    <div style={{ ...mono(12, "#1E3A8A"), fontWeight: 700, width: 170, flexShrink: 0, paddingTop: 3 }}>{k}</div>
+                    <div style={{ fontFamily: theme.fonts.body, fontSize: 19, color: "#1C2333", lineHeight: 1.35 }}>{v}</div>
+                  </div>
+                ))}
+              </div>
+            )}
+            {g >= A("that's") - MAGIC && (
+              <div style={{ position: "absolute", left: 0, right: 0, top: 880, display: "flex", justifyContent: "center", alignItems: "center", gap: 14, opacity: sp(g, A("that's") - MAGIC) }}>
+                <Img src={staticFile("logo_dark.png")} style={{ width: 70 }} />
+                <span style={mono(14, C.dim)}>Generated on-premise · every claim cited</span>
+              </div>
+            )}
+          </AbsoluteFill>
+        );
+      })()}
+
+      {/* sound */}
+      {BEATS.slice(1).map((bt) => <Sfx key={bt.n} at={S(bt.t) - 1} name="whoosh" vol={0.08} />)}
+      {HLS.map((h, k) => <Sfx key={`h${k}`} at={S(h.a)} name="tick" vol={0.12} />)}
+      <Sfx at={MAGIC - 30} name="riser" vol={0.22} />
+      <Sfx at={MAGIC} name="whoosh" vol={0.16} />
+      <Sfx at={A("useful") - 2} name="hit" vol={0.38} />
+      <Sfx at={A("that's") - 1} name="shimmer" vol={0.14} />
+    </AbsoluteFill>
+  );
+};
