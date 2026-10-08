@@ -75,3 +75,28 @@ for b in range(nb):
     ph = 2 * np.pi * np.cumsum(45 + 90 * np.exp(-kt * 28)) / SR
     dr[s:e] += np.sin(ph) * np.exp(-kt * 7) * 0.9
     hs = int((b + 0.5) * BEAT * SR); he = min(N, hs + int(0.07 * SR))
+    if hs < N:
+        ht = np.arange(he - hs) / SR
+        dr[hs:he] += hp(rng.standard_normal(he - hs), 7000) * np.exp(-ht * 60) * 0.25
+    if b % 4 in (1, 3):
+        cs = s; ce = min(N, cs + int(0.25 * SR)); ct = np.arange(ce - cs) / SR
+        dr[cs:ce] += bp(rng.standard_normal(ce - cs), 900, 3500) * np.exp(-ct * 22) * 0.35
+save("music_drums", reverb(dr, 1.2, 0.15) * fade[:, None])
+
+# ---- SFX ----
+def env_t(sec): return np.arange(int(sec * SR)) / SR
+# whoosh: band-swept noise
+tt = env_t(0.7); nz = rng.standard_normal(len(tt)); out = np.zeros(len(tt))
+for i in range(0, len(tt), 512):
+    fc = 300 + 5000 * np.sin(np.pi * min(1, i / len(tt))) ** 2
+    seg = nz[i:i + 512]; out[i:i + 512] = seg
+out = bp(out, 400, 6000) * np.sin(np.pi * tt / tt[-1]) ** 2
+save("whoosh", reverb(out, 0.8, 0.25))
+# hit: sub thump + noise burst + long tail
+tt = env_t(2.2)
+ph = 2 * np.pi * np.cumsum(38 + 120 * np.exp(-tt * 18)) / SR
+hit = np.sin(ph) * np.exp(-tt * 2.2) + lp(rng.standard_normal(len(tt)), 3000) * np.exp(-tt * 14) * 0.5
+save("hit", reverb(hit, 2.5, 0.35))
+# riser: rising noise + sine
+tt = env_t(1.6)
+r = bp(rng.standard_normal(len(tt)), 800, 9000) * (tt / tt[-1]) ** 2.5 * 0.6
