@@ -183,3 +183,34 @@ const exitO = interpolate(frame, [durationInFrames - 12, durationInFrames - 2],
 ```
 Apply to every visible element, or to a scene wrapper.
 
+## 12. Idle breathing (elements on screen >2s)
+```tsx
+const breathe = 1 + Math.sin(frame / 22) * 0.015;          // scale
+const float = Math.sin(frame / 30) * 3;                     // translateY px
+const drift = interpolate(frame, [0, 300], [0, -20]);       // slow parallax
+```
+
+## 13. Parallax (3 layers, instant depth)
+```tsx
+const x = interpolate(frame, [0, 90], [0, -120], { easing: theme.ease.inOut });
+<Bg style={{ transform: `translateX(${x * 0.3}px)` }}/>
+<Mid style={{ transform: `translateX(${x * 0.6}px)` }}/>
+<Fg style={{ transform: `translateX(${x}px)` }}/>
+```
+
+## 14. Transitions
+Library (`npm i @remotion/transitions`):
+```tsx
+import { TransitionSeries, linearTiming } from "@remotion/transitions";
+import { slide } from "@remotion/transitions/slide";
+<TransitionSeries>
+  <TransitionSeries.Sequence durationInFrames={90}><A/></TransitionSeries.Sequence>
+  <TransitionSeries.Transition presentation={slide({ direction: "from-right" })}
+    timing={linearTiming({ durationInFrames: 12 })}/>
+  <TransitionSeries.Sequence durationInFrames={150}><B/></TransitionSeries.Sequence>
+</TransitionSeries>
+```
+Hand-rolled, 8–14 frames each:
+- **Whip pan**: bg translates 1500px in 6 frames with `filter: blur(8px)` during the
+  move; cut hidden mid-whip.
+- **Scale-through**: A scales to 1.3 + fades, B scales 0.8→1 underneath.
