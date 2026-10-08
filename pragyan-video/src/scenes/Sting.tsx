@@ -22,3 +22,26 @@ export const Sting: React.FC = () => {
         <div style={{ display: "flex", alignItems: "center", gap: 46 }}>
           <div
             style={{
+              ...display(250, 800), color: "transparent", WebkitTextStroke: "2px rgba(255,255,255,0.55)",
+              transform: `scale(${ei(f, [0, 10], [1.15, 1])})`, opacity: ei(f, [0, 3], [0, 1]),
+              filter: `drop-shadow(${-split}px 0 rgba(255,70,70,0.6)) drop-shadow(${split}px 0 rgba(70,170,255,0.6))`,
+            }}
+          >
+            03
+          </div>
+          <div>
+            <MaskLine f={f} at={3}>
+              <div style={display(86, 750)}>Live demo</div>
+            </MaskLine>
+            <div style={{ height: 3, width: 260 * ei(f, [6, 22], [0, 1], theme.ease.inOut), background: C.hero, marginTop: 14 }} />
+            <MaskLine f={f} at={8}>
+              <div style={{ ...mono(17, C.dim), marginTop: 18 }}>Pragyan on a refinery inspection</div>
+            </MaskLine>
+          </div>
+        </div>
+      </AbsoluteFill>
+      <Sfx at={0} name="thud" vol={0.6} />
+      <Sfx at={24} name="whoosh" vol={0.3} />
+    </AbsoluteFill>
+  );
+};
