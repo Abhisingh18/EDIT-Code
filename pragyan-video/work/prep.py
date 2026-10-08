@@ -21,3 +21,25 @@ for a, b in zip(w, w[1:]):
         segs.append((start, a["e"]+0.11)); start = b["s"]-0.11
 segs.append((start, min(dur, w[-1]["e"]+0.5)))
 # remap words
+def remap(t):
+    acc = 0
+    for s,e in segs:
+        if t < s: return acc
+        if t <= e: return acc + t - s
+        acc += e - s
+    return acc
+newwords = [{"w":x["w"],"s":round(remap(x["s"]),3),"e":round(remap(x["e"]),3)} for x in w]
+vf = ",".join([])
+parts=[]; labels=""
+for i,(s,e) in enumerate(segs):
+    parts.append(f"[0:v]trim={s:.3f}:{e:.3f},setpts=PTS-STARTPTS[v{i}];[0:a]atrim={s:.3f}:{e:.3f},asetpts=PTS-STARTPTS,afade=t=in:d=0.02,afade=t=out:st={e-s-0.03:.3f}:d=0.03[a{i}]")
+    labels += f"[v{i}][a{i}]"
+fc = ";".join(parts) + f";{labels}concat=n={len(segs)}:v=1:a=1[cv][ca];" \
+     "[cv]fps=30,crop=480:684:0:180,scale=960:1368:flags=lanczos,eq=contrast=1.07:brightness=0.025:saturation=1.1:gamma=1.03,colorbalance=rs=-0.03:bs=0.03,unsharp=5:5:0.7[vo];" \
+     f"[ca]{AUD}[ao]"
+run(["-i",P+"shreya_src.mp4","-filter_complex",fc,"-map","[vo]","-map","[ao]",
+     "-c:v","libx264","-crf","16","-preset","medium","-pix_fmt","yuv420p","-c:a","aac","-b:a","192k",P+"shreya.mp4"])
+total = sum(e-s for s,e in segs)
+print("shreya segs", len(segs), "new dur", round(total,2))
+d["shreya"]["words"] = newwords
+json.dump({k:v["words"] for k,v in d.items()}, open("work/words.json","w",encoding="utf-8"), ensure_ascii=False)
