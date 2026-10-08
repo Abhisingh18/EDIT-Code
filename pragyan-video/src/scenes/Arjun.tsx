@@ -138,3 +138,38 @@ const Graphic: React.FC<{ g: string; f: number; t0: number }> = ({ g, f, t0 }) =
           </div>
           <div style={stag(f, b + 34)}><Pill icon="file" text="SOP-CDU-014 · Rev 4" /></div>
         </div>
+      );
+    case "scan": {
+      const n = Math.round(ei(f, [A("reads") - 4, A("reads") + 26], [0, 5], theme.ease.out));
+      const src = A("shows");
+      return (
+        <div>
+          <div style={{ display: "flex", alignItems: "baseline", gap: 14, ...stag(f, A("reads") - 6) }}>
+            <span style={{ ...display(84, 700), color: C.bad, fontVariantNumeric: "tabular-nums" }}>{n}</span>
+            <span style={mono(14, C.text)}>failed checks found</span>
+          </div>
+          <div style={{ display: "flex", gap: 6, marginTop: 10 }}>
+            {[0, 1, 2, 3, 4].map((k) => (
+              <div key={k} style={{ ...stag(f, A("reads") + 4 + k * 4), ...mono(11, C.bad), fontWeight: 700, padding: "4px 7px", borderRadius: 6, border: `1.5px solid ${C.bad}` }}>FAIL</div>
+            ))}
+          </div>
+          <div style={{ marginTop: 26, display: "flex", flexDirection: "column", gap: 10 }}>
+            <div style={stag(f, src)}><span style={mono(12, C.dim)}>Sources cited</span></div>
+            <div style={stag(f, src + 6)}><Pill icon="check" tone={C.ok} text="INS-2026-118 · p.1–2" /></div>
+            <div style={stag(f, src + 12)}><Pill icon="check" tone={C.ok} text="SOP-CDU-014 Rev 4 · p.3" /></div>
+            <div style={stag(f, S(12.3))}><Pill icon="alert" tone={C.warn} text="Rev 3 superseded → Rev 4 used" /></div>
+          </div>
+        </div>
+      );
+    }
+    case "draft":
+      return (
+        <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+          {["Problem", "Evidence", "Required action", "Approval request"].map((t, k) => {
+            const on = f >= S(17.7) + k * 8;
+            return (
+              <div key={t} style={{ ...stag(f, b + 16 + k * 5), display: "flex", alignItems: "center", gap: 12, padding: "12px 14px", borderRadius: 12,
+                background: on ? "rgba(52,211,153,0.10)" : "rgba(255,255,255,0.04)", border: `1px solid ${on ? C.ok + "66" : "rgba(255,255,255,0.1)"}` }}>
+                <div style={{ width: 22, height: 22, borderRadius: 11, display: "flex", alignItems: "center", justifyContent: "center", background: on ? C.ok : "rgba(255,255,255,0.08)" }}>
+                  {on && <Icon name="check" size={14} color="#05210F" stroke={3} />}
+                </div>
