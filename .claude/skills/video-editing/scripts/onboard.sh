@@ -31,3 +31,36 @@ elif [[ "${1:-}" == "--check" ]]; then
 fi
 
 # ── Helpers ──────────────────────────────────────────────────
+
+has_cmd() { command -v "$1" &>/dev/null; }
+
+print_header() {
+  echo ""
+  echo "  video-editing-skill"
+  echo "  ==================="
+  echo "  6 scripts | FFmpeg + Whisper | Bash"
+  echo ""
+}
+
+print_ok()   { printf "    %-18s %s\n" "$1" "OK ($2)"; }
+print_fail() { printf "    %-18s %s\n" "$1" "MISSING"; }
+print_skip() { printf "    %-18s %s\n" "$1" "SKIP ($2)"; }
+
+# ── Uninstall ────────────────────────────────────────────────
+
+if [[ "$MODE" == "uninstall" ]]; then
+  print_header
+  echo "  Uninstalling..."
+  echo ""
+
+  removed=0
+
+  for skills_dir in "$OPENCLAW_SKILLS_DIR" "$CLAUDE_SKILLS_DIR"; do
+    target="$skills_dir/$SKILL_NAME"
+    if [[ -L "$target" || -d "$target" ]]; then
+      rm -rf "$target"
+      echo "  [-] removed: $target"
+      removed=$((removed + 1))
+    fi
+  done
+
