@@ -250,3 +250,35 @@ Select ONE archetype per project. Apply consistently.
 
 ## Weight Classification
 
+| Weight | Examples | Duration | Overshoot | Easing |
+|--------|----------|----------|-----------|--------|
+| Heavy | Modals, overlays | 300-500ms | 0% | Gentle, high damping |
+| Medium | Cards, panels | 200-350ms | 3-5% | Moderate |
+| Light | Tooltips, badges, icons | 80-200ms | 5-15% | Responsive |
+
+---
+
+## Quality Rules
+
+### CRITICAL — never break
+1. **Never linear for spatial movement** — always use easing curves (linear only for spinners, progress bars)
+2. **Never opacity-only** for important state changes — combine with position or scale
+3. **Never exceed 1/3 screen** without intermediate keyframe
+4. **Always three motion layers** — primary + secondary + ambient
+
+### HIGH — strongly follow
+1. Match duration to element type (see tables)
+2. Use directional easing (ease-out entrance, ease-in exit)
+3. Apply Disney principles (especially anticipation, follow-through)
+4. Maintain consistent personality across scene
+
+> Full checklist: [reference/quality-checklist.md](reference/quality-checklist.md)
+
+---
+
+## Troubleshooting Quick Reference
+
+| Problem | Likely Cause | Fix |
+|---------|-------------|-----|
+| Looks robotic | Linear easing or no arcs | Add easing curves + arc paths |
+| Feels too slow | Duration too long for element type | Check duration table, use ease-out |
