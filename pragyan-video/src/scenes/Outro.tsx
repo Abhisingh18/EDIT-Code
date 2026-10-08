@@ -120,3 +120,33 @@ export const Outro: React.FC = () => {
       {o >= 396 && o < 506 && (() => {
         const h = o - 396;
         const out = ei(h, [96, 108], [0, 1], theme.ease.in);
+        const settle = ei(h, [52, 70], [0, 1], theme.ease.inOut);
+        return (
+          <AbsoluteFill style={{ alignItems: "center", justifyContent: "center", opacity: 1 - out }}>
+            <div style={{ textAlign: "center" }}>
+              <div style={{ opacity: lerp(1, 0.38, settle), transform: `translateY(${-10 * settle}px)` }}>
+                <MaskLine f={h} at={2}>
+                  <div style={display(112, 700)}>Data stays in.</div>
+                </MaskLine>
+              </div>
+              <MaskLine f={h} at={54}>
+                <div style={{ ...display(112, 700), marginTop: 6 }}>
+                  Work moves <span style={{ color: C.hero }}>forward.</span>
+                </div>
+              </MaskLine>
+            </div>
+          </AbsoluteFill>
+        );
+      })()}
+
+      {/* final hero: everything converges into the mark */}
+      {o >= 504 && (() => {
+        const z = o - 504;
+        const LW = 540, LH = 540 * (470 / 530);
+        const cy = 430;
+        const hit = 90;
+        const logoP = sp(z, hit, theme.spring.snappy);
+        const flash = z < hit ? 0 : ei(z, [hit, hit + 16], [0.5, 0], theme.ease.out);
+        const pulse = z >= 72 && z < hit ? 1 - 0.025 * Math.sin(((z - 72) / 18) * Math.PI) : 1;
+        const fadeAll = ei(z, [216, 246], [0, 1], theme.ease.inOut);
+        return (
