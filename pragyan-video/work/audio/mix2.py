@@ -119,3 +119,33 @@ head = old[:k].copy(); head[-len(fade):] *= fade
 sfx[:k] += head
 for cue in json.load(open("src/data/arjun2_sfx.json")):
     place(sfx, load(f"public/sfx/{cue['name']}.wav") * cue["vol"], A0 + cue["t"])
+o0 = int(round(153.0 * SR))
+place(sfx, old[o0:], OUT0)
+sfx *= (1 - 0.4 * duck)  # impacts never sit on top of words
+# tame stray transients on the effects bus (smooth limiter, not per-sample clipping)
+wavfile.write(A + "sfx_duck.wav", SR, sfx.astype(np.float32))
+run(["-i", A + "sfx_duck.wav", "-af", "alimiter=limit=0.5:attack=5:release=80:level=disabled", "-c:a", "pcm_f32le", A + "sfx_lim.wav"])
+sfx = load(A + "sfx_lim.wav")[:N]
+
+mix = voice + music + sfx
+wavfile.write(A + "premaster.wav", SR, mix.astype(np.float32))
+
+# ---------- master ----------
+run(["-i", A + "premaster.wav", "-af",
+     "highpass=f=28:p=2,acompressor=threshold=-15dB:ratio=1.6:attack=25:release=250:knee=6:makeup=1dB",
+     "-c:a", "pcm_f32le", A + "bus.wav"])
+I, _ = loud(A + "bus.wav")
+g = -16.0 - I
+run(["-i", A + "bus.wav", "-af",
+     f"volume={g:.2f}dB,aresample=192000,alimiter=limit=0.84:attack=2:release=60:level=disabled,aresample=48000",
+     "-c:a", "pcm_f32le", A + "master.wav"])
+I2, TP = loud(A + "master.wav")
+print(f"master: {I2} LUFS integrated, true peak {TP} dBTP (gain {g:+.2f} dB)")
+
+# stems report: music-under-voice separation
+def seg_loud(x, a, b):
+    y = x[int(a * SR):int(b * SR)]
+    wavfile.write(A + "_seg.wav", SR, y.astype(np.float32))
+    return loud(A + "_seg.wav")[0]
+for name, (a, b) in {"Bhavna": (12, 43), "Shreya (reveal)": (44.6, 52), "Shreya": (52, 93), "Arjun ch.1-6": (96, 215), "Arjun ch.7-12": (215, 380)}.items():
+    print(f"{name:16s} voice {seg_loud(voice, a, b):6.1f} LUFS | music {seg_loud(music, a, b):6.1f} LUFS | sfx {seg_loud(sfx, a, b):6.1f} LUFS")
