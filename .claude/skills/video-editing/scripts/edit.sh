@@ -258,3 +258,36 @@ if [[ "$DO_SPEED" == true ]]; then
         fi
         filters="${filters}atempo=${factor}"
         echo "$filters"
+    }
+
+    ATEMPO_FILTER="$(build_atempo "$SPEED_FACTOR")"
+
+    ffmpeg -y -i "$CURRENT_FILE" \
+        -vf "setpts=${VIDEO_PTS}*PTS" \
+        -af "$ATEMPO_FILTER" \
+        "$NEXT" 2>&1 | tail -3
+
+    CURRENT_FILE="$NEXT"
+    echo "Speed adjusted to ${SPEED_FACTOR}x"
+    echo ""
+fi
+
+# Step 4: Caption (transcribe + burn in)
+if [[ "$DO_CAPTION" == true ]]; then
+    echo "--- Step: Caption ---"
+
+    if [[ -n "$CAPTION_SRT" && -f "$CAPTION_SRT" ]]; then
+        SRT_FILE="$CAPTION_SRT"
+        echo "Using existing SRT: $SRT_FILE"
+    else
+        echo "Transcribing with Whisper..."
+        SRT_FILE="${WORK_DIR}/captions.srt"
+        TRANSCRIBE_ARGS=("$CURRENT_FILE" --model "$CAPTION_MODEL" --output "$SRT_FILE")
+        [[ -n "$CAPTION_LANGUAGE" ]] && TRANSCRIBE_ARGS+=(--language "$CAPTION_LANGUAGE")
+        bash "${SCRIPT_DIR}/transcribe.sh" "${TRANSCRIBE_ARGS[@]}"
+    fi
+
+    NEXT="$(next_intermediate)"
+    bash "${SCRIPT_DIR}/caption.sh" "$CURRENT_FILE" "$SRT_FILE" \
+        --style "$CAPTION_STYLE" \
+        --output "$NEXT"
