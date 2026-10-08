@@ -219,3 +219,34 @@ Select ONE archetype per project. Apply consistently.
 
 | Pattern | Delay | Total Budget | Use Case |
 |---------|-------|-------------|----------|
+| Micro cascade | 20-40ms | <200ms | List items, grid cells |
+| Standard | 50-100ms | <400ms | Cards, panels, nav |
+| Dramatic | 100-200ms | <600ms | Hero sections |
+| Wave | 30-60ms | <500ms | Data visualizations |
+
+**Critical**: Total stagger must stay under 500ms.
+
+> Deep dive: [director/choreography.md](director/choreography.md)
+
+---
+
+## Emotion-to-Motion Map
+
+| Emotion | Character | Path | Easing | Duration |
+|---------|-----------|------|--------|----------|
+| Joy | Bouncy, arcs | Curved, upward | ease-out-back | 200-400ms |
+| Calm | Smooth, flowing | Gentle curves | sine ease-in-out | 500-1000ms |
+| Urgency | Sharp, fast | Straight lines | ease-out | 100-200ms |
+| Sadness | Slow, downward | Drooping curves | cubic ease-in-out | 600-1200ms |
+| Surprise | Sudden, expanding | Radial outward | ease-out-expo | 150-300ms |
+| Elegance | Slow, controlled | Long arcs | (0.4,0,0.2,1) | 400-700ms |
+| Playfulness | Bouncy, irregular | Arcs, squiggly | ease-out-back | 200-350ms |
+
+**Path as language**: Angular = tense. Curved = friendly. Spiral = whimsical. Diagonal = purposeful. Vertical = growth/weight. Horizontal = progress.
+
+> Deep dive: [director/emotion-mapping.md](director/emotion-mapping.md)
+
+---
+
+## Weight Classification
+
