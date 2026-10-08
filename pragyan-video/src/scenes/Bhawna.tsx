@@ -200,3 +200,37 @@ export const Bhawna: React.FC = () => {
                 <div style={mono(17, C.text)}>Public AI</div>
                 <div style={{ ...mono(12, C.faint), letterSpacing: "0.1em" }}>third-party servers</div>
               </div>
+              {/* packet */}
+              <div style={{ position: "absolute", left: px - 9, top: 461, width: 18, height: 18, borderRadius: 9, background: C.text, opacity: pkO, boxShadow: `0 0 20px ${C.text}` }} />
+              {/* barrier */}
+              <div
+                style={{
+                  position: "absolute", left: 1364, top: 470 - 150 * barrier, width: 3, height: 300 * barrier,
+                  background: red > 0 ? `rgba(242,85,85,${0.5 + red * 0.5})` : "rgba(255,255,255,0.4)",
+                  boxShadow: red > 0 ? `0 0 ${30 * red}px ${C.bad}` : undefined, borderRadius: 2,
+                }}
+              />
+              {f >= block && (
+                <div
+                  style={{
+                    position: "absolute", left: 1365 - 34, top: 470 - 34, width: 68, height: 68, borderRadius: 34,
+                    background: C.bad, display: "flex", alignItems: "center", justifyContent: "center",
+                    transform: `scale(${sp(f, block, theme.spring.bouncy)})`, boxShadow: `0 0 40px ${C.bad}88`,
+                  }}
+                >
+                  <Icon name="x" size={38} color="#fff" stroke={3} />
+                </div>
+              )}
+              <div style={{ position: "absolute", left: 1365 - 160, top: 640, width: 320, textAlign: "center" }}>
+                <MaskLine f={f} at={W("allowed")}>
+                  <span style={{ ...mono(20, C.bad), fontWeight: 700 }}>Not allowed</span>
+                </MaskLine>
+              </div>
+              <div style={{ position: "absolute", left: PX, width: 970, top: 740, display: "flex", justifyContent: "center", gap: 14 }}>
+                <Chip f={f} at={W("organization")} icon="building" label="Organisation policy" />
+                <Chip f={f} at={W("security")} icon="lock" label="Security" />
+                <Chip f={f} at={W("competences")} icon="shield" label="Compliance" />
+              </div>
+            </>
+          );
+        })()}
