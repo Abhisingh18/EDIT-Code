@@ -386,3 +386,38 @@ export const Shreya: React.FC = () => {
       <Beat f={f} from={1252} to={1470}>
         <Header f={f} at={1256} text="Role-based access" />
         {(() => {
+          const panelP = sp(f, W("helps") - 4);
+          const LV = [
+            { t: "Public", c: C.dim },
+            { t: "Internal", c: C.accent },
+            { t: "Confidential", c: C.warn },
+            { t: "Restricted", c: C.bad },
+          ];
+          const ROLES = [
+            { t: "Engineer", ok: [1, 1, 0, 0] },
+            { t: "Manager", ok: [1, 1, 1, 0] },
+            { t: "Admin", ok: [1, 1, 1, 1] },
+          ];
+          const base = W("role");
+          return (
+            <>
+              <div
+                style={{
+                  position: "absolute", left: 790, top: 230, width: 1030, height: 500, ...glass(), opacity: panelP,
+                  transform: `translateY(${(1 - panelP) * 40}px)`, padding: "34px 40px", boxSizing: "border-box",
+                }}
+              >
+                <div style={{ display: "flex", marginLeft: 230 }}>
+                  {LV.map((l) => (
+                    <div key={l.t} style={{ width: 190, display: "flex", alignItems: "center", gap: 10 }}>
+                      <div style={{ width: 9, height: 9, borderRadius: 5, background: l.c }} />
+                      <span style={mono(13, C.text)}>{l.t}</span>
+                    </div>
+                  ))}
+                </div>
+                <div style={{ height: 1, background: "rgba(255,255,255,0.1)", margin: "22px 0 8px" }} />
+                {ROLES.map((r, ri) => (
+                  <div key={r.t} style={{ display: "flex", alignItems: "center", height: 118, borderBottom: ri < 2 ? "1px solid rgba(255,255,255,0.06)" : undefined }}>
+                    <div style={{ width: 230, display: "flex", alignItems: "center", gap: 16 }}>
+                      <Icon name="user" size={28} color={C.dim} />
+                      <span style={display(30, 600)}>{r.t}</span>
