@@ -80,3 +80,30 @@ Extract frames at key moments and visually inspect each one. The portable
 method — works on machines with no system ffmpeg, renders the exact frame:
 ```bash
 for f in 15 45 90 150; do
+  npx remotion still src/index.ts <CompId> out/check_$f.png --frame $f --overwrite
+done
+```
+If system ffmpeg IS available, extracting from the finished mp4 also verifies
+the encode itself (`-ss` seeking is more portable than `select=` filters, whose
+quoting breaks in some shells and in Remotion's bundled ffmpeg):
+```bash
+ffmpeg -v error -ss 1.5 -i out/video.mp4 -frames:v 1 check_1.png
+```
+Look for, and fix, in order of frequency:
+- **Spacing bugs**: `gap`/`margin` in `em` resolves against the PARENT font-size
+  (often 16px), not the text size — use px values in flex containers around big type.
+- Text overflowing or touching frame edges (keep critical content in middle 75%
+  vertically for 9:16 — platform UI covers top/bottom).
+- Elements visible before their entrance or after their exit (missing clamp).
+- Color/contrast failures: hero color on >1 element per frame, dim text unreadable
+  over the grade.
+- Layer order mistakes (grain/vignette must be on top, grade above content).
+Fix → re-render → re-extract → re-inspect. Only deliver after a clean pass.
+Then run the final checklist at the bottom of `references/design-rules.md`.
+
+### Editing the user's existing footage
+To enhance an existing mp4 (captions, grade, intro/outro) rather than build from
+scratch: put the file in `public/`, render it as the asset layer with
+`<OffthreadVideo src={staticFile("clip.mp4")} />`, set composition duration from the
+clip length, and stack graphics/grade/grain above it. Get the clip's duration and fps
+with `ffprobe` before setting up the composition. For word-synced captions over
