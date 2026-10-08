@@ -178,3 +178,33 @@ export const TorusRing: React.FC<{
 
 /* ---------------- particles converging into the logo ---------------- */
 const LP = (logoPts as unknown as { w: number; h: number; pts: [number, number, string][] }).pts;
+export const Converge: React.FC<{
+  f: number;
+  start: number;
+  dur: number;
+  cx: number;
+  cy: number;
+  w: number; // logo display width
+  h: number;
+  opacity?: number;
+}> = ({ f, start, dur, cx, cy, w, h, opacity = 1 }) => (
+  <svg width={1920} height={1080} style={{ position: "absolute", inset: 0, opacity }}>
+    {LP.map(([tx, ty, col], i) => {
+      const d = rnd(i * 2.3) * 22;
+      const p = ei(f, [start + d, start + d + dur], [0, 1], theme.ease.inOut);
+      const ang = rnd(i * 4.1) * Math.PI * 2;
+      const dist = 520 + rnd(i * 6.7) * 820;
+      const sx = cx + Math.cos(ang) * dist;
+      const sy = cy + Math.sin(ang) * dist * 0.62;
+      const X = cx + (tx - 0.5) * w;
+      const Y = cy + (ty - 0.5) * h;
+      // swirl on approach
+      const sw = (1 - p) * 1.1;
+      const px = lerp(sx, X, p) - cx, py = lerp(sy, Y, p) - cy;
+      const rx = cx + px * Math.cos(sw) - py * Math.sin(sw);
+      const ry = cy + px * Math.sin(sw) + py * Math.cos(sw);
+      const o = ei(f, [start + d - 6, start + d + 8], [0, 1]);
+      return <circle key={i} cx={rx} cy={ry} r={1.3 + (1 - p) * 1.4} fill={col} fillOpacity={o * (0.55 + 0.45 * p)} />;
+    })}
+  </svg>
+);
