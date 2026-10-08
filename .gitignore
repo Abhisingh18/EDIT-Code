@@ -1,0 +1,22 @@
+# media & heavy artifacts (GitHub 100 MB limit)
+*.mp4
+*.wav
+*.mov
+*.png
+*.jpg
+*.jpeg
+*.npy
+*.pdf
+*.whl
+node_modules/
+pragyan-video/out/
+pragyan-video/work/audio/dfenv/
+pragyan-video/work/audio/pkgs/
+pragyan-video/work/models/
+pragyan-video/work/backup_v1/
+pragyan-video/work/arjun/
+pragyan-video/work/arjun2/*.jpg
+pragyan-video/work/q/
+pragyan-video/public/
+__pycache__/
+*.log
