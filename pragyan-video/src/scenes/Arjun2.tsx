@@ -136,3 +136,37 @@ const Graphic: React.FC<{ g: string; f: number; t0: number }> = ({ g, f, t0 }) =
       );
     case "requests":
       return (
+        <div>
+          <Flow f={f} steps={[
+            { t: "Request · reason + duration", at: 76.4, icon: "mail" },
+            { t: "Admin review", at: 81.7, icon: "user" },
+            { t: "Time-limited access", at: 85.1, icon: "key" },
+            { t: "Expires on its own", at: 88.2, icon: "clock" },
+          ]} />
+          <div style={{ display: "flex", flexDirection: "column", gap: 8, marginTop: 14 }}>
+            <div style={stag(f, S(92.1))}><Pill icon="shield" text="Clearance never changes" tone={C.ok} /></div>
+            <div style={stag(f, S(94.5))}><Pill icon="lock" text="Hidden collections stay hidden" tone={C.ok} /></div>
+          </div>
+        </div>
+      );
+    case "tools": {
+      const eff = ei(f, [S(117.2), S(119.2)], [0.15, 0.55], theme.ease.inOut);
+      return (
+        <div>
+          <Flow f={f} tone={C.accent} steps={[
+            { t: "Question", at: 100.9, icon: "user" },
+            { t: "Access check", at: 101.8, icon: "lock" },
+            { t: "Knowledge tools", at: 103.9, icon: "route" },
+            { t: "Sources", at: 111.9, icon: "file" },
+            { t: "Answer", at: 114.6, icon: "check" },
+          ]} />
+          <div style={{ ...stag(f, S(107.4)), marginTop: 12 }}><Pill icon="user" text="Acts as the employee" tone={C.ok} /></div>
+          <div style={{ ...stag(f, S(116.6)), marginTop: 12 }}>
+            <div style={{ ...mono(11, C.dim), marginBottom: 8 }}>Reasoning effort</div>
+            <div style={{ height: 6, borderRadius: 3, background: "rgba(255,255,255,0.12)" }}>
+              <div style={{ width: `${eff * 100}%`, height: 6, borderRadius: 3, background: C.hero }} />
+            </div>
+          </div>
+        </div>
+      );
+    }
