@@ -59,3 +59,33 @@ const Shot: React.FC<{ i: number }> = ({ i }) => {
     </AbsoluteFill>
   );
 };
+
+const STATS = [
+  { kick: "Model routing", fmt: (v: number) => `${Math.round(v)}%+`, from: 0, to: 90, label: "routing accuracy across task types" },
+  { kick: "Approval note", fmt: (v: number) => `${Math.round(v)} min`, from: 180, to: 20, label: "per note, down from 2–3 hours" },
+  { kick: "Report processing", fmt: (v: number) => `5–${Math.round(v)}×`, from: 5, to: 10, label: "faster P&ID and report reading" },
+  { kick: "Manual rework", fmt: (v: number) => `30–${Math.round(v)}%`, from: 30, to: 50, label: "less rework on every draft" },
+];
+
+export const Outro: React.FC = () => {
+  const o = useCurrentFrame();
+
+  return (
+    <AbsoluteFill>
+      <BgField intensity={1} />
+
+      {/* speed / scale montage — cut on the beat */}
+      {SHOTS.map((_, i) => (
+        <Sequence key={i} from={i * SHOT} durationInFrames={SHOT}>
+          <Shot i={i} />
+        </Sequence>
+      ))}
+
+      {/* impact */}
+      {o >= 216 && o < 398 && (() => {
+        const i = o - 216;
+        const out = ei(i, [168, 180], [0, 1], theme.ease.in);
+        return (
+          <AbsoluteFill style={{ opacity: 1 - out, transform: `translateY(${-30 * out}px)` }}>
+            <div style={{ position: "absolute", left: 135, top: 250 }}>
+              <MaskLine f={i} at={4}>
