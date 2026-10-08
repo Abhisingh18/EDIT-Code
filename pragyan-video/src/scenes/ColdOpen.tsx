@@ -154,3 +154,34 @@ export const ColdOpen: React.FC = () => {
             opacity: ei(f, [254, 266], [1, 0], theme.ease.in),
             transform: `scale(${ei(f, [216, 266], [1, 1.04], theme.ease.std)})`,
           }}
+        >
+          <div style={{ textAlign: "center", display: "flex", flexDirection: "column", alignItems: "center", gap: 18 }}>
+            <MaskLine f={f} at={218}>
+              <div style={mono(19, C.dim)}>Smart India Hackathon 2026 · Smart Automation</div>
+            </MaskLine>
+            <div style={{ width: 140 * ei(f, [222, 244], [0, 1]), height: 2, background: C.hero }} />
+            <MaskLine f={f} at={224}>
+              <div style={{ ...display(50, 600), maxWidth: 1300 }}>
+                Sovereign On-Premise Agentic AI Workbench
+              </div>
+            </MaskLine>
+            <MaskLine f={f} at={232}>
+              <div style={mono(18, C.text)}>SIH26117 · Team Data_Jarvis GGV</div>
+            </MaskLine>
+          </div>
+        </AbsoluteFill>
+      )}
+
+      {/* sound */}
+      <Sfx at={0} name="rumble" vol={0.55} />
+      <Sfx at={10} name="shimmer" vol={0.18} />
+      <Sfx at={33} name="hit" vol={0.75} />
+      <Sfx at={56} name="whoosh" vol={0.18} />
+      {PHRASES.map((p) => (
+        <Sfx key={p.at} at={p.at - 1} name="thud" vol={0.6} />
+      ))}
+      <Sfx at={214} name="whoosh" vol={0.3} />
+      <Sfx at={260} name="whoosh" vol={0.32} />
+    </AbsoluteFill>
+  );
+};
