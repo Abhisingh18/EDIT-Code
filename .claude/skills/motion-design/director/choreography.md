@@ -68,3 +68,26 @@ When multiple elements react to one trigger:
 
 | Layer | Displacement | Speed |
 |-------|-------------|-------|
+| Foreground | 1.0x | Fastest |
+| Midground | 0.5x | Medium |
+| Background | 0.2x | Slowest |
+
+## Common Recipes
+
+### Dashboard Load
+1. Skeletons fade in (100ms)
+2. Hero metric (250ms, ease-out, 100ms delay)
+3. Supporting cards stagger (50ms between, 200ms each)
+4. Chart data draws in (300ms, starts with cards)
+5. Ambient pulse on primary metric
+
+### Modal Open
+1. Background dims (200ms)
+2. Modal scales 95%→100% + fades (300ms, 50ms delay)
+3. Content fades in (200ms, 100ms after modal)
+4. Close button last (150ms)
+
+### List Update (item added)
+1. Existing items shift down (200ms, ease-in-out)
+2. New item fades+slides from top (250ms, ease-out, 50ms delay)
+3. Subtle scale overshoot on land (3-5%)
