@@ -196,3 +196,36 @@ install_skill() {
       existing="$(readlink "$target")"
       if [[ "$existing" == "$SKILL_ROOT" ]]; then
         echo "already linked"
+      else
+        rm -f "$target"
+        ln -s "$SKILL_ROOT" "$target"
+        echo "re-linked (was: $existing)"
+      fi
+    elif [[ -e "$target" ]]; then
+      echo "EXISTS (not a symlink, skipping)"
+    else
+      ln -s "$SKILL_ROOT" "$target"
+      echo "linked"
+    fi
+  fi
+}
+
+install_skill "$OPENCLAW_SKILLS_DIR" "openclaw"
+install_skill "$CLAUDE_SKILLS_DIR" "claude-code"
+
+echo ""
+
+# ── Verify ───────────────────────────────────────────────────
+
+echo "  Verification"
+echo "  ------------"
+
+verify_errors=0
+
+# Check SKILL.md
+if [[ -f "$SKILL_ROOT/SKILL.md" ]]; then
+  printf "    %-18s %s\n" "SKILL.md" "OK"
+else
+  printf "    %-18s %s\n" "SKILL.md" "MISSING"
+  verify_errors=$((verify_errors + 1))
+fi
