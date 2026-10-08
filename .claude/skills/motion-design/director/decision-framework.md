@@ -67,3 +67,25 @@ Choose animated properties. See [property-selection.md](../reference/property-se
 
 2. PERSONALITY → Match keywords
    ├── Fun/bouncy → Playful
+   ├── Elegant/luxury → Premium
+   ├── Clean/professional → Corporate
+   └── Bold/dynamic → Energetic
+
+3. PROPERTIES → Minimum needed (two = sweet spot)
+
+4. TIMING → Check duration table, adjust for distance/weight
+
+5. EASING → Entering=ease-out, Leaving=ease-in, On-screen=ease-in-out, Looping=sine
+```
+
+## Evaluation Before Delivery
+
+| Check | Question |
+|-------|----------|
+| Purpose | Clear function? |
+| Personality | Matches brand/context? |
+| Repetition | Fine on 100th viewing? |
+| Attention | Respects viewer's focus? |
+| Hierarchy | Reinforces importance? |
+| Layers | Primary + secondary + ambient? |
+| Timing | Duration appropriate? |
