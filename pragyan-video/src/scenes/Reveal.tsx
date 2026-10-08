@@ -25,3 +25,29 @@ export const Reveal: React.FC = () => {
   const flash = r < hitAt ? 0 : ei(r, [hitAt, hitAt + 14], [0.42, 0], theme.ease.out);
   const logoP = sp(r, hitAt, theme.spring.snappy);
 
+  // fly to the core position of beat 1
+  const fly = ei(r, [192, 214], [0, 1], theme.ease.inOut);
+  const breathe = 1 + Math.sin(r / 24) * 0.008;
+  const w = lerp(LOGO_W, CORE.w, fly) * breathe;
+  const cx = lerp(960, CORE.x, fly);
+  const cy = lerp(450, CORE.y, fly);
+  const bgO = 1 - ei(r, [192, 212], [0, 1], theme.ease.inOut);
+  const subO = 1 - ei(r, [190, 202], [0, 1], theme.ease.in);
+
+  return (
+    <AbsoluteFill>
+      <AbsoluteFill style={{ background: "#000", opacity: bgO }}>
+        <AbsoluteFill style={{ opacity: ei(r, [hitAt, hitAt + 30], [0, 0.85]) }}>
+          <BgField intensity={0.7} grid={false} />
+        </AbsoluteFill>
+      </AbsoluteFill>
+
+      {r < hitAt + 4 && (
+        <PointOfLight size={sp(r, 2, theme.spring.snappy) * 6 * (1 - form)} o={ei(r, [2, 6], [0, 1])} y={450} />
+      )}
+      {r < hitAt + 30 && (
+        <TorusRing f={r} form={form} yaw={yaw} pitch={pitch} radius={190} burst={burst} cy={450} />
+      )}
+
+      {r >= hitAt - 1 && (
+        <>
