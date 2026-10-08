@@ -193,3 +193,36 @@ echo "=== Video Edit Pipeline ==="
 echo "Input: $INPUT_VIDEO"
 echo ""
 
+# Step 1: Trim
+if [[ "$DO_TRIM" == true ]]; then
+    echo "--- Step: Trim ---"
+    NEXT="$(next_intermediate)"
+    TRIM_ARGS=("$CURRENT_FILE")
+    [[ -n "$TRIM_START" ]] && TRIM_ARGS+=(--start "$TRIM_START")
+    [[ -n "$TRIM_END" ]] && TRIM_ARGS+=(--end "$TRIM_END")
+    [[ -n "$TRIM_DURATION" ]] && TRIM_ARGS+=(--duration "$TRIM_DURATION")
+    TRIM_ARGS+=(--output "$NEXT")
+
+    bash "${SCRIPT_DIR}/trim.sh" "${TRIM_ARGS[@]}"
+    CURRENT_FILE="$NEXT"
+    echo ""
+fi
+
+# Step 2: Jump cuts (remove silence)
+if [[ "$DO_JUMPCUT" == true ]]; then
+    echo "--- Step: Jump Cut ---"
+    NEXT="$(next_intermediate)"
+    bash "${SCRIPT_DIR}/jumpcut.sh" "$CURRENT_FILE" \
+        --threshold "$JUMPCUT_THRESHOLD" \
+        --duration "$JUMPCUT_DURATION" \
+        --padding "$JUMPCUT_PADDING" \
+        --output "$NEXT"
+    CURRENT_FILE="$NEXT"
+    echo ""
+fi
+
+# Step 3: Speed change
+if [[ "$DO_SPEED" == true ]]; then
+    echo "--- Step: Speed Change (${SPEED_FACTOR}x) ---"
+    NEXT="$(next_intermediate)"
+
