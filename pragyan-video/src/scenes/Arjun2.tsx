@@ -204,3 +204,38 @@ const Graphic: React.FC<{ g: string; f: number; t0: number }> = ({ g, f, t0 }) =
             <Flow f={f} steps={[
               { t: "Read the current rule", at: 161.0, icon: "book" },
               { t: "Write the check", at: 163.9, icon: "code" },
+              { t: `Run tests · ${tests} passed`, at: 168.8, icon: "check" },
+            ]} />
+          </div>
+          <div style={{ ...stag(f, S(170.9)), marginTop: 10 }}><Pill icon="lock" text="Within the developer's permissions" tone={C.ok} /></div>
+        </div>
+      );
+    }
+    case "memory": {
+      const on = 1 - ei(f, [S(199.0), S(199.4)], [0, 1]) + ei(f, [S(200.6), S(201.0)], [0, 1]);
+      return (
+        <div>
+          <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+            <div style={stag(f, S(179.2))}><Pill icon="db" text="Company knowledge" on={false} /></div>
+            <div style={stag(f, S(179.6))}><Pill icon="memory" text="Personal memory — yours" tone={C.hero} /></div>
+            <div style={stag(f, S(180.0))}><Pill icon="list" text="Chat history" on={false} /></div>
+          </div>
+          <div style={{ display: "flex", flexWrap: "wrap", gap: 6, marginTop: 14 }}>
+            {["Role: CDU-3 engineer", "Report format", "Past context"].map((t, k) => <div key={t} style={{ ...stag(f, S(182.0) + k * 10), ...mono(11, C.text), textTransform: "none", padding: "6px 10px", borderRadius: 8, background: "rgba(255,255,255,0.07)" }}>{t}</div>)}
+          </div>
+          <div style={{ ...stag(f, S(197.0)), marginTop: 16, display: "flex", alignItems: "center", gap: 12 }}>
+            <div style={{ width: 46, height: 26, borderRadius: 13, background: on > 0.5 ? C.ok : "rgba(255,255,255,0.15)", position: "relative" }}>
+              <div style={{ position: "absolute", top: 3, left: 3 + 20 * Math.min(1, on), width: 20, height: 20, borderRadius: 10, background: "#fff" }} />
+            </div>
+            <span style={mono(11, C.text)}>Inspect · edit · delete · off</span>
+          </div>
+        </div>
+      );
+    }
+    case "phone": {
+      const ph = sp(f, b + 6, theme.spring.smooth);
+      const line = (w: number, c = "rgba(255,255,255,0.35)") => <div style={{ height: 5, width: w, borderRadius: 3, background: c, marginTop: 7 }} />;
+      return (
+        <div style={{ display: "flex", gap: 18 }}>
+          <div style={{ width: 120, height: 236, borderRadius: 22, border: "2px solid rgba(255,255,255,0.5)", background: "#0B0F1A", padding: "22px 10px", boxSizing: "border-box", flexShrink: 0, opacity: ph, transform: `translateY(${(1 - ph) * 40}px) rotate(${(1 - ph) * -8}deg)` }}>
+            <div style={{ width: 36, height: 5, borderRadius: 3, background: "rgba(255,255,255,0.3)", margin: "-12px auto 12px" }} />
