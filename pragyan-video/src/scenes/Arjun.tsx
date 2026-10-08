@@ -313,3 +313,38 @@ const Graphic: React.FC<{ g: string; f: number; t0: number }> = ({ g, f, t0 }) =
           <div style={{ height: 210, overflow: "hidden", position: "relative", ...glass({ borderRadius: 12 }), ...stag(f, b + 8) }}>
             <div style={{ position: "absolute", left: 0, right: 0, top: 10 - (scroll % (14 * 34)) }}>
               {[...rows, ...rows].map((r, k) => (
+                <div key={k} style={{ height: 34, display: "flex", alignItems: "center", gap: 10, padding: "0 12px", borderBottom: "1px solid rgba(255,255,255,0.05)" }}>
+                  <span style={{ ...mono(10, C.dim), width: 90, textTransform: "none", letterSpacing: "0.04em" }}>{r.who}</span>
+                  <span style={{ ...mono(10, C.text), width: 110, textTransform: "none", letterSpacing: "0.04em" }}>{r.act}</span>
+                  <span style={{ ...mono(10, r.ok ? C.ok : C.bad), fontWeight: 700 }}>{r.ok ? "Allowed" : "Denied"}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div style={{ display: "flex", flexDirection: "column", gap: 8, marginTop: 12 }}>
+            <div style={stag(f, A("request") - 4)}><Pill icon="key" tone={C.ok} text="Access request · approved · 24 h" /></div>
+            <div style={stag(f, A("activity") - 2)}><Pill icon="activity" tone={C.bad} text="Denied lookup · logged" /></div>
+          </div>
+        </div>
+      );
+    }
+  }
+  return null;
+};
+
+const MAGIC = A("from", 1) - 4; // "From scattered information to a useful draft"
+const FRAGS = ["SCAN", "SOP", "EMAIL", "P&ID", "REPORT", "NOTES", "GRAPH", "SHEET", "PO", "LOG"];
+
+export const Arjun: React.FC = () => {
+  const f = useCurrentFrame();
+  const sec = f / 30;
+  const enter = sp(f, 0, theme.spring.soft);
+  const recede = ei(f, [MAGIC, MAGIC + 26], [0, 1], theme.ease.inOut);
+  const sceneOut = ei(f, [1722, 1734], [0, 1], theme.ease.in);
+  const cam = camAt(sec);
+
+  const bi = BEATS.reduce((acc, bt, i) => (sec >= bt.t ? i : acc), 0);
+  const beat = BEATS[bi];
+  const bStart = S(beat.t);
+  const bEnd = bi < BEATS.length - 1 ? S(BEATS[bi + 1].t) : MAGIC;
+  const beatOut = ei(f, [bEnd - 8, bEnd], [0, 1], theme.ease.in);
