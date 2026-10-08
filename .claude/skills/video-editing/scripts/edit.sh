@@ -128,3 +128,36 @@ while [[ $# -gt 0 ]]; do
             CAPTION_LANGUAGE="$2"
             shift 2
             ;;
+        --caption-srt)
+            CAPTION_SRT="$2"
+            shift 2
+            ;;
+        --overlay-text)
+            DO_OVERLAY=true
+            OVERLAY_TEXT="$2"
+            shift 2
+            ;;
+        --overlay-start)
+            OVERLAY_START="$2"
+            shift 2
+            ;;
+        --overlay-end)
+            OVERLAY_END="$2"
+            shift 2
+            ;;
+        --overlay-position)
+            OVERLAY_POSITION="$2"
+            shift 2
+            ;;
+        --overlay-fontsize)
+            OVERLAY_FONTSIZE="$2"
+            shift 2
+            ;;
+        --speed)
+            DO_SPEED=true
+            SPEED_FACTOR="$2"
+            shift 2
+            ;;
+        --output)
+            OUTPUT="$2"
+            shift 2
