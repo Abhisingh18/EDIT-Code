@@ -71,3 +71,27 @@ if [[ -z "$OUTPUT" ]]; then
     OUTPUT="${INPUT_DIR}/${INPUT_BASENAME}_captioned.${INPUT_EXT}"
 fi
 
+# Escape paths for ffmpeg subtitle filter (colons and backslashes)
+escape_path() {
+    local path="$1"
+    path="${path//\\/\\\\}"
+    path="${path//:/\\:}"
+    path="${path//'/\\'}"
+    echo "$path"
+}
+
+ESCAPED_SRT="$(escape_path "$SRT_FILE")"
+
+build_subtitle_filter() {
+    local style="$1"
+    local srt_path="$2"
+
+    case "$style" in
+        hormozi)
+            # Bold, centered, large — Hormozi-style word-by-word impact captions
+            echo "subtitles='${srt_path}':force_style='FontName=Arial Black,FontSize=28,Bold=1,PrimaryColour=&H00FFFFFF,OutlineColour=&H00000000,BackColour=&H80000000,Outline=3,Shadow=2,Alignment=10,MarginV=40'"
+            ;;
+        standard)
+            # Traditional bottom subtitles with background box
+            echo "subtitles='${srt_path}':force_style='FontName=Arial,FontSize=20,PrimaryColour=&H00FFFFFF,OutlineColour=&H00000000,BackColour=&H80000000,Outline=1,Shadow=1,Alignment=2,BorderStyle=4,MarginV=30'"
+            ;;
