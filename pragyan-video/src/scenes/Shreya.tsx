@@ -34,3 +34,38 @@ const Logo: React.FC<{ x: number; y: number; w: number; o?: number }> = ({ x, y,
     />
     <Img src={staticFile("logo_dark.png")} style={{ position: "absolute", left: x - w / 2, top: y - (w * LOGO_AR) / 2, width: w, opacity: o }} />
   </>
+);
+
+const bez = (p0: number, p1: number, p2: number, p3: number, t: number) =>
+  (1 - t) ** 3 * p0 + 3 * (1 - t) ** 2 * t * p1 + 3 * (1 - t) * t ** 2 * p2 + t ** 3 * p3;
+
+/* ---------- beat 2 data ---------- */
+const MODELS = [
+  { icon: "eye", name: "Vision", model: "Qwen3-VL-32B", cy: 335 },
+  { icon: "code", name: "Code", model: "Qwen2.5-Coder-32B", cy: 545 },
+  { icon: "bulb", name: "Reasoning", model: "DeepSeek-R1-32B", cy: 755 },
+];
+const ROUTER = { x: 1210, y: 545 };
+
+export const Shreya: React.FC = () => {
+  const f = useCurrentFrame();
+  const cardP = sp(f, 176, theme.spring.smooth);
+  const out = ei(f, [1468, 1482], [0, 1], theme.ease.in);
+
+  // routing events (vision, code, reasoning)
+  const EV = [W("vision", 0), W("code"), W("reasoning", 0)];
+  const arrive = (i: number) => EV[i] + 30;
+  const active = EV.reduce((acc, _, i) => (f >= arrive(i) ? i : acc), -1);
+
+  return (
+    <AbsoluteFill style={{ opacity: 1 - out, transform: `scale(${1 - out * 0.03})` }}>
+      <BgField intensity={1} />
+
+      {/* her card */}
+      <div
+        style={{
+          position: "absolute", left: CARD.x, top: CARD.y, width: CARD.w, height: CARD.h, borderRadius: 28, overflow: "hidden",
+          border: "1px solid rgba(255,255,255,0.14)", boxShadow: "0 60px 120px -30px rgba(0,0,0,0.9)",
+          opacity: cardP, transform: `translateX(${(1 - cardP) * -90}px) scale(${0.95 + 0.05 * cardP})`,
+        }}
+      >
