@@ -262,3 +262,35 @@ if [[ $verify_errors -gt 0 ]]; then
 else
   echo "  All checks passed."
 fi
+
+# ── Summary ──────────────────────────────────────────────────
+
+echo ""
+echo "  =============================="
+echo "  Onboard complete!"
+echo ""
+echo "  Next steps:"
+echo ""
+
+if ! has_cmd ffmpeg; then
+  echo "  1. Install FFmpeg (required):"
+  echo "     brew install ffmpeg"
+  echo ""
+fi
+
+if ! has_cmd whisper; then
+  echo "  2. Install Whisper (optional, for captions):"
+  echo "     pip install openai-whisper"
+  echo ""
+fi
+
+echo "  Try it out:"
+echo ""
+echo "    \"Edit my video at ~/video.mp4 — remove silence and add captions\""
+echo ""
+echo "  Or run scripts directly:"
+echo ""
+echo "    bash scripts/jumpcut.sh ~/video.mp4"
+echo "    bash scripts/trim.sh ~/video.mp4 --start 00:01:00 --end 00:05:00"
+echo "    bash scripts/edit.sh ~/video.mp4 --jumpcut --caption --speed 1.25"
+echo ""
