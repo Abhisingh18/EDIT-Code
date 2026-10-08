@@ -64,3 +64,36 @@ if [[ "$MODE" == "uninstall" ]]; then
     fi
   done
 
+  if [[ $removed -eq 0 ]]; then
+    echo "  Nothing to remove."
+  fi
+
+  echo ""
+  echo "  Done."
+  echo ""
+  exit 0
+fi
+
+# ── Preflight: Check Dependencies ────────────────────────────
+
+print_header
+
+echo "  [1/3] Checking dependencies"
+echo "  ---------------------------"
+
+errors=0
+warnings=0
+
+# FFmpeg (required)
+if has_cmd ffmpeg; then
+  version="$(ffmpeg -version 2>/dev/null | head -1 | sed 's/ffmpeg version \([^ ]*\).*/\1/')"
+  print_ok "ffmpeg" "$version"
+else
+  print_fail "ffmpeg"
+  errors=$((errors + 1))
+fi
+
+# ffprobe (required, ships with FFmpeg)
+if has_cmd ffprobe; then
+  print_ok "ffprobe" "bundled with ffmpeg"
+else
