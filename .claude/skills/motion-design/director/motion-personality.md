@@ -21,3 +21,25 @@ Use for: children's apps, casual games, social media, celebrations, onboarding, 
 |-----------|-------|
 | Duration | 350-600ms |
 | Easing | cubic-bezier(0.4, 0, 0.2, 1) |
+| Overshoot | 0% |
+| Paths | Smooth curves, subtle parallax |
+| Squash-stretch | Never |
+
+Signature: slow fades, subtle scale (98%→100%), generous pauses, minimal properties (opacity+one), ultra-smooth.
+Use for: fashion, finance, luxury brands, premium SaaS, portfolios, editorial.
+
+### Corporate / Professional
+
+| Parameter | Value |
+|-----------|-------|
+| Duration | 200-400ms |
+| Easing | cubic-bezier(0.2, 0, 0, 1) |
+| Overshoot | 0-3% |
+| Paths | Mostly straight, small arcs for emphasis |
+| Squash-stretch | No |
+
+Signature: consistent timing, clear state transitions, functional motion, predictable patterns, uniform stagger.
+Use for: enterprise, dashboards, business tools, admin, healthcare, banking.
+
+### Energetic / Dynamic
+
