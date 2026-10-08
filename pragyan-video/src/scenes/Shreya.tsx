@@ -456,3 +456,38 @@ export const Shreya: React.FC = () => {
       {/* sound */}
       <Sfx at={172} name="whoosh" vol={0.18} />
       <Sfx at={W("inside", 0) - 10} name="whoosh" vol={0.1} />
+      <Sfx at={W("security", 0) - 1} name="tick" vol={0.2} />
+      <Sfx at={W("boundary") + 3} name="pop" vol={0.14} />
+      <Sfx at={304} name="whoosh" vol={0.14} />
+      <Sfx at={W("one") - 5} name="pop" vol={0.15} />
+      {[0, 1, 2].map((i) => (
+        <Sfx key={`m${i}`} at={W("multiple") + i * 6 - 1} name="tick" vol={0.16} />
+      ))}
+      <Sfx at={W("router") - 5} name="pop" vol={0.2} />
+      {EV.map((e, i) => (
+        <React.Fragment key={`e${i}`}>
+          <Sfx at={e} name="whoosh" vol={0.08} />
+          <Sfx at={arrive(i) - 1} name="tick" vol={0.22} />
+        </React.Fragment>
+      ))}
+      <Sfx at={W("no") - 1} name="tick" vol={0.2} />
+      <Sfx at={716} name="whoosh" vol={0.14} />
+      <Sfx at={W("connects") - 2} name="tick" vol={0.18} />
+      <Sfx at={W("knowledge", 0) - 7} name="pop" vol={0.16} />
+      {["manuals", "sops", "procedures"].map((w) => (
+        <Sfx key={w} at={W(w) - 4} name="tick" vol={0.16} />
+      ))}
+      <Sfx at={W("internal", 0) - 4} name="tick" vol={0.16} />
+      <Sfx at={1034} name="whoosh" vol={0.14} />
+      <Sfx at={W("internet") - 1} name="thud" vol={0.32} />
+      <Sfx at={W("approved") - 5} name="pop" vol={0.18} />
+      <Sfx at={W("permissions") - 1} name="tick" vol={0.18} />
+      <Sfx at={W("clearances") - 1} name="tick" vol={0.18} />
+      <Sfx at={1250} name="whoosh" vol={0.14} />
+      <Sfx at={W("role") - 1} name="tick" vol={0.18} />
+      <Sfx at={W("role") + 14} name="tick" vol={0.14} />
+      <Sfx at={W("avoiding") - 4} name="pop" vol={0.16} />
+      <Sfx at={1464} name="whoosh" vol={0.26} />
+    </AbsoluteFill>
+  );
+};
