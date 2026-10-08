@@ -103,3 +103,38 @@ const BEATS: Beat[] = [
   { t: 0.0, n: "01", title: "The task", sub: "Review PSV-2034 against the current SOP revision.", g: "task" },
   { t: 4.9, n: "02", title: "Reads the scan", sub: "Finds every failed check — and cites the page.", g: "scan" },
   { t: 13.9, n: "03", title: "Drafts the note", sub: "Problem, evidence, action, approval — in your format.", g: "draft" },
+  { t: 20.0, n: "04", title: "Connects the dots", sub: "Equipment, documents and SOPs in one graph.", g: "graph" },
+  { t: 24.9, n: "05", title: "Picks the right model", sub: "Reports to a document model. Code to a coding model.", g: "route" },
+  { t: 29.0, n: "06", title: "Remembers you", sub: "Your preferences — saved, editable, under your control.", g: "memory" },
+  { t: 35.4, n: "07", title: "Everywhere you work", sub: "Web, phone and your coding workspace.", g: "devices" },
+  { t: 40.2, n: "08", title: "Clearance-aware", sub: "Same question. Different clearance. Different answer.", g: "roles" },
+  { t: 45.4, n: "09", title: "Admins in control", sub: "Every request reviewed. Every action logged.", g: "audit" },
+];
+
+const Pill: React.FC<{ icon?: string; text: string; tone?: string; o?: number; style?: React.CSSProperties }> = ({ icon, text, tone = C.text, o = 1, style }) => (
+  <div style={{
+    display: "flex", alignItems: "center", gap: 10, padding: "10px 14px", borderRadius: 12, opacity: o,
+    background: "rgba(255,255,255,0.05)", border: `1px solid ${tone === C.text ? "rgba(255,255,255,0.12)" : tone + "66"}`, ...style,
+  }}>
+    {icon && <Icon name={icon} size={18} color={tone} />}
+    <span style={{ ...mono(13, tone), letterSpacing: "0.08em", textTransform: "none" }}>{text}</span>
+  </div>
+);
+const stag = (f: number, a: number): React.CSSProperties => {
+  const p = sp(f, a, theme.spring.snappy);
+  return { opacity: p, transform: `translateY(${(1 - p) * 18}px)` };
+};
+
+const Graphic: React.FC<{ g: string; f: number; t0: number }> = ({ g, f, t0 }) => {
+  const b = S(t0);
+  switch (g) {
+    case "task":
+      return (
+        <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+          <div style={stag(f, b + 18)}><Pill icon="scan" text="INS-2026-118 · scanned report" /></div>
+          <div style={{ ...stag(f, b + 26), display: "flex", alignItems: "center", gap: 10, paddingLeft: 14 }}>
+            <div style={{ width: 2, height: 26, background: "rgba(255,255,255,0.3)" }} />
+            <span style={mono(12, C.dim)}>compare against</span>
+          </div>
+          <div style={stag(f, b + 34)}><Pill icon="file" text="SOP-CDU-014 · Rev 4" /></div>
+        </div>
