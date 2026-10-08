@@ -291,3 +291,35 @@ if [[ "$DO_CAPTION" == true ]]; then
     bash "${SCRIPT_DIR}/caption.sh" "$CURRENT_FILE" "$SRT_FILE" \
         --style "$CAPTION_STYLE" \
         --output "$NEXT"
+    CURRENT_FILE="$NEXT"
+    echo ""
+fi
+
+# Step 5: Text overlay
+if [[ "$DO_OVERLAY" == true ]]; then
+    echo "--- Step: Text Overlay ---"
+    NEXT="$(next_intermediate)"
+    OVERLAY_ARGS=("$CURRENT_FILE" --text "$OVERLAY_TEXT")
+    OVERLAY_ARGS+=(--start "$OVERLAY_START")
+    [[ -n "$OVERLAY_END" ]] && OVERLAY_ARGS+=(--end "$OVERLAY_END")
+    OVERLAY_ARGS+=(--position "$OVERLAY_POSITION")
+    OVERLAY_ARGS+=(--fontsize "$OVERLAY_FONTSIZE")
+    OVERLAY_ARGS+=(--output "$NEXT")
+
+    bash "${SCRIPT_DIR}/overlay-text.sh" "${OVERLAY_ARGS[@]}"
+    CURRENT_FILE="$NEXT"
+    echo ""
+fi
+
+# Final: copy to output
+if [[ "$CURRENT_FILE" != "$OUTPUT" ]]; then
+    cp "$CURRENT_FILE" "$OUTPUT"
+fi
+
+echo "=== Pipeline Complete ==="
+echo "Output: $OUTPUT"
+
+# Show file info
+OUTPUT_DURATION="$(ffprobe -v error -show_entries format=duration -of csv=p=0 "$OUTPUT" 2>/dev/null || echo "unknown")"
+OUTPUT_SIZE="$(du -h "$OUTPUT" | cut -f1)"
+echo "Duration: ${OUTPUT_DURATION}s | Size: ${OUTPUT_SIZE}"
