@@ -167,3 +167,36 @@ export const Bhawna: React.FC = () => {
         })()}
       </Beat>
 
+      {/* P3 — public AI is not allowed */}
+      <Beat f={f} from={334} to={502}>
+        <div style={{ position: "absolute", left: PX, top: 196 }}>
+          <MaskLine f={f} at={338}>
+            <span style={mono(17, C.dim)}>Using public AI?</span>
+          </MaskLine>
+        </div>
+        {(() => {
+          const pIn = sp(f, 340);
+          const block = W("not");
+          const travel = ei(f, [352, block], [0, 1], theme.ease.inOut);
+          const back = ei(f, [block, block + 14], [0, 1], theme.ease.out);
+          const px = f < block ? lerp(1150, 1352, travel) : lerp(1352, 1290, back);
+          const pkO = f < block ? ei(f, [352, 358], [0, 1]) : 1 - back;
+          const barrier = sp(f, block - 10, theme.spring.snappy);
+          const red = ei(f, [block, block + 4], [0, 1]) * ei(f, [block + 20, block + 40], [1, 0.55]);
+          const cloudP = sp(f, 346);
+          return (
+            <>
+              <div style={{ position: "absolute", left: 930, top: 330, opacity: pIn, transform: `translateY(${(1 - pIn) * 50}px)` }}>
+                <DocCard f={f} at={340} kind="report" title="SENSITIVE REPORT" w={220} h={280} />
+              </div>
+              <div
+                style={{
+                  position: "absolute", left: 1560, top: 330, width: 240, height: 280, ...glass({ borderRadius: 28 }),
+                  display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 18,
+                  opacity: cloudP * (1 - red * 0.35), transform: `scale(${0.9 + 0.1 * cloudP})`,
+                }}
+              >
+                <Icon name="cloud" size={84} color={C.text} stroke={1.4} />
+                <div style={mono(17, C.text)}>Public AI</div>
+                <div style={{ ...mono(12, C.faint), letterSpacing: "0.1em" }}>third-party servers</div>
+              </div>
