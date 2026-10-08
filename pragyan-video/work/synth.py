@@ -24,3 +24,28 @@ def reverb(x, secs=2.8, mix=0.35):
 BPM = 100; BEAT = 60 / BPM; BAR = BEAT * 4
 DUR = 182.0; N = int(DUR * SR); t = np.arange(N) / SR
 prog = [([62, 65, 69, 74], 38), ([58, 62, 65, 70], 34), ([60, 65, 69, 72], 41), ([60, 64, 67, 72], 36)]
+CH = BAR * 4  # 9.6s per chord
+
+# ---- pad + bass + arp (the bed) ----
+pad = np.zeros(N); bass = np.zeros(N); arp = np.zeros(N)
+nch = int(np.ceil(DUR / CH))
+for c in range(nch):
+    notes, root = prog[c % 4]
+    s0 = int(c * CH * SR); s1 = min(N, int((c + 1) * CH * SR) + int(1.5 * SR))
+    tt = np.arange(s1 - s0) / SR
+    env = np.minimum(1, tt / 2.2) * np.clip((CH + 1.5 - tt) / 1.8, 0, 1)
+    for m in notes:
+        f = mtof(m)
+        for det in (-0.07, 0.0, 0.07):
+            ff = f * 2 ** (det / 12)
+            pad[s0:s1] += env * sum(np.sin(2 * np.pi * ff * k * tt + k) / k ** 1.4 for k in range(1, 7)) * 0.12
+    # sub bass pulses per beat
+    for b in range(16):
+        bs = s0 + int(b * BEAT * SR); be = min(N, bs + int(BEAT * SR))
+        if bs >= N: break
+        bt = np.arange(be - bs) / SR
+        bass[bs:be] += np.sin(2 * np.pi * mtof(root) * bt) * np.exp(-bt * 2.2) * np.minimum(1, bt / 0.01) * 0.8
+    # 8th-note arp
+    seq = [notes[0] + 12, notes[2] + 12, notes[1] + 12, notes[3] + 12, notes[2] + 12, notes[1] + 12, notes[3] + 12, notes[2] + 12]
+    for e in range(32):
+        es = s0 + int(e * BEAT / 2 * SR); ee = min(N, es + int(0.5 * SR))
