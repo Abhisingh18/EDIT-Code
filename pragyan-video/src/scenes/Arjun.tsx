@@ -383,3 +383,38 @@ export const Arjun: React.FC = () => {
       <div style={{ position: "absolute", inset: 0, perspective: 2400 }}>
         <div
           style={{
+            position: "absolute", left: WIN.x, top: WIN.y, width: VW, height: winH, borderRadius: 16, overflow: "hidden",
+            background: "#0E1220", boxShadow: "0 80px 140px -40px rgba(0,0,0,0.95)",
+            transform: `translateY(${(1 - enter) * 80 - recede * 30}px) rotateX(${(1 - enter) * 16 + rx}deg) rotateY(${ry}deg) scale(${(0.94 + 0.06 * enter) * lerp(1, 0.62, recede)})`,
+            opacity: enter * lerp(1, 0.28, recede), filter: `blur(${recede * 5}px)`,
+          }}
+        >
+          <div style={{ height: WIN.bar, display: "flex", alignItems: "center", padding: "0 18px", gap: 9, background: "linear-gradient(180deg,#1A2033,#121726)" }}>
+            {["#FF5F57", "#FEBC2E", "#28C840"].map((c) => <div key={c} style={{ width: 12, height: 12, borderRadius: 6, background: c, opacity: 0.9 }} />)}
+            <div style={{ marginLeft: 18, flex: 1, display: "flex", justifyContent: "center" }}>
+              <div style={{ ...mono(13, C.dim), letterSpacing: "0.06em", textTransform: "none", padding: "5px 18px", borderRadius: 8, background: "rgba(255,255,255,0.06)", display: "flex", alignItems: "center", gap: 8 }}>
+                <Icon name="lock" size={13} color={C.dim} /> pragyan.local · on-premise
+              </div>
+            </div>
+          </div>
+          <div style={{ position: "relative", width: VW, height: VH, overflow: "hidden" }}>
+            <div style={{ position: "absolute", left: 0, top: 0, width: VW, height: VH, transformOrigin: "0 0", transform: `translate(${VW / 2 - cam.Cx * cam.z}px, ${VH / 2 - cam.Cy * cam.z}px) scale(${cam.z})` }}>
+              <OffthreadVideo src={staticFile("arjun.mp4")} muted={!PLAY_VOICE} style={{ width: VW, height: VH, display: "block" }} />
+            </div>
+            {/* pinned annotations */}
+            {f < MAGIC && HLS.map((h, k) => <Highlight key={k} h={h} sec={sec} f={f} c={cam} />)}
+            {/* glass light sweep on each new step */}
+            {sweep > 0 && sweep < 1 && (
+              <div style={{ position: "absolute", top: 0, bottom: 0, width: 360, left: lerp(-400, VW + 40, sweep), background: "linear-gradient(100deg, transparent, rgba(255,255,255,0.12), transparent)", transform: "skewX(-14deg)" }} />
+            )}
+          </div>
+        </div>
+      </div>
+      {f < MAGIC && (
+        <SpeakerDecor f={f} x={WIN.x} y={WIN.y} w={VW} h={winH} r={16} appear={14} who="arjun" envFrame={f}
+          name="Arjun" role="Live demo" index="03 / 03" plate="none" o={1 - ei(f, [MAGIC - 10, MAGIC], [0, 1])} />
+      )}
+
+      {/* the explainer column */}
+      <div key={beat.n} style={{ position: "absolute", left: RX, top: 130, width: RW, opacity: uiO * (1 - beatOut), transform: `translateY(${-14 * beatOut}px)` }}>
+        <MaskLine f={f} at={bStart + 2}>
