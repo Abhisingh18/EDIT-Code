@@ -61,3 +61,35 @@ Every animation must satisfy three pillars before any technical decisions:
 **Three motion layers** (flat animation = missing layers):
 - **Primary**: Main action the viewer follows
 - **Secondary**: Supporting richness (shadows, icons shifting)
+- **Ambient**: Background life (gradients, subtle pulses)
+
+> Deep dive: [director/core-philosophy.md](director/core-philosophy.md)
+
+---
+
+## Motion Personality
+
+Select ONE archetype per project. Apply consistently.
+
+| Archetype | Duration | Easing | Overshoot | Keywords |
+|-----------|----------|--------|-----------|----------|
+| **Playful** | 150-300ms | ease-out-back | 10-20% | fun, whimsical, bouncy, cute |
+| **Premium** | 350-600ms | cubic-bezier(0.4,0,0.2,1) | 0% | elegant, minimal, luxury, sophisticated |
+| **Corporate** | 200-400ms | cubic-bezier(0.2,0,0,1) | 0-3% | clean, professional, business, dashboard |
+| **Energetic** | 100-250ms | ease-out-expo | 15-30% | dynamic, energetic, bold, exciting |
+
+**Default**: Corporate for UI, Playful for illustrations.
+
+**Brand Motion Identity** — define three constants:
+1. **Signature easing**: One curve for 80% of animations
+2. **Duration palette**: 3 durations (quick / standard / slow)
+3. **Entrance pattern**: One consistent entry style
+
+> Deep dive: [director/motion-personality.md](director/motion-personality.md)
+
+---
+
+## Property Selection
+
+| Effect Goal | Primary Property | Secondary Properties |
+|-------------|------------------|---------------------|
