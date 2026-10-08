@@ -93,3 +93,34 @@ Select ONE archetype per project. Apply consistently.
 
 | Effect Goal | Primary Property | Secondary Properties |
 |-------------|------------------|---------------------|
+| Entrance/Exit | position | opacity, scale |
+| Emphasis/Attention | scale | rotation (subtle), opacity pulse |
+| State Change | opacity, color | scale (press feedback) |
+| Direction/Flow | position | rotation (follow path) |
+| Depth/3D Feel | scale + shadow | position (parallax) |
+| Loading/Progress | rotation (spinner) | scale, opacity pulse |
+| Success | scale (pop) | color, rotation (checkmark draw) |
+| Error/Alert | position (shake) | color, rotation (wobble) |
+
+**Simplicity threshold**: Use the minimum properties needed. One = direct. Two = polished. Three+ = potentially overwhelming.
+
+> Deep dive: [reference/property-selection.md](reference/property-selection.md)
+
+---
+
+## Duration Table
+
+| Element Type | Duration | Rationale |
+|-------------|----------|-----------|
+| Tooltip / micro-feedback | 80-120ms | Must feel instant |
+| Button press / toggle | 120-180ms | Responsive feedback |
+| Icon transition | 150-250ms | Clear state change |
+| Card enter / exit | 200-350ms | Spatial awareness |
+| Modal / dialog | 300-400ms | Focus shift |
+| Page transition | 400-600ms | Context switch |
+| Dramatic reveal | 600-1200ms | Theatrical build |
+
+**Distance scales duration**: 100px = base. 200px = 1.3x. 400px = 1.6x.
+
+**Enter > Exit**: Entrances 30-50% longer than exits. Users care about what appears.
+
