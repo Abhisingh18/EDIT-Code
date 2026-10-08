@@ -52,3 +52,30 @@ scripts/caption.sh video.mp4 video.srt --style hormozi
 ```
 
 ### Text Overlays
+Add text at specific positions and timestamps. Supports 7 positions: center, top, bottom, top-left, top-right, bottom-left, bottom-right.
+```bash
+scripts/overlay-text.sh video.mp4 --text "Subscribe!" --start 00:01:00 --end 00:01:05 --position bottom-right
+```
+
+### Speed Changes
+Adjust playback speed (audio pitch-corrected via atempo).
+```bash
+# Via edit.sh orchestrator
+scripts/edit.sh video.mp4 --speed 1.5
+```
+
+### Full Pipeline (Orchestrator)
+Chain multiple operations in a single command:
+```bash
+scripts/edit.sh video.mp4 \
+  --trim-start 00:00:10 --trim-end 00:10:00 \
+  --jumpcut \
+  --caption --caption-style hormozi \
+  --speed 1.25 \
+  --overlay-text "Like & Subscribe" --overlay-start 00:01:00 \
+  --output final.mp4
+```
+
+Pipeline order: trim → jump cut → speed → caption → overlay
+
+## Requirements
