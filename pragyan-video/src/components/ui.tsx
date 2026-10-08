@@ -98,3 +98,36 @@ export const glass = (extra?: React.CSSProperties): React.CSSProperties => ({
   boxShadow: "0 34px 80px -26px rgba(0,0,0,0.8), inset 0 1px 0 rgba(255,255,255,0.09)",
   backdropFilter: "blur(16px)",
   ...extra,
+});
+
+/* ---------- typography ---------- */
+export const mono = (size = 16, color: string = C.dim): React.CSSProperties => ({
+  fontFamily: theme.fonts.mono,
+  fontSize: size,
+  letterSpacing: "0.16em",
+  textTransform: "uppercase",
+  color,
+  fontWeight: 500,
+});
+export const display = (size: number, weight = 700, color: string = C.text): React.CSSProperties => ({
+  fontFamily: theme.fonts.display,
+  fontSize: size,
+  fontWeight: weight,
+  letterSpacing: "-0.025em",
+  lineHeight: 1.04,
+  color,
+});
+
+// masked line reveal: controlled opacity + vertical displacement (no generic fades)
+export const MaskLine: React.FC<{
+  f: number;
+  at: number;
+  children: React.ReactNode;
+  style?: React.CSSProperties;
+  dist?: number;
+}> = ({ f, at, children, style, dist = 105 }) => {
+  const p = sp(f, at, theme.spring.soft);
+  return (
+    <div style={{ overflow: "hidden", padding: "0.06em 0 0.22em", margin: "-0.06em 0 -0.22em", ...style }}>
+      <div
+        style={{
