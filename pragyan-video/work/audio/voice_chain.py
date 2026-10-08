@@ -53,3 +53,30 @@ for n in ["bhawna", "shreya", "arjun"]:
 
 # Shreya: identical jump cuts to the picture (cuts sit in pauses), 25 ms fades
 d = json.load(open("work/transcripts.json", encoding="utf-8"))
+w = d["shreya"]["words"]; dur = 53.18
+segs = []; start = max(0, w[0]["s"] - 0.12)
+for a, b in zip(w, w[1:]):
+    if b["s"] - a["e"] > 0.45:
+        segs.append((start, a["e"] + 0.11)); start = b["s"] - 0.11
+segs.append((start, min(dur, w[-1]["e"] + 0.5)))
+sr, x = wavfile.read(A + "lev_shreya.wav")
+parts = []
+for s, e in segs:
+    seg = x[int(round(s * sr)):int(round(e * sr))].copy()
+    k = int(0.025 * sr); ramp = np.linspace(0, 1, k, dtype=np.float32)
+    seg[:k] *= ramp; seg[-k:] *= ramp[::-1]
+    parts.append(seg)
+wavfile.write(A + "voice_shreya.wav", sr, np.concatenate(parts).astype(np.float32))
+for n in ["bhawna", "arjun"]:
+    sr, x = wavfile.read(A + f"lev_{n}.wav"); wavfile.write(A + f"voice_{n}.wav", sr, x.astype(np.float32))
+
+# per-frame voice envelope for the on-screen voice meters
+env = {}
+for n in ["bhawna", "shreya", "arjun"]:
+    sr, x = wavfile.read(A + f"voice_{n}.wav")
+    hop = sr // 30; nfr = len(x) // hop
+    r = np.sqrt(np.mean(x[: nfr * hop].reshape(nfr, hop) ** 2, axis=1)) + 1e-9
+    db = 20 * np.log10(r)
+    env[n] = [round(float(v), 3) for v in np.clip((db + 48) / 36, 0, 1)]
+    print(n, "voice", round(len(x) / sr, 2), "s, frames", nfr)
+json.dump(env, open("src/data/voice_env.json", "w"))
