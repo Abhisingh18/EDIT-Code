@@ -342,3 +342,37 @@ export const Arjun2: React.FC = () => {
   return (
     <AbsoluteFill style={{ opacity: 1 - sceneOut }}>
       <BgField intensity={1} />
+      <ChapterTag f={f} at={4} num="03" title="Live demo" style={{ left: 72, top: 62 }} />
+
+      {/* chapter progress */}
+      <div style={{ position: "absolute", left: RX, top: 46, width: RW, opacity: enter }}>
+        <div style={{ display: "flex", justifyContent: "space-between" }}>
+          <span style={mono(12, C.dim)}>Chapter</span>
+          <span style={{ ...mono(12, C.text), fontVariantNumeric: "tabular-nums" }}>{ch.n} / 12</span>
+        </div>
+        <div style={{ display: "flex", gap: 4, marginTop: 10 }}>
+          {CH.map((c, i) => {
+            const fill = i < ci ? 1 : i > ci ? 0 : ei(f, [cStart, cEnd], [0, 1], theme.ease.std);
+            return (
+              <div key={c.n} style={{ flex: 1, height: 4, borderRadius: 2, background: "rgba(255,255,255,0.14)", overflow: "hidden" }}>
+                <div style={{ width: `${fill * 100}%`, height: 4, background: i === ci ? C.hero : "rgba(255,255,255,0.85)" }} />
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* the product screen */}
+      <div style={{ position: "absolute", inset: 0, perspective: 2400 }}>
+        <div style={{
+          position: "absolute", left: WIN.x, top: WIN.y, width: VW, height: winH, borderRadius: 16, overflow: "hidden",
+          background: "#0E1220", boxShadow: "0 80px 140px -40px rgba(0,0,0,0.95)",
+          transform: `translateY(${(1 - enter) * 80}px) rotateX(${(1 - enter) * 16 + rx}deg) rotateY(${ry}deg) scale(${0.94 + 0.06 * enter})`,
+          opacity: enter,
+        }}>
+          <div style={{ height: WIN.bar, display: "flex", alignItems: "center", padding: "0 18px", gap: 9, background: "linear-gradient(180deg,#1A2033,#121726)" }}>
+            {["#FF5F57", "#FEBC2E", "#28C840"].map((c) => <div key={c} style={{ width: 12, height: 12, borderRadius: 6, background: c, opacity: 0.9 }} />)}
+            <div style={{ marginLeft: 18, flex: 1, display: "flex", justifyContent: "center" }}>
+              <div style={{ ...mono(13, C.dim), letterSpacing: "0.06em", textTransform: "none", padding: "5px 18px", borderRadius: 8, background: "rgba(255,255,255,0.06)", display: "flex", alignItems: "center", gap: 8 }}>
+                <Icon name="lock" size={13} color={C.dim} /> pragyan.local · on-premise
+              </div>
