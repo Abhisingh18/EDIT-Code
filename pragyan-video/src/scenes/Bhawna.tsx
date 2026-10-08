@@ -133,3 +133,37 @@ export const Bhawna: React.FC = () => {
       {/* P2 — analyse report -> approval-ready note */}
       <Beat f={f} from={182} to={334}>
         <div style={{ position: "absolute", left: PX, top: 196 }}>
+          <MaskLine f={f} at={186}>
+            <span style={mono(17, C.dim)}>The daily task</span>
+          </MaskLine>
+        </div>
+        {(() => {
+          const pIn = sp(f, 186);
+          const prog = ei(f, [W("analyze"), W("note") + 6], [0, 1], theme.ease.inOut);
+          const scanY = ei(f, [W("analyze"), W("analyze") + 40], [0, 360], theme.ease.inOut);
+          const noteP = sp(f, W("approval") - 4);
+          return (
+            <>
+              <div style={{ position: "absolute", left: 930, top: 340, opacity: pIn, transform: `translateY(${(1 - pIn) * 60}px)` }}>
+                <DocCard f={f} at={186} kind="report" title="INSPECTION REPORT" />
+                {f >= W("analyze") && f < W("analyze") + 44 && (
+                  <div style={{ position: "absolute", left: -6, right: -6, top: scanY, height: 3, background: C.accent, boxShadow: `0 0 18px ${C.accent}` }} />
+                )}
+              </div>
+              <div style={{ position: "absolute", left: 1262, top: 520, width: 210 }}>
+                <div style={{ ...mono(14, C.dim), textAlign: "center", marginBottom: 12, opacity: ei(f, [W("analyze") - 4, W("analyze") + 6], [0, 1]) }}>
+                  Analyse
+                </div>
+                <div style={{ height: 2, background: "rgba(255,255,255,0.14)", borderRadius: 2 }}>
+                  <div style={{ height: 2, width: `${prog * 100}%`, background: C.text, borderRadius: 2 }} />
+                </div>
+              </div>
+              <div style={{ position: "absolute", left: 1500, top: 340, opacity: noteP, transform: `translateX(${(1 - noteP) * 50}px) scale(${0.94 + 0.06 * noteP})` }}>
+                <DocCard f={f} at={W("approval") - 4} kind="note" title="APPROVAL NOTE" />
+              </div>
+              <Chip f={f} at={W("note")} icon="check" label="Approval-ready" tone="ok" style={{ position: "absolute", left: 1528, top: 750 }} />
+            </>
+          );
+        })()}
+      </Beat>
+
