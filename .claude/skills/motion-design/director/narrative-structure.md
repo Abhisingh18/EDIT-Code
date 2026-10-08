@@ -29,3 +29,34 @@ Peak energy. The primary communicative motion.
 
 ## Scaling to Duration
 
+| Total | Anticipation | Action | Reaction | Resolution |
+|-------|-------------|--------|----------|------------|
+| 100-200ms | skip | 60-70% | skip | 30-40% |
+| 200-400ms | 10-15% | 40-50% | 10-15% | 25-30% |
+| 400-800ms | 15-20% | 30-40% | 15-20% | 20-25% |
+| 800ms+ | 20% | 30-35% | 15-20% | 25-30% |
+
+## Multi-Beat Narratives
+
+Transitions: overlap (fluid) | sequential (clear) | simultaneous (parallel)
+
+Progressions:
+- **Build-Up**: low → rising → peak → settling
+- **Cycle**: depart → peak → return → repeat
+- **Impact**: sudden action → ripple → slow settle
+
+## By Personality
+
+| Personality | Anticipation | Action | Resolution |
+|------------|-------------|--------|------------|
+| Playful | Exaggerated wind-up | Bouncy, overshoot | Wobble settle |
+| Premium | Subtle tension | Smooth, controlled | Elegant ease |
+| Corporate | Minimal/none | Direct, efficient | Clean stop |
+| Energetic | Quick gather | Explosive | Fast snap |
+
+## Common Patterns
+
+- **Reveal**: tension (dim, scale 95%) → emerge (100%, full opacity) → surroundings adjust → settled
+- **Departure**: gather (scale 98%) → exit → close gap → layout settles
+- **Transformation**: destabilize (vibration) → morph → secondary appears → new state breathing
+- **Celebration**: compress (50-100ms) → burst (scale, particles) → settle → calm with positive state
