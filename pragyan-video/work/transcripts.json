@@ -1,0 +1,39 @@
+{
+ "bhavna": {
+  "lang": "en",
+  "segments": [
+   "[0.30-2.48]  Imagine an engineer inside a refinery.",
+   "[3.16-5.52]  Every day they deal with highly sensitive data.",
+   "[6.06-8.60]  Now, imagine they need to analyze the report",
+   "[8.60-10.74]  to prepare an approval ready note.",
+   "[11.24-13.88]  But using the public AI is not allowed",
+   "[13.88-16.46]  due to organization, security, and competences.",
+   "[16.84-18.62]  So they left with two options.",
+   "[19.12-22.16]  Either doing all the work manually by wasting hours.",
+   "[22.58-25.30]  Secondly, pasting all the document to a public AI",
+   "[25.30-26.74]  that is highly risky.",
+   "[26.74-31.22]  So the real challenge is how we can bring the modern AI",
+   "[31.22-34.62]  to the organization without sending the data outside."
+  ],
+  "words": [
+   {
+    "w": "Imagine",
+    "s": 0.3,
+    "e": 0.78
+   },
+   {
+    "w": "an",
+    "s": 0.78,
+    "e": 1.28
+   },
+   {
+    "w": "engineer",
+    "s": 1.28,
+    "e": 1.66
+   },
+   {
+    "w": "inside",
+    "s": 1.66,
+    "e": 2.12
+   },
+   {
