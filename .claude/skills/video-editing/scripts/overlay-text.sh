@@ -96,3 +96,36 @@ if [[ -z "$TEXT" ]]; then
 fi
 
 INPUT_DIR="$(dirname "$INPUT_VIDEO")"
+INPUT_BASENAME="$(basename "$INPUT_VIDEO" | sed 's/\.[^.]*$//')"
+INPUT_EXT="$(basename "$INPUT_VIDEO" | sed 's/.*\.//')"
+
+if [[ -z "$OUTPUT" ]]; then
+    OUTPUT="${INPUT_DIR}/${INPUT_BASENAME}_overlay.${INPUT_EXT}"
+fi
+
+# Convert timestamp to seconds for ffmpeg enable expression
+timestamp_to_seconds() {
+    local ts="$1"
+    if [[ "$ts" =~ ^[0-9]+(\.[0-9]+)?$ ]]; then
+        echo "$ts"
+        return
+    fi
+    # HH:MM:SS or MM:SS
+    IFS=: read -ra parts <<< "$ts"
+    local seconds=0
+    local count="${#parts[@]}"
+    if [[ $count -eq 3 ]]; then
+        seconds="$(awk "BEGIN { printf \"%.3f\", ${parts[0]} * 3600 + ${parts[1]} * 60 + ${parts[2]} }")"
+    elif [[ $count -eq 2 ]]; then
+        seconds="$(awk "BEGIN { printf \"%.3f\", ${parts[0]} * 60 + ${parts[1]} }")"
+    else
+        seconds="${parts[0]}"
+    fi
+    echo "$seconds"
+}
+
+START_SEC="$(timestamp_to_seconds "$START")"
+
+if [[ -n "$END" ]]; then
+    END_SEC="$(timestamp_to_seconds "$END")"
+else
