@@ -51,3 +51,29 @@ export const at = (who: Speaker, word: string, n = 0): number => {
 export type Page = { start: number; end: number; items: { text: string; s: number; e: number }[] };
 
 export const pages = (who: Speaker, fromSec = 0, toSec = Infinity, maxWords = 4): Page[] => {
+  const ws = words(who).filter((w) => w.s >= fromSec && w.s < toSec);
+  const groups: W[][] = [];
+  let cur: W[] = [];
+  ws.forEach((w, i) => {
+    const prev = ws[i - 1];
+    const brk =
+      cur.length >= maxWords ||
+      (prev && /[.,?!;:]$/.test(prev.w)) ||
+      (prev && w.s - prev.e > 0.45);
+    if (brk && cur.length) {
+      groups.push(cur);
+      cur = [];
+    }
+    cur.push(w);
+  });
+  if (cur.length) groups.push(cur);
+  return groups.map((g, i) => {
+    const next = groups[i + 1];
+    const endSec = Math.min(next ? next[0].s : Infinity, g[g.length - 1].e + 0.6);
+    return {
+      start: Math.round(g[0].s * FPS) - 2,
+      end: Math.round(endSec * FPS),
+      items: g.map((w) => ({ text: w.w, s: Math.round(w.s * FPS), e: Math.round(w.e * FPS) })),
+    };
+  });
+};
