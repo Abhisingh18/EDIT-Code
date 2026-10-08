@@ -243,3 +243,38 @@ const Graphic: React.FC<{ g: string; f: number; t0: number }> = ({ g, f, t0 }) =
       return (
         <div>
           <div style={{ display: "flex", alignItems: "center", gap: 14, ...stag(f, b + 8) }}>
+            <div style={{ width: 64, height: 64, borderRadius: 32, ...glass({ borderRadius: 32 }), display: "flex", alignItems: "center", justifyContent: "center" }}>
+              <Icon name="memory" size={34} color={C.text} stroke={1.4} />
+            </div>
+            <span style={mono(13, C.text)}>Personal memory</span>
+          </div>
+          <div style={{ display: "flex", flexDirection: "column", gap: 8, marginTop: 16 }}>
+            {chips.map((c, k) => <div key={c} style={stag(f, A("preferences") - 6 + k * 6)}><Pill text={c} /></div>)}
+          </div>
+          <div style={{ marginTop: 18, display: "flex", alignItems: "center", gap: 12, ...stag(f, ctl - 6) }}>
+            <div style={{ width: 46, height: 26, borderRadius: 13, background: on > 0.5 ? C.ok : "rgba(255,255,255,0.15)", position: "relative" }}>
+              <div style={{ position: "absolute", top: 3, left: 3 + 20 * on, width: 20, height: 20, borderRadius: 10, background: "#fff" }} />
+            </div>
+            <span style={mono(12, C.text)}>You control what it keeps</span>
+          </div>
+        </div>
+      );
+    }
+    case "devices": {
+      const ph = sp(f, A("phone") - 6, theme.spring.smooth);
+      const ide = sp(f, A("coding") - 6, theme.spring.smooth);
+      const line = (w: number, c = "rgba(255,255,255,0.35)") => <div style={{ height: 5, width: w, borderRadius: 3, background: c, marginTop: 7 }} />;
+      return (
+        <div style={{ position: "relative", height: 300 }}>
+          <div style={{ position: "absolute", left: 0, top: 10, width: 120, height: 236, borderRadius: 22, border: "2px solid rgba(255,255,255,0.5)", background: "#0B0F1A", padding: "22px 10px", boxSizing: "border-box", opacity: ph, transform: `translateY(${(1 - ph) * 40}px) rotate(${(1 - ph) * -8}deg)` }}>
+            <div style={{ width: 36, height: 5, borderRadius: 3, background: "rgba(255,255,255,0.3)", margin: "-12px auto 12px" }} />
+            <div style={mono(9, C.hero)}>Pragyan</div>
+            <div style={{ marginTop: 10, padding: 6, borderRadius: 8, background: "rgba(255,255,255,0.08)" }}>{line(70)}{line(50)}</div>
+            <div style={{ marginTop: 8, marginLeft: 20, padding: 6, borderRadius: 8, background: "rgba(76,141,255,0.25)" }}>{line(60)}{line(40)}</div>
+            <div style={{ ...mono(9, C.dim), position: "absolute", bottom: 12, left: 10 }}>Phone</div>
+          </div>
+          <div style={{ position: "absolute", left: 140, top: 50, width: 220, height: 150, borderRadius: 10, border: "2px solid rgba(255,255,255,0.5)", background: "#0B0F1A", overflow: "hidden", opacity: ide, transform: `translateX(${(1 - ide) * 40}px)` }}>
+            <div style={{ height: 16, background: "#1A2033", display: "flex", alignItems: "center", gap: 4, padding: "0 6px" }}>
+              {["#FF5F57", "#FEBC2E", "#28C840"].map((c2) => <div key={c2} style={{ width: 5, height: 5, borderRadius: 3, background: c2 }} />)}
+            </div>
+            <div style={{ display: "flex" }}>
