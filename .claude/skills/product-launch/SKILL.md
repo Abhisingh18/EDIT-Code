@@ -68,3 +68,37 @@ Platforms that provide visibility but you don't control. Algorithms shift, rules
 **How to use correctly:**
 - Pick 1-2 platforms where your audience is active
 - Use them to drive traffic to owned channels
+- Don't rely on them as your only strategy
+
+**Example - Notion:**
+Hacked virality through Twitter, YouTube, and Reddit where productivity enthusiasts were active. Encouraged community to share templates and workflows. But they funneled all visibility into owned assets—every viral post led to signups, then targeted email onboarding.
+
+**Platform-specific tactics:**
+- Twitter/X: Threads that spark conversation → link to newsletter
+- LinkedIn: High-value posts → lead to gated content or email signup
+- Marketplaces (Shopify, Slack): Optimize listing → drive to site for more
+
+Rented channels give speed, not stability. Capture momentum by bringing users into your owned ecosystem.
+
+### Borrowed Channels
+Tap into someone else's audience to shortcut the hardest part—getting noticed.
+
+**Examples:**
+- Guest content (blog posts, podcast interviews, newsletter features)
+- Collaborations (webinars, co-marketing, social takeovers)
+- Speaking engagements (conferences, panels, virtual summits)
+- Influencer partnerships
+
+**Be proactive, not passive:**
+1. List industry leaders your audience follows
+2. Pitch win-win collaborations
+3. Use tools like SparkToro or Listen Notes to find audience overlap
+4. Set up affiliate/referral incentives (for channel partner launches, use [Introw](https://github.com/coreyhaines31/marketingskills/blob/main/tools/integrations/introw.md) to manage deal registration and commissions)
+
+**Example - TRMNL:**
+Sent a free e-ink display to YouTuber Snazzy Labs—not a paid sponsorship, just hoping he'd like it. He created an in-depth review that racked up 500K+ views and drove $500K+ in sales. They also set up an affiliate program for ongoing promotion.
+
+Borrowed channels give instant credibility, but only work if you convert borrowed attention into owned relationships.
+
+---
+
