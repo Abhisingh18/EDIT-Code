@@ -301,3 +301,37 @@ export const Bhawna: React.FC = () => {
       </Beat>
 
       {/* thesis — the real challenge */}
+      {f >= 804 && (
+        <AbsoluteFill>
+          <ChapterTag f={f} at={W("real") - 6} num="01" title="The real challenge" style={{ left: 160, top: 228 }} />
+          <div style={{ position: "absolute", left: 160, top: 300, width: 1100 }}>
+            <SyncWords
+              f={f}
+              style={display(80, 650)}
+              gap={24}
+              items={[
+                { t: "How", at: W("how") },
+                { t: "can", at: W("can") },
+                { t: "we", at: W("we", 0) },
+                { t: "bring", at: W("bring") },
+                { t: "modern", at: W("modern") },
+                { t: "AI", at: W("ai", 2) },
+                { t: "into", at: W("to", 4) },
+                { t: "the", at: W("the", 6) },
+                { t: "organisation", at: W("organization", 1) },
+              ]}
+            />
+            <div style={{ marginTop: 16, position: "relative", display: "inline-block" }}>
+              <SyncWords
+                f={f}
+                style={display(80, 700, C.hero)}
+                gap={24}
+                items={[
+                  { t: "without", at: W("without") },
+                  { t: "sending", at: W("sending") },
+                  { t: "data", at: W("data", 1) },
+                  { t: "outside?", at: W("outside") },
+                ]}
+              />
+              <div
+                style={{
