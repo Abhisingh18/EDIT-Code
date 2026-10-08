@@ -79,3 +79,30 @@ duck = np.interp(ts, tc, env).astype(np.float32)[:, None]
 
 # ---------- music: section levels (pause level during dialogue; ducking does the rest) ----------
 BED = [(0, 0), (0.4, 0), (1.67, 0.42), (7.2, 0.46), (8.73, 0.34), (9.7, 0.2),
+       (43.0, 0.2), (43.9, 0.0), (46.7, 0.0), (46.85, 0.2),           # half-second of silence, then the reveal
+       (93.4, 0.2), (93.9, 0.4), (95.0, 0.4), (95.9, 0.2),            # 03 sting
+       (148.0, 0.2), (151.0, 0.3), (153.0, 0.55),                     # magic moment -> outro
+       (166.2, 0.55), (166.6, 0.5), (172.15, 0.5), (172.2, 0.0),      # silence before the final hit
+       (172.78, 0.0), (172.82, 0.52), (176.3, 0.45), (178.0, 0.0)]
+DRUMS = [(0, 0), (4.67, 0), (4.8, 0.62), (7.13, 0.62), (7.8, 0.3), (8.73, 0),
+         (93.87, 0), (94.0, 0.55), (95.07, 0.55), (95.4, 0),
+         (152.9, 0), (153.0, 0.7), (166.0, 0.7), (166.4, 0), (178.0, 0)]
+def auto(keys):
+    k = np.array(keys, np.float64)
+    return np.interp(ts, k[:, 0], k[:, 1]).astype(np.float32)[:, None]
+
+bed = load("public/sfx/music_bed.wav")[:N]
+drums = load("public/sfx/music_drums.wav")[:N]
+# spectral duck: a copy of the bed with the speech band carved out, crossfaded in while people talk
+run(["-i", "public/sfx/music_bed.wav", "-af", "equalizer=f=2500:t=o:w=1.6:g=-6,equalizer=f=1000:t=o:w=1:g=-3,equalizer=f=250:t=o:w=1:g=-2",
+     "-c:a", "pcm_f32le", A + "bed_dip.wav"])
+bed_dip = load(A + "bed_dip.wav")[:N]
+DUCK_DEPTH = 0.5  # -6 dB more under speech (dialogue: ~18 dB below voice; pauses: ~12 dB)
+music = (bed * (1 - duck) + bed_dip * duck) * auto(BED) * (1 - (1 - DUCK_DEPTH) * duck)
+music += drums * auto(DRUMS) * (1 - 0.6 * duck)
+
+# ---------- sfx stem ----------
+sfx = load("out/stem_sfx.wav")[:N]
+if len(sfx) < N:
+    sfx = np.pad(sfx, ((0, N - len(sfx)), (0, 0)))
+sfx *= (1 - 0.4 * duck)  # impacts never sit on top of words
