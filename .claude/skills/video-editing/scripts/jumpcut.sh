@@ -122,3 +122,34 @@ float_add() {
     awk "BEGIN { printf \"%.6f\", $1 + $2 }"
 }
 
+float_sub() {
+    awk "BEGIN { v = $1 - $2; printf \"%.6f\", (v < 0 ? 0 : v) }"
+}
+
+CURRENT_POS="0"
+
+for i in "${!SILENCE_STARTS[@]}"; do
+    SILENCE_START="${SILENCE_STARTS[$i]}"
+    SILENCE_END="${SILENCE_ENDS[$i]:-$VIDEO_DURATION}"
+
+    # Segment ends at silence start + padding
+    SEG_END="$(float_add "$SILENCE_START" "$PADDING")"
+    # Next segment starts at silence end - padding
+    NEXT_START="$(float_sub "$SILENCE_END" "$PADDING")"
+
+    if float_lt "$CURRENT_POS" "$SEG_END"; then
+        SEGMENT_FILE="${TEMP_DIR}/seg_${SEGMENT_COUNT}.${INPUT_EXT}"
+        ffmpeg -y -i "$INPUT_VIDEO" \
+            -ss "$CURRENT_POS" -to "$SEG_END" \
+            -c copy -avoid_negative_ts make_zero \
+            "$SEGMENT_FILE" 2>/dev/null
+
+        if [[ -f "$SEGMENT_FILE" && "$(stat -f%z "$SEGMENT_FILE" 2>/dev/null || stat -c%s "$SEGMENT_FILE" 2>/dev/null)" -gt 0 ]]; then
+            echo "file '${SEGMENT_FILE}'" >> "$SEGMENT_LIST"
+            SEGMENT_COUNT=$((SEGMENT_COUNT + 1))
+        fi
+    fi
+
+    CURRENT_POS="$NEXT_START"
+done
+
