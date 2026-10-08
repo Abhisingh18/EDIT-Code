@@ -226,3 +226,35 @@ if [[ "$DO_SPEED" == true ]]; then
     echo "--- Step: Speed Change (${SPEED_FACTOR}x) ---"
     NEXT="$(next_intermediate)"
 
+    # Calculate inverse for video PTS
+    VIDEO_PTS="$(awk "BEGIN { printf \"%.6f\", 1.0 / $SPEED_FACTOR }")"
+
+    # Audio tempo filter (must be between 0.5 and 100.0)
+    # Chain multiple atempo filters for extreme values
+    build_atempo() {
+        local factor="$1"
+        local filters=""
+
+        # Handle factors > 2.0 by chaining
+        while awk "BEGIN { exit !($factor > 2.0) }"; do
+            if [[ -n "$filters" ]]; then
+                filters="${filters},"
+            fi
+            filters="${filters}atempo=2.0"
+            factor="$(awk "BEGIN { printf \"%.6f\", $factor / 2.0 }")"
+        done
+
+        # Handle factors < 0.5 by chaining
+        while awk "BEGIN { exit !($factor < 0.5) }"; do
+            if [[ -n "$filters" ]]; then
+                filters="${filters},"
+            fi
+            filters="${filters}atempo=0.5"
+            factor="$(awk "BEGIN { printf \"%.6f\", $factor / 0.5 }")"
+        done
+
+        if [[ -n "$filters" ]]; then
+            filters="${filters},"
+        fi
+        filters="${filters}atempo=${factor}"
+        echo "$filters"
