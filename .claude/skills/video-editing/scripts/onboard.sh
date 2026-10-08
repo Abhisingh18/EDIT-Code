@@ -130,3 +130,36 @@ if [[ $errors -gt 0 ]]; then
   echo "    Ubuntu/Debian: sudo apt install ffmpeg"
   echo "    Arch:          sudo pacman -S ffmpeg"
   echo "    Windows:       choco install ffmpeg"
+  echo ""
+  if [[ "$MODE" == "check" ]]; then
+    exit 1
+  fi
+  echo "  Continuing setup anyway (scripts will fail without FFmpeg)."
+  echo ""
+fi
+
+if [[ "$whisper_missing" == true ]]; then
+  echo "  Whisper not found (optional — only needed for captions)."
+  echo "  Install: pip install openai-whisper"
+  echo ""
+fi
+
+if [[ "$MODE" == "check" ]]; then
+  if [[ $errors -eq 0 ]]; then
+    echo "  All required dependencies found."
+  fi
+  echo ""
+  exit 0
+fi
+
+# ── Step 2: Make Scripts Executable ──────────────────────────
+
+echo "  [2/3] Making scripts executable"
+echo "  --------------------------------"
+
+for script in "$SCRIPT_DIR"/*.sh; do
+  name="$(basename "$script")"
+  if [[ ! -x "$script" ]]; then
+    chmod +x "$script"
+    printf "    %-18s %s\n" "$name" "chmod +x"
+  else
