@@ -32,3 +32,37 @@ const KEYS: [number, Cam][] = [
   [798, SPLIT],
   [818, PIP],
 ];
+const camAt = (f: number): Cam => {
+  for (let i = 0; i < KEYS.length - 1; i++) {
+    const [f0, a] = KEYS[i];
+    const [f1, b] = KEYS[i + 1];
+    if (f <= f1) {
+      const p = ei(f, [f0, f1], [0, 1], theme.ease.inOut);
+      const o = {} as Cam;
+      (Object.keys(a) as (keyof Cam)[]).forEach((k) => (o[k] = lerp(a[k], b[k], p)));
+      return o;
+    }
+  }
+  return KEYS[KEYS.length - 1][1];
+};
+
+const PX = 880; // right panel left edge
+const PCX = 1365; // right panel centre
+
+export const Bhawna: React.FC = () => {
+  const f = useCurrentFrame();
+  const cam = camAt(f);
+  const sceneOut = ei(f, [1040, 1053], [0, 1], theme.ease.in);
+
+  return (
+    <AbsoluteFill style={{ opacity: 1 - sceneOut }}>
+      <BgField intensity={0.9} />
+
+      {/* footage layer: full frame -> split card -> face circle */}
+      <AbsoluteFill
+        style={{
+          clipPath: `inset(${cam.t}px ${cam.r}px ${cam.b}px ${cam.l}px round ${cam.rad}px)`,
+          transform: `translate(${cam.tx}px, ${cam.ty}px) scale(${cam.s})`,
+          transformOrigin: "0 0",
+          filter: "saturate(1.04) contrast(1.04)",
+        }}
