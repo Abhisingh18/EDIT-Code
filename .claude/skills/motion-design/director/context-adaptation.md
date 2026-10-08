@@ -54,3 +54,30 @@ Reduced motion means: remove spatial movement, keep opacity, remove spring easin
 ## Content Type Adaptation
 
 | Content Type | Personality | Duration | Motion Density |
+|-------------|-------------|----------|---------------|
+| Financial | Corporate/Premium | 250-500ms | Low |
+| Social media | Playful | 150-300ms | Medium |
+| Enterprise SaaS | Corporate | 200-400ms | Low |
+| Gaming | Energetic | 100-250ms | High |
+| Healthcare | Corporate/Calm | 300-600ms | Very low |
+| E-commerce | Varies | 200-400ms | Medium |
+| Editorial | Premium | 350-600ms | Low |
+| Children's apps | Playful | 150-300ms | High |
+
+## Responsive Motion
+
+| Container Width | Max Displacement | Duration |
+|----------------|-----------------|----------|
+| <400px | 20% of width | 0.8x |
+| 400-800px | 25% of width | 1.0x |
+| 800-1200px | 20% of width | 1.0x |
+| >1200px | 15% of width | 1.1x |
+
+- Small viewport: sequential, one element at a time
+- Medium: standard stagger, 2-3 columns
+- Large: full choreography, center-out stagger, parallax
+
+## Dark Mode
+- Reduce motion intensity 10-20% (bright on dark = more impact)
+- Subtler ambient motion; careful with opacity values
+- Avoid pure white flashes
