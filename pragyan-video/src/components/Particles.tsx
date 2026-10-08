@@ -148,3 +148,33 @@ export const TorusRing: React.FC<{
   burst?: number; // 0..1 release outward
   cx?: number;
   cy?: number;
+}> = ({ f, form, yaw, pitch, radius, opacity = 1, burst = 0, cx = 960, cy = 540 }) => {
+  const focal = radius * 4;
+  return (
+    <svg width={1920} height={1080} style={{ position: "absolute", inset: 0, opacity }}>
+      {TORUS.map((p, i) => {
+        const g = clamp01(form * 1.25 - p.s * 0.25);
+        const R = 1 + burst * (0.25 + p.s * 0.6);
+        const flow = p.u + f * 0.012 * (0.6 + p.s);
+        const x = (R + p.rr * Math.cos(p.v + f * 0.05)) * Math.cos(flow) * g;
+        const y = (R + p.rr * Math.cos(p.v + f * 0.05)) * Math.sin(flow) * g;
+        const z = p.rr * Math.sin(p.v + f * 0.05) * g;
+        const q = rot([x, y, z], yaw, pitch);
+        const pr = project(q, 4, focal, cx, cy);
+        if (!pr) return null;
+        const o = g * (1 - burst) * clamp01(1.4 - (pr.d - 4) * 0.6);
+        const r = Math.max(1.2, (4.6 * pr.k) / focal) * (0.6 + p.s * 0.9);
+        const col = ringColor(flow);
+        return (
+          <g key={i}>
+            {i % 4 === 0 && <circle cx={pr.x} cy={pr.y} r={r * 3.2} fill={col} fillOpacity={o * 0.12} />}
+            <circle cx={pr.x} cy={pr.y} r={r} fill={col} fillOpacity={o} />
+          </g>
+        );
+      })}
+    </svg>
+  );
+};
+
+/* ---------------- particles converging into the logo ---------------- */
+const LP = (logoPts as unknown as { w: number; h: number; pts: [number, number, string][] }).pts;
