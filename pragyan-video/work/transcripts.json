@@ -455,3 +455,41 @@
     "w": "the",
     "s": 33.66,
     "e": 33.84
+   },
+   {
+    "w": "data",
+    "s": 33.84,
+    "e": 34.06
+   },
+   {
+    "w": "outside.",
+    "s": 34.06,
+    "e": 34.62
+   }
+  ]
+ },
+ "shreya": {
+  "lang": "en",
+  "segments": [
+   "[0.11-2.67]  To do exactly that, we built ProGaN.",
+   "[2.81-6.09]  ProGaN is an sovereign on-premises agent-to-care workbench",
+   "[6.09-9.47]  that brings AI productivity inside organization's own security",
+   "[9.47-10.03]  boundary.",
+   "[10.65-12.97]  That means one server, multiple open meet models,",
+   "[13.23-15.71]  and a router that picks right models for the right task.",
+   "[16.55-19.31]  Our vision-based task goes to a vision model, code,",
+   "[19.53-21.81]  your coding model, and a complex reasoning problem",
+   "[21.81-24.75]  for a reasoning model with no manual interconnection.",
+   "[25.15-27.41]  But intelligence isn't alone enough.",
+   "[27.89-31.39]  So ProGaN connects AI to organizations' own knowledge",
+   "[31.39-34.33]  base that includes manuals, SOPs, internal documents,",
+   "[34.55-35.69]  procedures, et cetera.",
+   "[36.37-38.41]  So instead of searching the whole open internet,",
+   "[38.87-41.11]  ProGaN searches in the approved knowledge space",
+   "[41.73-43.97]  with security permissions and clearances.",
+   "[44.19-45.85]  And that helps ProGaN to implement",
+   "[45.85-48.27]  role-based access inside the organization,",
+   "[48.79-51.43]  avoiding any type of internal data fragmentation."
+  ],
+  "words": [
+   {
