@@ -60,3 +60,34 @@ while [[ $# -gt 0 ]]; do
 done
 
 if [[ ! -f "$INPUT_VIDEO" ]]; then
+    echo "Error: Input video not found: $INPUT_VIDEO"
+    exit 1
+fi
+
+INPUT_DIR="$(dirname "$INPUT_VIDEO")"
+INPUT_BASENAME="$(basename "$INPUT_VIDEO" | sed 's/\.[^.]*$//')"
+INPUT_EXT="$(basename "$INPUT_VIDEO" | sed 's/.*\.//')"
+
+if [[ -z "$OUTPUT" ]]; then
+    OUTPUT="${INPUT_DIR}/${INPUT_BASENAME}_jumpcut.${INPUT_EXT}"
+fi
+
+TEMP_DIR="$(mktemp -d)"
+trap 'rm -rf "$TEMP_DIR"' EXIT
+
+echo "Detecting silence..."
+echo "Threshold: ${THRESHOLD}dB, Min duration: ${MIN_SILENCE}s, Padding: ${PADDING}s"
+
+# Detect silence periods
+SILENCE_LOG="${TEMP_DIR}/silence.log"
+ffmpeg -i "$INPUT_VIDEO" \
+    -af "silencedetect=noise=${THRESHOLD}dB:d=${MIN_SILENCE}" \
+    -f null - 2>&1 | grep -E "silence_(start|end)" > "$SILENCE_LOG" || true
+
+if [[ ! -s "$SILENCE_LOG" ]]; then
+    echo "No silence detected — copying input as-is"
+    cp "$INPUT_VIDEO" "$OUTPUT"
+    echo "Output: $OUTPUT"
+    exit 0
+fi
+
