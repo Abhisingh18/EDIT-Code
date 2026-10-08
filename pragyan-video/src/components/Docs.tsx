@@ -49,3 +49,28 @@ export const DocCard: React.FC<{
               </div>
             );
           })
+        : Array.from({ length: rows }).map((_, i) => (
+            <div key={i} style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 12 }}>
+              <div style={{ height: 7, flex: 1, maxWidth: `${60 + ((i * 37) % 35)}%`, background: "#9097A6", borderRadius: 3, opacity: 0.75 }} />
+              {kind === "report" && i % 2 === 0 && (
+                <div style={{ ...mono(10, "#B42318"), fontWeight: 700, border: "1.5px solid #B42318", padding: "1px 5px", borderRadius: 3 }}>
+                  FAIL
+                </div>
+              )}
+            </div>
+          ))}
+      {kind === "report" && (
+        <div
+          style={{
+            position: "absolute", left: 18, right: 18, bottom: 18, border: "2px solid #1C2333",
+            ...mono(11, "#1C2333"), fontWeight: 700, padding: "6px 8px", textAlign: "center",
+          }}
+        >
+          RESULT: FAIL · VALVE REJECTED
+        </div>
+      )}
+    </div>
+  );
+};
+
+// red rubber stamp
