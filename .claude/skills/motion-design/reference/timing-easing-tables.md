@@ -78,3 +78,29 @@ Entrance=ease-out | Exit=ease-in | On-screen=ease-in-out | Looping=sine | Rotati
 | Standard | 250-350 | 18-24 |
 | Bouncy | 150-250 | 10-15 |
 | Very bouncy | 100-200 | 5-10 |
+| Gentle | 100-150 | 20-25 |
+
+Damping: <1.0=oscillates, 1.0=fastest no-oscillation, >1.0=slow settle.
+
+## Stagger Patterns
+
+| Pattern | Delay | Budget |
+|---------|------|--------|
+| Micro cascade | 20-40ms | <200ms |
+| Standard | 50-100ms | <400ms |
+| Dramatic | 100-200ms | <600ms |
+| Wave | 30-60ms | <500ms |
+
+Direction: top-to-bottom (lists) | L-to-R (horizontal) | center-out (hero) | random (organic) | reverse (exits)
+
+Total stagger MUST stay <500ms.
+
+## Overshoot Budget
+
+| Context | Overshoot |
+|---------|-----------|
+| Success | 5-10% |
+| Error | 0% |
+| Feedback | 2-5% |
+| Celebration | 15-25% |
+| Premium | 0% |
