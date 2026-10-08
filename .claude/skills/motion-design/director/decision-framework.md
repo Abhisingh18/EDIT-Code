@@ -21,3 +21,26 @@
 ### 3. Context?
 - Busy layout → simpler motion; Empty → can be dramatic
 - Other animations active → coordinate or stagger
+- Small container → small motion
+
+## 4-Level Decision Hierarchy
+
+### Level 1: Motion Category
+
+| Category | When |
+|----------|------|
+| Revealing | Content appearing |
+| Concealing | Content disappearing |
+| Transitioning | Between states/views |
+| Emphasizing | Drawing attention |
+| Responding | Reacting to interaction |
+| Ambient | Background atmosphere |
+
+### Level 2: Motion Personality
+Match to brand. See [motion-personality.md](motion-personality.md).
+
+### Level 3: Motion Direction
+
+| Direction | Communicates |
+|-----------|-------------|
+| Upward | Growth, aspiration |
