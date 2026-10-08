@@ -92,3 +92,34 @@ export const ColdOpen: React.FC = () => {
 
       <Lattice f={f} spawnAt={36} camZ={camZ} yaw={yaw} pitch={pitch} opacity={latticeO} />
       {f < 72 && <PointOfLight size={pointSize} o={ei(f, [12, 16], [0, 1])} />}
+
+      {/* the hook */}
+      {f >= 54 && f < 142 && (
+        <AbsoluteFill
+          style={{
+            alignItems: "center",
+            justifyContent: "center",
+            opacity: 1 - hookOut,
+            transform: `translateY(${-30 * hookOut}px)`,
+          }}
+        >
+          <div style={{ textAlign: "center" }}>
+            <MaskLine f={f} at={58}>
+              <div style={{ ...display(84, 600), color: C.dim }}>What if your AI</div>
+            </MaskLine>
+            <MaskLine f={f} at={70}>
+              <div style={display(84, 700)}>
+                never left <span style={{ color: C.hero }}>the building?</span>
+              </div>
+            </MaskLine>
+          </div>
+        </AbsoluteFill>
+      )}
+
+      {/* the problem: kinetic type cut on the beat */}
+      {phrase >= 0 && (() => {
+        const p = PHRASES[phrase];
+        const l = f - p.at;
+        const split = ei(l, [0, 7], [10, 0]);
+        return (
+          <AbsoluteFill>
