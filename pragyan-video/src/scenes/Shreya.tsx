@@ -175,3 +175,38 @@ export const Shreya: React.FC = () => {
               <div style={{ position: "absolute", left: 1420, top: 222 }}>
                 <MaskLine f={f} at={W("open", 0)}>
                   <span style={mono(14, C.dim)}>Open-weight models</span>
+                </MaskLine>
+              </div>
+              {MODELS.map((m, i) => {
+                const p = sp(f, W("multiple") + i * 6);
+                const on = active === i;
+                const dimmed = active >= 0 && !on;
+                return (
+                  <div
+                    key={m.name}
+                    style={{
+                      position: "absolute", left: 1420, top: m.cy - 65, width: 400, height: 130, ...glass(),
+                      border: `1px solid ${on ? C.hero : "rgba(255,255,255,0.11)"}`,
+                      boxShadow: on ? `0 0 46px rgba(255,122,26,0.28), 0 34px 80px -26px rgba(0,0,0,0.8)` : glass().boxShadow,
+                      display: "flex", alignItems: "center", gap: 22, padding: "0 28px", boxSizing: "border-box",
+                      opacity: p * (dimmed ? 0.5 : 1), transform: `translateX(${(1 - p) * 60}px) scale(${on ? 1.03 : 1})`,
+                    }}
+                  >
+                    <div style={{ width: 66, height: 66, borderRadius: 33, background: "rgba(255,255,255,0.06)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                      <Icon name={m.icon} size={34} color={on ? C.hero : C.text} stroke={1.6} />
+                    </div>
+                    <div>
+                      <div style={display(32, 650)}>{m.name}</div>
+                      <div style={{ ...mono(13, C.dim), letterSpacing: "0.06em", textTransform: "none", marginTop: 6 }}>{m.model}</div>
+                    </div>
+                  </div>
+                );
+              })}
+              {/* task tokens travelling server -> router -> model */}
+              {[
+                { label: "Scanned drawing", icon: "eye" },
+                { label: "Python check", icon: "code" },
+                { label: "Root-cause analysis", icon: "bulb" },
+              ].map((tk, i) => {
+                const t0 = EV[i];
+                if (f < t0 - 2 || f > arrive(i) + 4) return null;
