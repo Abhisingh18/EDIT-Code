@@ -26,3 +26,31 @@ More than one glowing element per frame = Vegas. Don't.
 - Numbers: animated counters with tabular-nums (see motion-patterns §9).
 
 ## Scene architecture
+30s Reel structure:
+```
+0.0–1.5s  HOOK    boldest visual + claim. Movement within the FIRST 15 frames.
+1.5–3.0s  CONTEXT one line, one visual, still moving.
+3–22s     BODY    3–4 beats. Each beat: HIT -> hold (15–20 still frames) -> build.
+22–27s    PAYOFF  the result/number/demo. Biggest animation of the video.
+27–30s    CTA     one action, calm, glow on the CTA word.
+```
+- New visual element at least every 90 frames.
+- Holds are a design tool: fast move -> complete stillness -> next move.
+  Constant motion reads amateur; contrast reads expensive.
+- 9:16 safe zone: critical text inside the middle ~75% vertically (platform UI
+  covers top and bottom).
+- 5s logo stings: mark in (0–0.8s) -> wordmark (0.6–1.8s) -> detail/tagline
+  (2–3.5s) -> breathe -> exit (last 0.5s).
+
+## Sound design (50% of perceived quality — never deliver silent unless asked)
+- Every entrance HIT: short whoosh/click starting 2–3 frames BEFORE the visual
+  lands (early feels synced; late feels broken).
+- Transitions: riser into the cut, bass hit ON the cut.
+- Counters: soft tick loop while counting.
+- Music bed at low volume (~0.2–0.3), ducked further under VO.
+- Pick music FIRST when possible; compute framesPerBeat = fps*60/BPM and place
+  cuts on beats.
+- Free SFX sources to suggest: Pixabay, Mixkit, freesound.org. A 10-file kit
+  covers everything: 2 whooshes, 2 clicks, riser, bass hit, shimmer, tick, pop,
+  reverse-swoosh.
+
