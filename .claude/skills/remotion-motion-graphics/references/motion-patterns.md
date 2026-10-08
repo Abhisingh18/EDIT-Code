@@ -121,3 +121,34 @@ const Grain: React.FC = () => {
   return <AbsoluteFill style={{ pointerEvents: "none",
     backgroundImage: noise, backgroundSize: "220px",
     backgroundPosition: `${(frame * 7) % 220}px ${(frame * 13) % 220}px`, // film flicker
+    opacity: 0.05, mixBlendMode: "multiply" }}/>; // "overlay" on dark themes
+};
+```
+
+## 7. Vignette (topmost layer)
+```tsx
+const Vignette: React.FC = () => (
+  <AbsoluteFill style={{ pointerEvents: "none", background:
+    "radial-gradient(ellipse at center, transparent 56%, rgba(0,0,0,0.22) 100%)" }}/>
+);
+```
+
+## 8. Ken Burns — every still, no exceptions
+```tsx
+const KenBurns: React.FC<{src: string; zoomTo?: number}> = ({ src, zoomTo = 1.1 }) => {
+  const frame = useCurrentFrame();
+  const { durationInFrames } = useVideoConfig();
+  const scale = interpolate(frame, [0, durationInFrames], [1, zoomTo],
+    { easing: theme.ease.inOut });
+  const pan = interpolate(frame, [0, durationInFrames], [0, -25]);
+  return <Img src={staticFile(src)} style={{ width: "100%", height: "100%",
+    objectFit: "cover", transform: `scale(${scale}) translateX(${pan}px)` }}/>;
+};
+```
+Alternate zoom-in/zoom-out between consecutive shots. Mask into rounded cards:
+`borderRadius: 32, overflow: "hidden", border: "1px solid rgba(255,255,255,0.08)",
+boxShadow: "0 40px 80px -20px rgba(0,0,0,0.6)"`.
+
+## 9. Animated counter
+```tsx
+const value = interpolate(
