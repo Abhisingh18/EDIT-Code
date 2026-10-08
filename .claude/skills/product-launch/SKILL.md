@@ -102,3 +102,38 @@ Borrowed channels give instant credibility, but only work if you convert borrowe
 
 ---
 
+## Readiness Gate: Are You Ready to Launch?
+
+Run this **before** the phased mechanics. Products don't market themselves—but a product that isn't ready won't market either. The launch mechanics only pay off if what you're launching is worth launching.
+
+Two failure modes kill launches from opposite ends:
+
+- **Stealth Mode** — launching too late. "Procrastination in a fancy suit." You keep polishing in private, waiting for the product to be perfect. It never ships, and nobody learns you exist.
+- **"Just One More Feature"** — never launching. Every proposed launch date gets pushed for one more thing. The scope creeps forever; the launch never comes.
+
+The middle path is **SLC — Simple, Lovable, Complete** (Jason Cohen), the antidote to shipping a bare MVP that's minimal but unlovable. Don't launch a stub nobody wants; don't wait for a bloated everything-app. A launchable v1 is:
+
+- **Simple** — it does *one* thing. Not many things poorly. One clear job, done well.
+- **Lovable** — people *want* to use it, not just tolerate it. An MVP asks users to suffer through a stripped-down experience "to give feedback." SLC gives them something they'd choose. If nobody would be sad to lose it, it isn't lovable yet.
+- **Complete** — it's a *whole* experience for that one thing, not a stub with obvious holes. Complete at its chosen scope, not a teaser of a bigger promise.
+
+**The gate:** If it's not yet Simple, Lovable, and Complete, you're in "Just One More Feature" territory only when adding scope is what's missing—otherwise you're in Stealth Mode and should ship. Cut scope until one thing is lovable and complete, then launch that. SLC gives you a real launch now instead of a perfect launch never.
+
+**Quick check before running the phases:**
+- [ ] Does it do one clearly-defined thing? (Simple)
+- [ ] Would a target user *choose* to use it, not just endure it? (Lovable)
+- [ ] Is that one thing a whole experience, with no glaring stubs? (Complete)
+- [ ] Are you polishing past this bar? → Stop. You're in Stealth Mode. Ship.
+- [ ] Are you still adding new things to the scope? → Stop. You're in "Just One More Feature." Cut back to SLC.
+
+Pass the gate, then run the phases below.
+
+---
+
+## Five-Phase Launch Approach
+
+Launching isn't a one-day event. It's a phased process that builds momentum.
+
+### Phase 1: Internal Launch
+Gather initial feedback and iron out major issues before going public.
+
