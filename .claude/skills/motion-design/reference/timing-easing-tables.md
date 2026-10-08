@@ -51,3 +51,30 @@ Entrance=ease-out | Exit=ease-in | On-screen=ease-in-out | Looping=sine | Rotati
 | MD3 Standard | (0.2, 0, 0, 1) | Default on-screen |
 | MD3 Emphasized | (0.05, 0.7, 0.1, 1) | Entrances |
 | MD3 Accelerate | (0.3, 0, 1, 1) | Exits |
+| MD3 Decelerate | (0, 0, 0, 1) | Entering |
+| Apple HIG | (0.25, 0.1, 0.25, 1) | iOS default |
+| Apple Spring | stiffness:300 damping:20 | Interactive |
+| Snappy UI | (0.2, 0, 0, 1) | Fast, decisive |
+| Gentle float | (0.4, 0, 0.2, 1) | Ambient |
+| Bounce settle | (0.175, 0.885, 0.32, 1.275) | Playful |
+| Elastic snap | (0.68, -0.55, 0.265, 1.55) | Dramatic |
+
+## Material-Based Easing
+
+| Material | Duration Scale | Overshoot |
+|----------|---------------|-----------|
+| Rigid (metal) | 1.2x | 0% |
+| Elastic (rubber) | 0.8x | 15-25% |
+| Fluid (water) | 1.5x | 5% |
+| Paper (cards) | 1.0x | 3-5% |
+| Gas (smoke) | 2.0x | 0% |
+| Glass | 0.9x | 0% |
+
+## Spring Parameters
+
+| Feel | Stiffness | Damping |
+|------|-----------|---------|
+| Very stiff | 400+ | 25-30 |
+| Standard | 250-350 | 18-24 |
+| Bouncy | 150-250 | 10-15 |
+| Very bouncy | 100-200 | 5-10 |
