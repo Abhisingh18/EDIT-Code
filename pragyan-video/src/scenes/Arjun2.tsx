@@ -67,3 +67,37 @@ const Graphic: React.FC<{ g: string; f: number; t0: number }> = ({ g, f, t0 }) =
             <div key={t as string} style={stag(f, S(a as number))}><Pill icon={ic as string} text={t as string} /></div>
           ))}
           <div style={{ ...stag(f, S(7.6)), display: "flex", alignItems: "center", gap: 12, marginTop: 8, padding: "12px 14px", borderRadius: 14, border: `1.5px solid ${C.hero}`, boxShadow: `0 0 30px ${C.glow}`, background: "rgba(255,122,26,0.08)" }}>
+            <Icon name="server" size={22} color={C.hero} /><span style={display(22, 650)}>Pragyan server</span>
+          </div>
+          <div style={stag(f, S(8.6))}><Pill icon="shield" text="Admin panel · knowledge & access" tone={C.accent} /></div>
+        </div>
+      );
+    case "catalogue": {
+      const lv = [["Public", C.dim], ["Internal", C.accent], ["Confidential", C.warn], ["Restricted", C.bad]];
+      return (
+        <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+          <div style={stag(f, S(18.2))}><Pill icon="db" text="Collections" /></div>
+          <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
+            {lv.map(([t, c], k) => (
+              <div key={t} style={{ ...stag(f, S(19.6) + k * 4), ...mono(11, c), padding: "6px 9px", borderRadius: 8, border: `1.5px solid ${c}` }}>{t}</div>
+            ))}
+          </div>
+          <div style={stag(f, S(21.6))}><Pill icon="scan" text="Scanned pages read" tone={C.ok} /></div>
+          <div style={stag(f, S(24.4))}><Pill icon="file" text="Searchable · page references" tone={C.ok} /></div>
+          <div style={stag(f, S(26.5))}><Pill icon="alert" text="Rev 3 superseded → Rev 4 linked" tone={C.warn} /></div>
+        </div>
+      );
+    }
+    case "graph": {
+      const N = [
+        { x: 60, y: 60, t: "PSV-2034", k: "eq", a: 34.4 }, { x: 250, y: 40, t: "SOP-CDU-014", k: "doc", a: 36.8 },
+        { x: 160, y: 160, t: "INS-2026-118", k: "doc", a: 35.6 }, { x: 40, y: 240, t: "PSV-2035", k: "eq", a: 37.7 },
+        { x: 270, y: 220, t: "V-201", k: "eq", a: 38.4 },
+      ];
+      const E = [[0, 1], [0, 2], [2, 1], [0, 3], [0, 4], [4, 1], [3, 2]];
+      return (
+        <div style={{ position: "relative", width: RW, height: 330 }}>
+          <svg width={RW} height={290} style={{ position: "absolute", inset: 0 }}>
+            {E.map(([a2, b2], k) => {
+              const p = ei(f, [S(37.7) + k * 5, S(37.7) + 16 + k * 5], [0, 1], theme.ease.inOut);
+              return <line key={k} x1={N[a2].x} y1={N[a2].y} x2={lerp(N[a2].x, N[b2].x, p)} y2={lerp(N[a2].y, N[b2].y, p)} stroke="rgba(255,255,255,0.35)" strokeWidth={1.5} />;
