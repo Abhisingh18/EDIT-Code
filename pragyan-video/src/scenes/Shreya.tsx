@@ -421,3 +421,38 @@ export const Shreya: React.FC = () => {
                     <div style={{ width: 230, display: "flex", alignItems: "center", gap: 16 }}>
                       <Icon name="user" size={28} color={C.dim} />
                       <span style={display(30, 600)}>{r.t}</span>
+                    </div>
+                    {r.ok.map((ok, ci) => {
+                      const p = sp(f, base + ri * 7 + ci * 3, theme.spring.snappy);
+                      return (
+                        <div key={ci} style={{ width: 190 }}>
+                          <div
+                            style={{
+                              width: 54, height: 54, borderRadius: 14, display: "flex", alignItems: "center", justifyContent: "center",
+                              background: ok ? "rgba(52,211,153,0.12)" : "rgba(255,255,255,0.04)",
+                              border: `1px solid ${ok ? "rgba(52,211,153,0.45)" : "rgba(255,255,255,0.1)"}`,
+                              opacity: p, transform: `scale(${0.6 + 0.4 * p})`,
+                            }}
+                          >
+                            <Icon name={ok ? "check" : "lock"} size={26} color={ok ? C.ok : C.faint} stroke={2} />
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                ))}
+              </div>
+              <div style={{ position: "absolute", left: 794, top: 760 }}>
+                <MaskLine f={f} at={W("inside", 1)}>
+                  <span style={mono(16, C.dim)}>Same question · different clearance · different answer</span>
+                </MaskLine>
+              </div>
+              <Chip f={f} at={W("avoiding")} icon="check" label="No internal data fragmentation" tone="ok" style={{ position: "absolute", left: 790, top: 820 }} />
+            </>
+          );
+        })()}
+      </Beat>
+
+      {/* sound */}
+      <Sfx at={172} name="whoosh" vol={0.18} />
+      <Sfx at={W("inside", 0) - 10} name="whoosh" vol={0.1} />
