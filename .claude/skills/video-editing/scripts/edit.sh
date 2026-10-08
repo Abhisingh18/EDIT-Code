@@ -31,3 +31,35 @@ set -euo pipefail
 #   ./edit.sh video.mp4 --trim-start 00:00:10 --trim-end 00:05:00 --speed 1.25
 #   ./edit.sh video.mp4 --jumpcut --overlay-text "Subscribe!" --overlay-start 00:01:00
 
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+
+print_usage() {
+    sed -n '3,28p' "$0" | sed 's/^# \?//'
+}
+
+if [[ $# -lt 1 ]]; then
+    print_usage
+    exit 1
+fi
+
+INPUT_VIDEO="$1"
+shift
+
+if [[ ! -f "$INPUT_VIDEO" ]]; then
+    echo "Error: Input video not found: $INPUT_VIDEO"
+    exit 1
+fi
+
+# Operation flags
+DO_TRIM=false
+TRIM_START=""
+TRIM_END=""
+TRIM_DURATION=""
+
+DO_JUMPCUT=false
+JUMPCUT_THRESHOLD="-30"
+JUMPCUT_DURATION="0.5"
+JUMPCUT_PADDING="0.1"
+
+DO_CAPTION=false
+CAPTION_STYLE="standard"
