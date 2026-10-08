@@ -335,3 +335,37 @@ export const Bhawna: React.FC = () => {
               />
               <div
                 style={{
+                  position: "absolute", left: 0, bottom: -8, height: 4, borderRadius: 2, background: C.hero,
+                  width: `${ei(f, [W("outside") + 2, W("outside") + 22], [0, 100], theme.ease.inOut)}%`,
+                }}
+              />
+            </div>
+          </div>
+          {/* organisation boundary keeps data in */}
+          {(() => {
+            const bp = sp(f, 830, theme.spring.soft);
+            return (
+              <div
+                style={{
+                  position: "absolute", left: 1330, top: 300, width: 470, height: 470, borderRadius: 36,
+                  border: "2px dashed rgba(255,255,255,0.28)", opacity: bp, transform: `scale(${0.9 + 0.1 * bp})`,
+                }}
+              >
+                <div style={{ position: "absolute", left: 24, top: 20, display: "flex", gap: 10, alignItems: "center" }}>
+                  <Icon name="building" size={20} color={C.dim} />
+                  <span style={mono(14, C.dim)}>Your organisation</span>
+                </div>
+                {Array.from({ length: 22 }).map((_, i) => {
+                  const vx = (rnd(i + 3) - 0.5) * 7, vy = (rnd(i + 9) - 0.5) * 7;
+                  const tri = (v: number, span: number) => {
+                    const m = ((v % (2 * span)) + 2 * span) % (2 * span);
+                    return m < span ? m : 2 * span - m;
+                  };
+                  const x = tri(rnd(i) * 400 + vx * (f - 830), 410) + 20;
+                  const y = tri(rnd(i + 50) * 380 + vy * (f - 830), 380) + 60;
+                  return <div key={i} style={{ position: "absolute", left: x, top: y, width: 8, height: 8, borderRadius: 4, background: i % 7 === 0 ? C.accent : C.text, opacity: 0.75 }} />;
+                })}
+              </div>
+            );
+          })()}
+          <div style={{ position: "absolute", left: 330, top: 846, opacity: ei(f, [826, 846], [0, 1]) }}>
