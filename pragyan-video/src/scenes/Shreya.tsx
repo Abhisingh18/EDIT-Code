@@ -315,3 +315,39 @@ export const Shreya: React.FC = () => {
                         return (
                           <div key={k} style={{
                             position: "absolute", left: bez(1480, 1410, 1410, 1345, t) - 4, top: bez(d.cy, d.cy, 545, 545, t) - 4,
+                            width: 8, height: 8, borderRadius: 4, background: C.text, opacity: 0.8 * Math.sin(Math.PI * t),
+                          }} />
+                        );
+                      })}
+                  </React.Fragment>
+                );
+              })}
+            </>
+          );
+        })()}
+      </Beat>
+
+      {/* B4 — not the open internet: the approved knowledge space */}
+      <Beat f={f} from={1036} to={1252}>
+        <Header f={f} at={1040} text="Approved knowledge only" />
+        {(() => {
+          const webP = sp(f, W("instead") - 4);
+          const kill = ei(f, [W("internet"), W("internet") + 10], [0, 1], theme.ease.out);
+          const coreP = sp(f, W("progan", 3) - 4);
+          const beam = ei(f, [W("progan", 3) + 4, W("approved")], [0, 1], theme.ease.inOut);
+          const okP = sp(f, W("approved") - 4);
+          return (
+            <>
+              <div
+                style={{
+                  position: "absolute", left: 830, top: 290, width: 380, height: 440, ...glass(), display: "flex", flexDirection: "column",
+                  alignItems: "center", justifyContent: "center", gap: 18, opacity: webP * (1 - kill * 0.55),
+                  transform: `translateY(${(1 - webP) * 40}px)`, filter: `grayscale(${kill})`,
+                }}
+              >
+                <Icon name="globe" size={96} color={C.text} stroke={1.2} />
+                <div style={display(36, 650)}>Open internet</div>
+                <div style={{ ...mono(12, C.faint), letterSpacing: "0.1em" }}>unverified · uncontrolled</div>
+              </div>
+              {kill > 0 && (
+                <>
