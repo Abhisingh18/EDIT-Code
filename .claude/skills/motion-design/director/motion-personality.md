@@ -43,3 +43,25 @@ Use for: enterprise, dashboards, business tools, admin, healthcare, banking.
 
 ### Energetic / Dynamic
 
+| Parameter | Value |
+|-----------|-------|
+| Duration | 100-250ms |
+| Easing | ease-out-expo / elastic |
+| Overshoot | 15-30% |
+| Paths | Dramatic arcs, large displacement, diagonal |
+| Squash-stretch | Yes, exaggerated |
+
+Signature: large scale changes (50-150%), fast color transitions, particle bursts, accelerating stagger, bold edge entrances.
+Use for: gaming, sports, music, events, marketing, fitness apps.
+
+## Keyword Matching
+
+| Keywords | Archetype |
+|----------|-----------|
+| fun, whimsical, bouncy, cute, friendly | Playful |
+| elegant, minimal, luxury, sophisticated | Premium |
+| clean, professional, business, dashboard | Corporate |
+| dynamic, energetic, bold, exciting | Energetic |
+| (unspecified) + UI | Corporate (default) |
+| (unspecified) + illustration | Playful (default) |
+
