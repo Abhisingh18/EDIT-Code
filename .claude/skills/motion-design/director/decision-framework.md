@@ -44,3 +44,26 @@ Match to brand. See [motion-personality.md](motion-personality.md).
 | Direction | Communicates |
 |-----------|-------------|
 | Upward | Growth, aspiration |
+| Downward | Settling, completion |
+| Leftward | Regression, departure |
+| Rightward | Progression, arrival |
+| Outward (scale up) | Importance, emergence |
+| Inward (scale down) | Dismissal, removal |
+| Center-seeking | Focus, convergence |
+| Center-fleeing | Distribution, release |
+
+### Level 4: Implementation Properties
+Choose animated properties. See [property-selection.md](../reference/property-selection.md).
+
+## Decision Quick-Path
+
+```
+1. PURPOSE → What does this motion DO?
+   ├── Feedback → short, ease-out, minimal
+   ├── Entrance → ease-out, personality-matched
+   ├── Exit → ease-in, 70% of entrance
+   ├── Emphasis → scale or color pulse
+   └── Ambient → slow, continuous, sine
+
+2. PERSONALITY → Match keywords
+   ├── Fun/bouncy → Playful
