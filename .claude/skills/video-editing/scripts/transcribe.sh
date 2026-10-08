@@ -25,3 +25,30 @@ if [[ $# -lt 1 ]]; then
     print_usage
     exit 1
 fi
+
+INPUT_FILE="$1"
+shift
+
+MODEL="base"
+LANGUAGE=""
+OUTPUT=""
+
+while [[ $# -gt 0 ]]; do
+    case "$1" in
+        --model)
+            MODEL="$2"
+            shift 2
+            ;;
+        --language)
+            LANGUAGE="$2"
+            shift 2
+            ;;
+        --output)
+            OUTPUT="$2"
+            shift 2
+            ;;
+        *)
+            echo "Error: Unknown option '$1'"
+            print_usage
+            exit 1
+            ;;
