@@ -187,3 +187,35 @@ Select ONE archetype per project. Apply consistently.
 6. **Staging**: Other cards dim to 80%
 
 ### Success State (Playful)
+1. **Primary**: Scale pop with ease-out-back
+2. **Secondary**: Checkmark draws in
+3. **Ambient**: Subtle particle burst
+4. **Color**: Green fill
+5. **Total**: 300-400ms
+
+### Error Shake (Corporate)
+1. **Primary**: Position oscillates 2-3 times, ±10-15px horizontal
+2. **Easing**: ease-in-out for sharp stops
+3. **Color**: Red tint
+4. **Total**: 300-400ms
+5. **No overshoot**: Errors feel firm
+
+> More patterns: [patterns/entrance-exit.md](patterns/entrance-exit.md) | [patterns/state-feedback.md](patterns/state-feedback.md)
+
+---
+
+## Choreography Essentials
+
+**Coordinated entry**:
+- Lead with the hero — primary element enters first or most prominently
+- Spatial consistency — all elements enter from same direction
+- Counter-motion — hero moves right → ambient moves left at 20-30% speed
+
+**1/3 Rule (distance)**: No motion travels more than 1/3 of screen without a keyframe change.
+
+**1/3 Rule (elements)**: With 3+ elements, no more than 1/3 in active motion simultaneously.
+
+**Stagger budgets**:
+
+| Pattern | Delay | Total Budget | Use Case |
+|---------|-------|-------------|----------|
