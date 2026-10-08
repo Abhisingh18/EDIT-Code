@@ -26,3 +26,31 @@
 | Complex choreography | Single fade |
 | Continuous ambient | Static or subtle opacity pulse |
 
+Reduced motion means: remove spatial movement, keep opacity, remove spring easing, reduce duration 50%+, never auto-play loops.
+
+### Vestibular Triggers (avoid or provide alternatives)
+- Large-scale zoom, full-screen position transitions
+- Spinning elements >100px, parallax >2 layers, rapid direction changes
+
+### Cognitive Accessibility
+- Same interaction = same animation every time
+- Pause controls for animations >5 seconds
+- Don't convey critical info through motion alone
+
+## Performance Budgets
+
+| Tier | Properties | Max Elements |
+|------|-----------|-------------|
+| Optimal | transform, opacity | Unlimited (GPU) |
+| Good | + color, clip-path | 10-15 |
+| Acceptable | + width, height, margin | 5-8 |
+| Avoid | box-shadow, border-radius, filter | 1-3 |
+
+- Target 60fps (16.67ms/frame); animation logic <10ms/frame
+- will-change sparingly; keep animated elements <20 per viewport
+- Stagger reduces peak load vs simultaneous
+- Fallback: 30fps acceptable for ambient
+
+## Content Type Adaptation
+
+| Content Type | Personality | Duration | Motion Density |
