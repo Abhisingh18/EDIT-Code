@@ -26,3 +26,30 @@ opacity-only fades, simultaneous entrances, flat colors, and no texture. That is
 7. **Idle elements breathe**: anything on screen >2s gets sin-wave micro-motion.
 8. **All timing derives from `fps`** via `useVideoConfig()`. No magic frame numbers.
 9. **One theme object** at the top of the project (colors, easings, spring presets,
+   fonts). Never inline a hex color or easing in a component.
+10. **Render, extract frames, LOOK at them, fix, re-render.** Never deliver an
+    unverified render. This loop is mandatory — see Verification below.
+
+## Workflow
+
+### Step 1 — Scope
+Determine: duration, fps (30 default; 60 only for heavy fast motion), dimensions
+(1080×1920 Reels/Shorts, 1920×1080 landscape), what assets exist (images, footage,
+audio, logos), and whether this is a new composition or an edit to an existing project.
+If editing an existing project: read `src/` fully first, find the theme (or create one),
+and refactor violations of the rules above before adding features.
+
+### Step 2 — Setup
+New project:
+```bash
+npm install remotion @remotion/cli react react-dom
+# optional: @remotion/transitions @remotion/motion-blur @remotion/google-fonts
+```
+Copy `assets/theme.ts` from this skill into `src/theme.ts` and adjust the palette to
+the user's brand. Structure: `src/index.ts` (registerRoot) → `src/Root.tsx`
+(Composition, duration/fps/size) → `src/scenes/*.tsx` → `src/components/*.tsx`.
+User assets go in `public/`, loaded via `staticFile()`.
+
+### Step 3 — Build
+Read `references/motion-patterns.md` for the reusable component implementations
+(BgMesh, Grade, Grain, Vignette, KenBurns, WordReveal, Stagger, Counter, Spark,
