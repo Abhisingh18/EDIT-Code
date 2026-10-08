@@ -49,3 +49,29 @@ while [[ $# -gt 0 ]]; do
             ;;
         --output)
             OUTPUT="$2"
+            shift 2
+            ;;
+        *)
+            echo "Error: Unknown option '$1'"
+            print_usage
+            exit 1
+            ;;
+    esac
+done
+
+if [[ ! -f "$INPUT_VIDEO" ]]; then
+    echo "Error: Input video not found: $INPUT_VIDEO"
+    exit 1
+fi
+
+if [[ -z "$START" && -z "$END" && -z "$DURATION" ]]; then
+    echo "Error: Specify at least --start, --end, or --duration"
+    print_usage
+    exit 1
+fi
+
+INPUT_DIR="$(dirname "$INPUT_VIDEO")"
+INPUT_BASENAME="$(basename "$INPUT_VIDEO" | sed 's/\.[^.]*$//')"
+INPUT_EXT="$(basename "$INPUT_VIDEO" | sed 's/.*\.//')"
+
+if [[ -z "$OUTPUT" ]]; then
