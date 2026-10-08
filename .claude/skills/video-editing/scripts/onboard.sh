@@ -97,3 +97,36 @@ fi
 if has_cmd ffprobe; then
   print_ok "ffprobe" "bundled with ffmpeg"
 else
+  print_fail "ffprobe"
+  errors=$((errors + 1))
+fi
+
+# Whisper (optional — only needed for captions)
+whisper_missing=false
+if has_cmd whisper; then
+  print_ok "whisper" "captions enabled"
+else
+  print_skip "whisper" "captions unavailable"
+  whisper_missing=true
+  warnings=$((warnings + 1))
+fi
+
+# Bash version check
+bash_version="${BASH_VERSION%%(*}"
+if [[ "${BASH_VERSINFO[0]}" -ge 4 ]]; then
+  print_ok "bash" "$bash_version"
+else
+  print_ok "bash" "$bash_version — v4+ recommended"
+  warnings=$((warnings + 1))
+fi
+
+echo ""
+
+if [[ $errors -gt 0 ]]; then
+  echo "  BLOCKED: $errors required dependency missing."
+  echo ""
+  echo "  Install FFmpeg:"
+  echo "    macOS:        brew install ffmpeg"
+  echo "    Ubuntu/Debian: sudo apt install ffmpeg"
+  echo "    Arch:          sudo pacman -S ffmpeg"
+  echo "    Windows:       choco install ffmpeg"
