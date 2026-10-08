@@ -234,3 +234,37 @@ export const Bhawna: React.FC = () => {
             </>
           );
         })()}
+      </Beat>
+
+      {/* P4 — two options, both bad */}
+      <Beat f={f} from={502} to={800}>
+        <div style={{ position: "absolute", left: PX, top: 196 }}>
+          <MaskLine f={f} at={508}>
+            <span style={mono(17, C.dim)}>So they're left with two options</span>
+          </MaskLine>
+        </div>
+        {(() => {
+          const aP = sp(f, W("either") - 4);
+          const bP = sp(f, W("secondly") - 4);
+          const hrs = ei(f, [W("wasting") - 6, W("hours") + 24], [0, 3], theme.ease.out);
+          const leak = f - W("pasting");
+          const card = (y: number, p: number, dim: number): React.CSSProperties => ({
+            position: "absolute", left: PX, top: y, width: 970, height: 230, ...glass(),
+            opacity: p * (1 - dim * 0.5), transform: `translateY(${(1 - p) * 50}px)`,
+            display: "flex", alignItems: "center", padding: "0 44px", boxSizing: "border-box", gap: 30,
+          });
+          return (
+            <>
+              <div style={card(270, aP, ei(f, [W("secondly"), W("secondly") + 12], [0, 1]))}>
+                <div style={mono(18, C.faint)}>01</div>
+                <div style={{ width: 88, height: 88, borderRadius: 44, background: "rgba(255,255,255,0.06)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                  <Icon name="clock" size={46} color={C.text} stroke={1.5} />
+                </div>
+                <div style={{ flex: 1 }}>
+                  <div style={display(42, 650)}>Do it all manually</div>
+                  <div style={{ ...display(22, 450, C.dim), letterSpacing: 0, marginTop: 8 }}>Read, cross-check and draft by hand.</div>
+                </div>
+                <div style={{ textAlign: "right" }}>
+                  <div style={{ ...display(76, 700), fontVariantNumeric: "tabular-nums" }}>{hrs.toFixed(1)}</div>
+                  <div style={mono(14, C.dim)}>hours lost</div>
+                </div>
