@@ -129,3 +129,36 @@ START_SEC="$(timestamp_to_seconds "$START")"
 if [[ -n "$END" ]]; then
     END_SEC="$(timestamp_to_seconds "$END")"
 else
+    END_SEC="$(awk "BEGIN { printf \"%.3f\", $START_SEC + 5 }")"
+fi
+
+# Build position coordinates
+build_position() {
+    local pos="$1"
+    local margin=20
+    case "$pos" in
+        center)
+            echo "x=(w-text_w)/2:y=(h-text_h)/2"
+            ;;
+        top)
+            echo "x=(w-text_w)/2:y=${margin}"
+            ;;
+        bottom)
+            echo "x=(w-text_w)/2:y=h-text_h-${margin}"
+            ;;
+        top-left)
+            echo "x=${margin}:y=${margin}"
+            ;;
+        top-right)
+            echo "x=w-text_w-${margin}:y=${margin}"
+            ;;
+        bottom-left)
+            echo "x=${margin}:y=h-text_h-${margin}"
+            ;;
+        bottom-right)
+            echo "x=w-text_w-${margin}:y=h-text_h-${margin}"
+            ;;
+        *)
+            echo "Error: Unknown position '$pos'" >&2
+            exit 1
+            ;;
