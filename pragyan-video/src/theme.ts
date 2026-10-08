@@ -20,3 +20,25 @@ export const theme = {
     warn: "#F5A524",
     text: "#F4F6FB",
     dim: "#98A2B8",
+    faint: "#5B657A",
+    line: "rgba(255,255,255,0.10)",
+    glow: "rgba(255,122,26,0.45)",
+  },
+  fonts: {
+    display: display.fontFamily,
+    body: body.fontFamily,
+    mono: mono.fontFamily,
+  },
+  ease: {
+    out: Easing.bezier(0.16, 1, 0.3, 1), // entrances
+    inOut: Easing.bezier(0.83, 0, 0.17, 1), // camera moves
+    std: Easing.bezier(0.4, 0, 0.2, 1), // premium standard
+    in: Easing.bezier(0.7, 0, 0.84, 0), // exits only
+  },
+  spring: {
+    snappy: { damping: 14, stiffness: 160, mass: 0.6 },
+    smooth: { damping: 20, stiffness: 90, mass: 1 },
+    soft: { damping: 26, stiffness: 70, mass: 1 },
+    bouncy: { damping: 11, stiffness: 170, mass: 0.7 },
+  },
+} as const;
