@@ -91,3 +91,34 @@ if [[ ! -s "$SILENCE_LOG" ]]; then
     exit 0
 fi
 
+# Parse silence periods into start/end pairs
+SILENCE_STARTS=()
+SILENCE_ENDS=()
+
+while IFS= read -r line; do
+    if [[ "$line" =~ silence_start:\ ([0-9.]+) ]]; then
+        SILENCE_STARTS+=("${BASH_REMATCH[1]}")
+    elif [[ "$line" =~ silence_end:\ ([0-9.]+) ]]; then
+        SILENCE_ENDS+=("${BASH_REMATCH[1]}")
+    fi
+done < "$SILENCE_LOG"
+
+# Get video duration
+VIDEO_DURATION="$(ffprobe -v error -show_entries format=duration -of csv=p=0 "$INPUT_VIDEO")"
+
+echo "Found ${#SILENCE_STARTS[@]} silence periods in ${VIDEO_DURATION}s video"
+
+# Build non-silent segments
+SEGMENTS_FILE="${TEMP_DIR}/segments.txt"
+SEGMENT_LIST="${TEMP_DIR}/concat.txt"
+SEGMENT_COUNT=0
+
+# Helper: compare floats
+float_lt() {
+    awk "BEGIN { exit !($1 < $2) }"
+}
+
+float_add() {
+    awk "BEGIN { printf \"%.6f\", $1 + $2 }"
+}
+
