@@ -173,3 +173,38 @@ const Graphic: React.FC<{ g: string; f: number; t0: number }> = ({ g, f, t0 }) =
                 <div style={{ width: 22, height: 22, borderRadius: 11, display: "flex", alignItems: "center", justifyContent: "center", background: on ? C.ok : "rgba(255,255,255,0.08)" }}>
                   {on && <Icon name="check" size={14} color="#05210F" stroke={3} />}
                 </div>
+                <span style={{ ...display(22, 600), color: on ? C.text : C.dim }}>{t}</span>
+              </div>
+            );
+          })}
+          <div style={stag(f, S(18.6))}><Pill icon="file" text="Draft for review · PSV-2034" /></div>
+        </div>
+      );
+    case "graph": {
+      const N = [
+        { x: 60, y: 60, t: "PSV-2034", k: "eq" }, { x: 250, y: 40, t: "SOP-CDU-014", k: "doc" },
+        { x: 160, y: 170, t: "INS-2026-118", k: "doc" }, { x: 40, y: 250, t: "PSV-2035", k: "eq" },
+        { x: 270, y: 230, t: "V-201", k: "eq" },
+      ];
+      const E = [[0, 1], [0, 2], [2, 1], [0, 3], [0, 4], [4, 1], [3, 2]];
+      return (
+        <div style={{ position: "relative", width: RW, height: 320 }}>
+          <svg width={RW} height={300} style={{ position: "absolute", inset: 0 }}>
+            {E.map(([a2, b2], k) => {
+              const p = ei(f, [b + 14 + k * 5, b + 30 + k * 5], [0, 1], theme.ease.inOut);
+              return <line key={k} x1={N[a2].x} y1={N[a2].y} x2={lerp(N[a2].x, N[b2].x, p)} y2={lerp(N[a2].y, N[b2].y, p)} stroke="rgba(255,255,255,0.35)" strokeWidth={1.5} />;
+            })}
+          </svg>
+          {N.map((nd, k) => {
+            const p = sp(f, b + 10 + k * 5, theme.spring.snappy);
+            const col = nd.k === "eq" ? C.accent : C.warn;
+            const pulse = k === 0 ? 1 + 0.25 * Math.abs(Math.sin(f / 9)) : 1;
+            return (
+              <div key={k} style={{ position: "absolute", left: nd.x - 9, top: nd.y - 9, opacity: p, transform: `scale(${p})` }}>
+                <div style={{ width: 18, height: 18, borderRadius: 9, background: col, boxShadow: `0 0 ${14 * pulse}px ${col}`, transform: `scale(${pulse})` }} />
+                <div style={{ ...mono(11, C.text), letterSpacing: "0.06em", textTransform: "none", position: "absolute", left: 24, top: 1, whiteSpace: "nowrap" }}>{nd.t}</div>
+              </div>
+            );
+          })}
+          <div style={{ position: "absolute", left: 0, top: 296, display: "flex", gap: 16 }}>
+            <span style={mono(11, C.accent)}>● equipment</span>
