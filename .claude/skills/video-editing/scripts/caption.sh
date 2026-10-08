@@ -95,3 +95,27 @@ build_subtitle_filter() {
             # Traditional bottom subtitles with background box
             echo "subtitles='${srt_path}':force_style='FontName=Arial,FontSize=20,PrimaryColour=&H00FFFFFF,OutlineColour=&H00000000,BackColour=&H80000000,Outline=1,Shadow=1,Alignment=2,BorderStyle=4,MarginV=30'"
             ;;
+        minimal)
+            # Small lower-third, clean
+            echo "subtitles='${srt_path}':force_style='FontName=Helvetica Neue,FontSize=16,PrimaryColour=&H00FFFFFF,OutlineColour=&H40000000,Outline=1,Shadow=0,Alignment=1,MarginV=20,MarginL=40'"
+            ;;
+        *)
+            echo "Error: Unknown style '$style'. Use: hormozi, standard, minimal" >&2
+            exit 1
+            ;;
+    esac
+}
+
+SUBTITLE_FILTER="$(build_subtitle_filter "$STYLE" "$ESCAPED_SRT")"
+
+echo "Burning captions into video"
+echo "Style: $STYLE"
+echo "Input: $INPUT_VIDEO"
+echo "SRT: $SRT_FILE"
+
+ffmpeg -y -i "$INPUT_VIDEO" \
+    -vf "$SUBTITLE_FILTER" \
+    -c:a copy \
+    "$OUTPUT" 2>&1 | tail -5
+
+echo "Output: $OUTPUT"
