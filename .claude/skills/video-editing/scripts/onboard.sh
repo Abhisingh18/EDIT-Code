@@ -229,3 +229,36 @@ else
   printf "    %-18s %s\n" "SKILL.md" "MISSING"
   verify_errors=$((verify_errors + 1))
 fi
+
+# Check all scripts exist and are executable
+for script in edit.sh trim.sh jumpcut.sh transcribe.sh caption.sh overlay-text.sh; do
+  if [[ -x "$SCRIPT_DIR/$script" ]]; then
+    printf "    %-18s %s\n" "$script" "OK"
+  elif [[ -f "$SCRIPT_DIR/$script" ]]; then
+    printf "    %-18s %s\n" "$script" "exists (not executable)"
+    verify_errors=$((verify_errors + 1))
+  else
+    printf "    %-18s %s\n" "$script" "MISSING"
+    verify_errors=$((verify_errors + 1))
+  fi
+done
+
+# Check skill symlinks
+for skills_dir in "$OPENCLAW_SKILLS_DIR" "$CLAUDE_SKILLS_DIR"; do
+  target="$skills_dir/$SKILL_NAME"
+  label="$(basename "$(dirname "$target")")"
+  if [[ -e "$target/SKILL.md" ]]; then
+    printf "    %-18s %s\n" "$label install" "OK"
+  else
+    printf "    %-18s %s\n" "$label install" "NOT FOUND"
+    verify_errors=$((verify_errors + 1))
+  fi
+done
+
+echo ""
+
+if [[ $verify_errors -gt 0 ]]; then
+  echo "  WARNING: $verify_errors issue(s) found. Check output above."
+else
+  echo "  All checks passed."
+fi
