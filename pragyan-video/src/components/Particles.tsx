@@ -88,3 +88,33 @@ export const Lattice: React.FC<{
   return (
     <svg width={1920} height={1080} style={{ position: "absolute", inset: 0, opacity }}>
       <defs>
+        <radialGradient id="lg-hero">
+          <stop offset="0%" stopColor={C.hero} stopOpacity="0.9" />
+          <stop offset="100%" stopColor={C.hero} stopOpacity="0" />
+        </radialGradient>
+      </defs>
+      {EDGES.map(([a, b], i) => {
+        const A = P[a], B = P[b];
+        if (!A || !B) return null;
+        const o = Math.min(A.g, B.g) * Math.min(fade(A.d), fade(B.d));
+        if (o < 0.02) return null;
+        return (
+          <line key={i} x1={A.x} y1={A.y} x2={B.x} y2={B.y} stroke="#C9D4EA"
+            strokeOpacity={o * 0.26} strokeWidth={Math.min(1.8, 0.6 + A.k / 1400)} />
+        );
+      })}
+      {P.map((p, i) => {
+        if (!p) return null;
+        const o = p.g * fade(p.d);
+        if (o < 0.02) return null;
+        const r = Math.min(7, Math.max(1.15, (2.6 * p.k) / 900));
+        const hero = i % 31 === 0;
+        return (
+          <g key={i}>
+            {hero && <circle cx={p.x} cy={p.y} r={r * 6} fill="url(#lg-hero)" opacity={o * 0.6} />}
+            <circle cx={p.x} cy={p.y} r={hero ? r * 1.4 : r} fill={hero ? C.hero : "#E8EEF9"} fillOpacity={o * (hero ? 1 : 0.85)} />
+          </g>
+        );
+      })}
+    </svg>
+  );
