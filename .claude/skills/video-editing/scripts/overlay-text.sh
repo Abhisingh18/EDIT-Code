@@ -162,3 +162,35 @@ build_position() {
             echo "Error: Unknown position '$pos'" >&2
             exit 1
             ;;
+    esac
+}
+
+POSITION_XY="$(build_position "$POSITION")"
+
+# Escape text for ffmpeg drawtext (colons, single quotes, backslashes)
+ESCAPED_TEXT="${TEXT//\\/\\\\\\\\}"
+ESCAPED_TEXT="${ESCAPED_TEXT//:/\\:}"
+ESCAPED_TEXT="${ESCAPED_TEXT//\'/\'\\\'\'}"
+
+# Build drawtext filter
+FILTER="drawtext=text='${ESCAPED_TEXT}':${POSITION_XY}:fontsize=${FONTSIZE}:fontcolor=${FONTCOLOR}"
+
+# Add background box if specified
+if [[ -n "$BG" ]]; then
+    FILTER="${FILTER}:box=1:boxcolor=${BG}:boxborderw=10"
+fi
+
+# Add time enable expression
+FILTER="${FILTER}:enable='between(t,${START_SEC},${END_SEC})'"
+
+echo "Adding text overlay"
+echo "Text: $TEXT"
+echo "Position: $POSITION"
+echo "Visible: ${START} → ${END:-+5s}"
+
+ffmpeg -y -i "$INPUT_VIDEO" \
+    -vf "$FILTER" \
+    -c:a copy \
+    "$OUTPUT" 2>&1 | tail -3
+
+echo "Output: $OUTPUT"
