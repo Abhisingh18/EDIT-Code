@@ -29,3 +29,33 @@ def loud(path):
     return float(re.findall(r"I:\s+(-?[\d.]+) LUFS", o)[-1]), float(re.findall(r"Peak:\s+(-?[\d.]+)", o)[-1])
 
 
+def load(path, stereo=True):
+    sr, x = wavfile.read(path)
+    x = x.astype(np.float32)
+    if np.abs(x).max() > 4:
+        x /= 32768.0
+    if sr != SR:
+        x = resample_poly(x, SR, sr, axis=0).astype(np.float32)
+    if x.ndim == 1 and stereo:
+        x = np.stack([x, x], 1)
+    return x
+
+
+def place(buf, x, t0):
+    i = int(round(t0 * SR))
+    n = min(len(x), len(buf) - i)
+    buf[i:i + n] += x[:n]
+
+
+# ---------- dialogue bus ----------
+voice = np.zeros((N, 2), np.float32)
+for who, t0 in OFF.items():
+    place(voice, load(A + f"voice_{who}.wav"), t0)
+
+# ---------- speech activity from word timings (what is actually said, not energy) ----------
+words = json.load(open("src/data/words.json", encoding="utf-8"))
+words["arjun2"] = json.load(open("work/arjun2/transcript.json", encoding="utf-8"))["words"]
+CR = 200  # control rate (Hz)
+nc = int(DUR * CR) + 1
+act = np.zeros(nc, np.float32)
+for who, t0 in OFF.items():
