@@ -161,3 +161,35 @@ export const Establish: React.FC<{ f: number }> = ({ f }) => {
       {/* legibility for the title in the sky */}
       <AbsoluteFill style={{ background: "radial-gradient(70% 60% at 12% 18%, rgba(4,8,18,0.55), transparent 70%)" }} />
 
+      {/* HUD fixed to the lens */}
+      {[[90, 140, 1, 1], [1830, 140, -1, 1], [90, 940, 1, -1], [1830, 940, -1, -1]].map(([x, y, sx, sy], i) => {
+        const L = 46 * ei(f, [4 + i * 2, 18 + i * 2], [0, 1], theme.ease.out);
+        return (
+          <React.Fragment key={i}>
+            <div style={{ position: "absolute", left: sx > 0 ? x : x - L, top: y - 1, width: L, height: 2, background: "rgba(255,255,255,0.85)" }} />
+            <div style={{ position: "absolute", left: x - 1, top: sy > 0 ? y : y - L, width: 2, height: L, background: "rgba(255,255,255,0.85)" }} />
+          </React.Fragment>
+        );
+      })}
+      <div style={{ position: "absolute", left: 960 - 22, top: 540 - 22, width: 44, height: 44, borderRadius: 22, border: "1px solid rgba(255,255,255,0.45)", opacity: ei(f, [10, 20], [0, 1]) }} />
+      <div style={{ position: "absolute", left: 960 - 40, top: 540, width: 80, height: 1, background: "rgba(255,255,255,0.35)", opacity: ei(f, [10, 20], [0, 1]) }} />
+      <div style={{ position: "absolute", left: 960, top: 540 - 40, width: 1, height: 80, background: "rgba(255,255,255,0.35)", opacity: ei(f, [10, 20], [0, 1]) }} />
+      {f >= 8 && f <= 46 && (
+        <>
+          <div style={{ position: "absolute", left: 0, right: 0, top: scanY - 60, height: 60, background: "linear-gradient(180deg, transparent, rgba(160,200,255,0.16))" }} />
+          <div style={{ position: "absolute", left: 0, right: 0, top: scanY, height: 2, background: "rgba(200,225,255,0.85)", boxShadow: "0 0 18px rgba(160,200,255,0.9)" }} />
+        </>
+      )}
+
+      {/* title in the sky, synced to her words */}
+      <div style={{ position: "absolute", left: 128, top: 160, opacity: 1 - ei(f, [86, 98], [0, 1], theme.ease.in), transform: `translateY(${-24 * ei(f, [86, 98], [0, 1], theme.ease.in)}px)` }}>
+        <MaskLine f={f} at={2}>
+          <div style={{ ...mono(15, C.text), marginBottom: 18, opacity: 0.85 }}>01 — The problem</div>
+        </MaskLine>
+        <div style={{ display: "flex", columnGap: 26, ...display(98, 700), textShadow: "0 10px 50px rgba(0,0,0,0.45)" }}>
+          <MaskLine f={f} at={W("imagine") - 2}>Imagine</MaskLine>
+          <MaskLine f={f} at={W("an", 0) - 2}>an</MaskLine>
+          <MaskLine f={f} at={W("engineer") - 2}>engineer</MaskLine>
+        </div>
+        <div style={{ display: "flex", columnGap: 26, ...display(98, 700), textShadow: "0 10px 50px rgba(0,0,0,0.45)", marginTop: 6 }}>
+          <MaskLine f={f} at={W("inside", 0) - 2}>inside</MaskLine>
