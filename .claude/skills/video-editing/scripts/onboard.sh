@@ -163,3 +163,36 @@ for script in "$SCRIPT_DIR"/*.sh; do
     chmod +x "$script"
     printf "    %-18s %s\n" "$name" "chmod +x"
   else
+    printf "    %-18s %s\n" "$name" "already executable"
+  fi
+done
+
+echo ""
+
+# ── Step 3: Install Skill ───────────────────────────────────
+
+echo "  [3/3] Installing skill"
+echo "  ----------------------"
+
+install_skill() {
+  local skills_dir="$1"
+  local label="$2"
+  local target="$skills_dir/$SKILL_NAME"
+
+  mkdir -p "$skills_dir"
+
+  printf "    %-18s" "$label"
+
+  if [[ "$MODE" == "copy" ]]; then
+    if [[ -d "$target" && ! -L "$target" ]]; then
+      echo "already installed (copy)"
+    else
+      rm -f "$target"
+      cp -R "$SKILL_ROOT" "$target"
+      echo "copied"
+    fi
+  else
+    if [[ -L "$target" ]]; then
+      existing="$(readlink "$target")"
+      if [[ "$existing" == "$SKILL_ROOT" ]]; then
+        echo "already linked"
