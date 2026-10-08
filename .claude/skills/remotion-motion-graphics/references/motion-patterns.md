@@ -152,3 +152,34 @@ boxShadow: "0 40px 80px -20px rgba(0,0,0,0.6)"`.
 ## 9. Animated counter
 ```tsx
 const value = interpolate(
+  spring({ frame: frame - delay, fps, config: { damping: 30, stiffness: 60 } }),
+  [0, 1], [0, target]);
+<span style={{ fontVariantNumeric: "tabular-nums" }}>{value.toFixed(1)}%</span>
+```
+`tabular-nums` prevents layout jitter as digits change.
+
+## 10. Spark / radial logo mark (staggered rays)
+```tsx
+const rays = 12;
+{Array.from({ length: rays }).map((_, i) => {
+  const p = spring({ frame: frame - delay - i * 1.2, fps,
+    config: theme.spring.snappy });
+  return <div key={i} style={{ position: "absolute", left: "50%", top: "50%",
+    width: size * 0.085, height: size * 0.46 * p, background: theme.colors.primary,
+    borderRadius: size, transformOrigin: "50% 0%",
+    transform: `translateX(-50%) rotate(${(360 / rays) * i}deg) translateY(${size * 0.07}px)` }}/>;
+})}
+```
+Wrap in a container with bouncy-spring scale + smooth-spring rotation from -120°,
+and `filter: drop-shadow(0 0 ${size*0.25}px ${theme.colors.glow})`.
+
+## 11. Exits — faster than entrances
+```tsx
+const exitY = interpolate(frame, [durationInFrames - 12, durationInFrames - 2],
+  [0, -42], { easing: theme.ease.in,
+  extrapolateLeft: "clamp", extrapolateRight: "clamp" });
+const exitO = interpolate(frame, [durationInFrames - 12, durationInFrames - 2],
+  [1, 0], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
+```
+Apply to every visible element, or to a scene wrapper.
+
