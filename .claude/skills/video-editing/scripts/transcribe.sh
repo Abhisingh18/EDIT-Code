@@ -79,3 +79,29 @@ fi
 
 echo "Transcribing: $INPUT_FILE"
 echo "Model: $MODEL"
+echo "Language: ${LANGUAGE:-auto-detect}"
+
+"$WHISPER_BIN" "$INPUT_FILE" \
+    --model "$MODEL" \
+    --output_format srt \
+    --output_dir "$TEMP_DIR" \
+    $LANG_FLAG
+
+SRT_FILE="$(find "$TEMP_DIR" -name '*.srt' -type f | head -1)"
+
+if [[ -z "$SRT_FILE" || ! -f "$SRT_FILE" ]]; then
+    echo "Error: Whisper did not produce an SRT file"
+    exit 1
+fi
+
+if [[ -n "$OUTPUT" ]]; then
+    FINAL_OUTPUT="$OUTPUT"
+else
+    FINAL_OUTPUT="${INPUT_DIR}/${INPUT_BASENAME}.srt"
+fi
+
+cp "$SRT_FILE" "$FINAL_OUTPUT"
+
+LINE_COUNT="$(wc -l < "$FINAL_OUTPUT" | tr -d ' ')"
+echo "Transcription complete: $FINAL_OUTPUT ($LINE_COUNT lines)"
+echo "$FINAL_OUTPUT"
