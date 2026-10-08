@@ -245,3 +245,38 @@ export const Shreya: React.FC = () => {
         })()}
       </Beat>
 
+      {/* B3 — intelligence alone isn't enough: grounded in your knowledge */}
+      <Beat f={f} from={718} to={1036}>
+        <Header f={f} at={722} text="Knowledge grounding" />
+        {(() => {
+          const hlOut = ei(f, [W("connects") - 10, W("connects") + 4], [0, 1], theme.ease.in);
+          const coreP = sp(f, W("connects") - 2);
+          const link = ei(f, [W("connects"), W("connects") + 20], [0, 1], theme.ease.inOut);
+          const dbP = sp(f, W("knowledge", 0) - 6, theme.spring.bouncy);
+          const docs = [
+            { t: "Manuals", icon: "book", at: W("manuals"), cy: 320 },
+            { t: "SOPs", icon: "list", at: W("sops"), cy: 452 },
+            { t: "Internal documents", icon: "file", at: W("internal", 0), cy: 584 },
+            { t: "Procedures", icon: "sheet", at: W("procedures"), cy: 716 },
+          ];
+          return (
+            <>
+              {hlOut < 1 && (
+                <div style={{ position: "absolute", left: 790, top: 400, width: 1040, opacity: 1 - hlOut, transform: `translateY(${-40 * hlOut}px)` }}>
+                  <MaskLine f={f} at={W("intelligence")}>
+                    <div style={display(84, 650)}>Intelligence alone</div>
+                  </MaskLine>
+                  <MaskLine f={f} at={W("enough") - 8}>
+                    <div style={{ ...display(84, 700), color: C.hero }}>isn't enough.</div>
+                  </MaskLine>
+                </div>
+              )}
+              <svg width={1920} height={1080} style={{ position: "absolute", inset: 0 }}>
+                <line x1={1010} y1={545} x2={lerp(1010, 1155, link)} y2={545} stroke="rgba(255,255,255,0.35)" strokeWidth={2} />
+                {docs.map((d, i) => {
+                  const p = ei(f, [d.at, d.at + 14], [0, 1], theme.ease.inOut);
+                  return (
+                    <path key={i} d={`M1480,${d.cy} C1410,${d.cy} 1410,545 1345,545`} pathLength={1} strokeDasharray={1}
+                      strokeDashoffset={1 - p} fill="none" stroke="rgba(255,255,255,0.3)" strokeWidth={2} />
+                  );
+                })}
