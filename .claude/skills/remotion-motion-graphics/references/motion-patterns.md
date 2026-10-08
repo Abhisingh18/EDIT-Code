@@ -214,3 +214,33 @@ Hand-rolled, 8–14 frames each:
 - **Whip pan**: bg translates 1500px in 6 frames with `filter: blur(8px)` during the
   move; cut hidden mid-whip.
 - **Scale-through**: A scales to 1.3 + fades, B scales 0.8→1 underneath.
+- **Mask wipe**: brand-colored shape sweeps across; cut behind it.
+
+## 15. Motion blur (anything moving >30px/frame)
+```tsx
+import { Trail } from "@remotion/motion-blur";
+<Trail layers={4} lagInFrames={0.4}><FastThing/></Trail>
+```
+
+## 16. Audio + SFX sync
+```tsx
+import { Audio, Sequence, staticFile } from "remotion";
+<Audio src={staticFile("sfx/music.mp3")} volume={0.25}/>
+<Sequence from={entranceFrame - 3}> {/* SFX 2–3 frames BEFORE the visual lands */}
+  <Audio src={staticFile("sfx/whoosh.mp3")} volume={0.7}/>
+</Sequence>
+```
+Cut on the music beat: framesPerBeat = fps * 60 / BPM. Place scene cuts and hits
+on multiples of it. Background music -18dB under SFX/VO.
+
+## 17. Word-synced captions over footage
+For speech footage: get word timestamps (Whisper or `@remotion/install-whisper-cpp`),
+then map to `<Sequence>` per caption group using `@remotion/captions`:
+```tsx
+import { createTikTokStyleCaptions } from "@remotion/captions";
+const { pages } = createTikTokStyleCaptions({ captions, combineTokensWithinMilliseconds: 1200 });
+// render each page in a Sequence from msToFrame(page.startMs),
+// highlight the active token by comparing currentTime to token timestamps
+```
+Style: heavy display weight, 2–4 words per page, active word in theme.colors.primary,
+positioned at ~65% height (inside the 9:16 safe zone).
