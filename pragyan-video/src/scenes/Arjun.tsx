@@ -453,3 +453,38 @@ export const Arjun: React.FC = () => {
               </MaskLine>
               <MaskLine f={g} at={draftAt - 6}>
                 <span style={display(62, 700)}>
+                  to a <span style={{ color: C.hero }}>useful draft.</span>
+                </span>
+              </MaskLine>
+            </div>
+            {FRAGS.map((t, i) => {
+              const p = sp(g, 4 + i * 2, theme.spring.snappy);
+              const ang = (i / FRAGS.length) * Math.PI * 2 + (rnd(i * 3.3) - 0.5) * 0.5;
+              const sx = 960 - 70 + Math.cos(ang) * (560 + rnd(i * 5.1) * 160);
+              const sy = 640 - 45 + Math.sin(ang) * (230 + rnd(i * 2.7) * 70);
+              const drift = Math.sin((g + i * 11) / 14) * 10;
+              const x = lerp(sx + drift, 960 - 70, gather);
+              const y = lerp(sy - drift, 640 - 45, gather);
+              const r = lerp((rnd(i * 7.7) - 0.5) * 50, 0, gather);
+              return (
+                <div key={t} style={{
+                  position: "absolute", left: x, top: y, width: 140, height: 90, borderRadius: 12,
+                  background: "linear-gradient(180deg,#F2F4F9,#D9DFEA)", boxShadow: "0 24px 50px -16px rgba(0,0,0,0.9)",
+                  transform: `rotate(${r}deg) scale(${p * lerp(1, 0.5, gather)})`, opacity: p * (1 - ei(g, [draftAt + 2, draftAt + 10], [0, 1])),
+                  padding: 12, boxSizing: "border-box",
+                }}>
+                  <div style={{ ...mono(11, "#334155"), fontWeight: 700 }}>{t}</div>
+                  {[0, 1, 2].map((k) => <div key={k} style={{ height: 5, width: `${85 - k * 18}%`, background: "#A3ADC0", borderRadius: 3, marginTop: 9 }} />)}
+                </div>
+              );
+            })}
+            {g >= draftAt && (
+              <div style={{
+                position: "absolute", left: 960 - 400, top: 640 - 210, width: 800, height: 420, borderRadius: 22,
+                background: "linear-gradient(180deg,#F7F9FD,#E6EBF3)", boxShadow: "0 60px 120px -30px rgba(0,0,0,0.95), 0 0 80px rgba(255,122,26,0.12)",
+                padding: "30px 38px", boxSizing: "border-box", opacity: cardP, transform: `scale(${0.85 + 0.15 * cardP})`,
+              }}>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                  <div style={{ ...mono(14, "#1E3A8A"), fontWeight: 700 }}>Draft for review — PSV-2034 replacement note</div>
+                  <div style={{ ...mono(11, "#047857"), fontWeight: 700, border: "1.5px solid #047857", borderRadius: 999, padding: "4px 10px" }}>Cited</div>
+                </div>
