@@ -24,3 +24,28 @@ if [[ $# -lt 1 ]]; then
     print_usage
     exit 1
 fi
+
+INPUT_VIDEO="$1"
+shift
+
+START=""
+END=""
+DURATION=""
+OUTPUT=""
+
+while [[ $# -gt 0 ]]; do
+    case "$1" in
+        --start)
+            START="$2"
+            shift 2
+            ;;
+        --end)
+            END="$2"
+            shift 2
+            ;;
+        --duration)
+            DURATION="$2"
+            shift 2
+            ;;
+        --output)
+            OUTPUT="$2"
