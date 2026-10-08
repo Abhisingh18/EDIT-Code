@@ -170,3 +170,37 @@ const Graphic: React.FC<{ g: string; f: number; t0: number }> = ({ g, f, t0 }) =
         </div>
       );
     }
+    case "inspect": {
+      const n = Math.round(ei(f, [S(129.2), S(130.8)], [0, 5], theme.ease.out));
+      return (
+        <div>
+          <div style={{ display: "flex", alignItems: "baseline", gap: 14, ...stag(f, S(129.0)) }}>
+            <span style={{ ...display(80, 700), color: C.bad, fontVariantNumeric: "tabular-nums" }}>{n}</span>
+            <span style={mono(13, C.text)}>failed checks</span>
+          </div>
+          <div style={{ ...stag(f, S(133.0)), marginBottom: 12 }}><Pill icon="file" text="Explained with page references" tone={C.ok} /></div>
+          {["Problem", "Evidence", "Required action", "Approval request"].map((t, k) => {
+            const on = f >= S([138.6, 140.7, 141.8, 142.6][k]);
+            return (
+              <div key={t} style={{ ...stag(f, S(136.3) + k * 4), display: "flex", alignItems: "center", gap: 10, padding: "8px 12px", marginTop: 6, borderRadius: 10, background: on ? "rgba(52,211,153,0.1)" : "rgba(255,255,255,0.04)", border: `1px solid ${on ? C.ok + "66" : "rgba(255,255,255,0.1)"}` }}>
+                <div style={{ width: 18, height: 18, borderRadius: 9, display: "flex", alignItems: "center", justifyContent: "center", background: on ? C.ok : "rgba(255,255,255,0.08)" }}>{on && <Icon name="check" size={12} color="#05210F" stroke={3} />}</div>
+                <span style={{ ...display(18, 600), color: on ? C.text : C.dim }}>{t}</span>
+              </div>
+            );
+          })}
+        </div>
+      );
+    }
+    case "dev": {
+      const tests = Math.round(ei(f, [S(168.8), S(171.0)], [0, 15], theme.ease.out));
+      return (
+        <div>
+          <div style={{ ...stag(f, S(150.8)), borderRadius: 12, background: "#070A12", border: "1px solid rgba(255,255,255,0.12)", padding: "12px 14px" }}>
+            <div style={{ ...mono(11, C.hero), textTransform: "none" }}>$ pragyan</div>
+            <div style={{ ...mono(11, C.dim), textTransform: "none", marginTop: 6, opacity: f > S(156) ? 1 : 0 }}>› catalogue.lookup("SOP-CDU-014")</div>
+            <div style={{ ...mono(11, C.ok), textTransform: "none", marginTop: 6, opacity: f > S(161) ? 1 : 0 }}>✓ Rev 4 · ±2% pop pressure</div>
+          </div>
+          <div style={{ marginTop: 12 }}>
+            <Flow f={f} steps={[
+              { t: "Read the current rule", at: 161.0, icon: "book" },
+              { t: "Write the check", at: 163.9, icon: "code" },
