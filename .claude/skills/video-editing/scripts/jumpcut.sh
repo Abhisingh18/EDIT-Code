@@ -29,3 +29,34 @@ INPUT_VIDEO="$1"
 shift
 
 THRESHOLD="-30"
+MIN_SILENCE="0.5"
+PADDING="0.1"
+OUTPUT=""
+
+while [[ $# -gt 0 ]]; do
+    case "$1" in
+        --threshold)
+            THRESHOLD="$2"
+            shift 2
+            ;;
+        --duration)
+            MIN_SILENCE="$2"
+            shift 2
+            ;;
+        --padding)
+            PADDING="$2"
+            shift 2
+            ;;
+        --output)
+            OUTPUT="$2"
+            shift 2
+            ;;
+        *)
+            echo "Error: Unknown option '$1'"
+            print_usage
+            exit 1
+            ;;
+    esac
+done
+
+if [[ ! -f "$INPUT_VIDEO" ]]; then
