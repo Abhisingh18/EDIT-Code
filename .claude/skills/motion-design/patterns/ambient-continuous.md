@@ -52,3 +52,30 @@ Pulsing >±5% scale becomes attention-demanding.
 |---------|-------|----------|
 | Slow spin | 10-30s/rev | Background decoration |
 | Gear-like | 3-5s/rev | Technical/mechanical |
+| Orbital | 5-15s/rev | Space/science theme |
+| Wobble | 2-4s/cycle, sine | Playful idle |
+
+## Shimmer / Gleam
+
+- Gradient sweep left-to-right, 1500-2500ms/sweep
+- Pause 2000-5000ms between sweeps
+- Opacity gradient: 0%→30%→0%
+- Use for: skeleton loading, premium accents, "new" badges
+
+## Particle Ambient
+
+### Snow/Falling: 10-20 elements, 20-60px/s down, ±10-20px drift, 3-8px, 30-70% opacity
+### Dust/Motes: 5-10 elements, 10-30px/s mixed, 2-5px, 20-50% opacity
+### Sparkle/Stars: 8-15 elements, opacity pulse 0→100%→0, 500-1500ms/sparkle, random stagger
+
+**Performance**: <20 ambient elements, transform+opacity only, larger/fewer over small/numerous
+
+## Combining Ambient Layers
+
+| Layer | Type | Example |
+|-------|------|---------|
+| Background | Gradient shift or parallax | Slow color temperature change |
+| Midground | Floating or particles | Gentle floating elements |
+| Foreground | Breathing or shimmer | Subtle pulse on content |
+
+Total ambient: max 20% of primary motion's visual energy.
