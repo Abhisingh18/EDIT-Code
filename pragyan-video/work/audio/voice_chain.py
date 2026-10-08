@@ -26,3 +26,30 @@ def loud(path):
     return float(re.findall(r"I:\s+(-?[\d.]+) LUFS", o)[-1])
 def run(args): subprocess.run(["ffmpeg", "-v", "error", "-y"] + args, check=True)
 
+for n in ["bhawna", "shreya", "arjun"]:
+    src = A + f"df_{n}.wav"
+    m0 = ltas(src, n)
+    dead = m0 < -45                                   # band-limited source: never lift hiss
+    g = np.zeros(len(C))
+    for it in range(3):                               # measure -> correct residual -> repeat
+        tmp = A + f"eqtest_{n}.wav"
+        run(["-i", src, "-af", "highpass=f=75:p=2," + (eq_str(g) or "anull"), "-c:a", "pcm_f32le", tmp])
+        r = np.array(TARGET) - ltas(tmp, n)
+        g = g + 0.85 * r
+        g = np.clip(g, -7.0, 7.0); g[dead] = 0.0
+        g[:2] = np.minimum(g[:2], 3.0)                 # warmth below 160 Hz, never boom
+    g = 0.8 * g                                       # keep 20% of each voice's own character
+    res = np.array(TARGET) - ltas(tmp, n)
+    pre = -23.0 - loud(src)
+    chain = (f"volume={pre:.2f}dB,highpass=f=75:p=2,{eq_str(g)},deesser=i=0.35:m=0.5:f=0.4:s=o,"
+             "acompressor=threshold=-27dB:ratio=2.0:attack=10:release=180:knee=6:makeup=3dB,"
+             "dynaudnorm=f=400:g=21:p=0.9:m=4:r=0.13:b=1")
+    run(["-i", src, "-af", chain, "-ar", "48000", "-c:a", "pcm_f32le", A + f"chain_{n}.wav"])
+    gain = -16.0 - loud(A + f"chain_{n}.wav")
+    run(["-i", A + f"chain_{n}.wav", "-af", f"volume={gain:.2f}dB,alimiter=limit=0.84:attack=3:release=50:level=disabled",
+         "-c:a", "pcm_f32le", A + f"lev_{n}.wav"])
+    print(n, "EQ", [round(float(x), 1) for x in g], "| residual mean", round(float(np.mean(np.abs(res[~dead]))), 1), "dB ->",
+          loud(A + f"lev_{n}.wav"), "LUFS", flush=True)
+
+# Shreya: identical jump cuts to the picture (cuts sit in pauses), 25 ms fades
+d = json.load(open("work/transcripts.json", encoding="utf-8"))
