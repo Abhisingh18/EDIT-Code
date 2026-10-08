@@ -35,3 +35,39 @@ const P: Record<string, string[]> = {
   users: ["c:9,7,4", "M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2", "M22 21v-2a4 4 0 0 0-3-3.87", "M16 3.13a4 4 0 0 1 0 7.75"],
   memory: ["M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96.44 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 4.44-2.04Z", "M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96.44 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-4.24 2.5 2.5 0 0 0-4.44-2.04Z"],
 };
+
+export const Icon: React.FC<{
+  name: keyof typeof P | string;
+  size?: number;
+  color?: string;
+  stroke?: number;
+  style?: React.CSSProperties;
+}> = ({ name, size = 28, color = "currentColor", stroke = 1.8, style }) => (
+  <svg
+    width={size}
+    height={size}
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke={color}
+    strokeWidth={stroke}
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    style={{ display: "block", flexShrink: 0, ...style }}
+  >
+    {(P[name] ?? []).map((d, i) => {
+      if (d.startsWith("c:")) {
+        const [cx, cy, r] = d.slice(2).split(",").map(Number);
+        return <circle key={i} cx={cx} cy={cy} r={r} />;
+      }
+      if (d.startsWith("r:")) {
+        const [x, y, w, h, rx] = d.slice(2).split(",").map(Number);
+        return <rect key={i} x={x} y={y} width={w} height={h} rx={rx} />;
+      }
+      if (d.startsWith("e:")) {
+        const [cx, cy, rx, ry] = d.slice(2).split(",").map(Number);
+        return <ellipse key={i} cx={cx} cy={cy} rx={rx} ry={ry} />;
+      }
+      return <path key={i} d={d} />;
+    })}
+  </svg>
+);
