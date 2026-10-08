@@ -96,3 +96,35 @@ while [[ $# -gt 0 ]]; do
             TRIM_DURATION="$2"
             shift 2
             ;;
+        --jumpcut)
+            DO_JUMPCUT=true
+            shift
+            ;;
+        --jumpcut-threshold)
+            JUMPCUT_THRESHOLD="$2"
+            shift 2
+            ;;
+        --jumpcut-duration)
+            JUMPCUT_DURATION="$2"
+            shift 2
+            ;;
+        --jumpcut-padding)
+            JUMPCUT_PADDING="$2"
+            shift 2
+            ;;
+        --caption)
+            DO_CAPTION=true
+            shift
+            ;;
+        --caption-style)
+            CAPTION_STYLE="$2"
+            shift 2
+            ;;
+        --caption-model)
+            CAPTION_MODEL="$2"
+            shift 2
+            ;;
+        --caption-language)
+            CAPTION_LANGUAGE="$2"
+            shift 2
+            ;;
