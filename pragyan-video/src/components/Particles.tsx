@@ -118,3 +118,33 @@ export const Lattice: React.FC<{
       })}
     </svg>
   );
+};
+
+/* ---------------- torus ring (the product object) ---------------- */
+const N_T = 520;
+const TORUS = Array.from({ length: N_T }, (_, i) => {
+  const u = (i / N_T) * Math.PI * 2 + rnd(i * 3.1) * 0.04;
+  const v = rnd(i * 7.7) * Math.PI * 2;
+  const rr = 0.13 * (0.4 + rnd(i * 1.9) * 0.6);
+  return { u, v, rr, s: rnd(i * 5.3) };
+});
+const mix = (a: string, b: string, t: number) => {
+  const pa = [1, 3, 5].map((k) => parseInt(a.slice(k, k + 2), 16));
+  const pb = [1, 3, 5].map((k) => parseInt(b.slice(k, k + 2), 16));
+  return `rgb(${pa.map((x, k) => Math.round(lerp(x, pb[k], t))).join(",")})`;
+};
+const ringColor = (u: number) => {
+  const t = (Math.cos(u - 0.5) + 1) / 2; // 1 = right/top-right (orange), 0 = left (blue)
+  return t < 0.5 ? mix("#2F7BFF", "#8B5CF6", t / 0.5) : mix("#8B5CF6", "#FF7A1A", (t - 0.5) / 0.5);
+};
+
+export const TorusRing: React.FC<{
+  f: number;
+  form: number; // 0..1 formation from the point of light
+  yaw: number;
+  pitch: number;
+  radius: number; // px at camZ = 4
+  opacity?: number;
+  burst?: number; // 0..1 release outward
+  cx?: number;
+  cy?: number;
