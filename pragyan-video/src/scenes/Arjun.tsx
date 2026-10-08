@@ -208,3 +208,38 @@ const Graphic: React.FC<{ g: string; f: number; t0: number }> = ({ g, f, t0 }) =
           })}
           <div style={{ position: "absolute", left: 0, top: 296, display: "flex", gap: 16 }}>
             <span style={mono(11, C.accent)}>● equipment</span>
+            <span style={mono(11, C.warn)}>● documents</span>
+          </div>
+        </div>
+      );
+    }
+    case "route": {
+      const r1 = S(25.6), r2 = S(26.7); // synced to the router chips on screen
+      const L = [{ t: "Kimi K2.6 · documents", at: r1, y: 60 }, { t: "Kimi K2.7 Code · code", at: r2, y: 200 }];
+      return (
+        <div style={{ position: "relative", width: RW, height: 270 }}>
+          <svg width={RW} height={270} style={{ position: "absolute", inset: 0 }}>
+            {L.map((l, k) => {
+              const p = ei(f, [l.at - 6, l.at + 10], [0, 1], theme.ease.inOut);
+              return <path key={k} d={`M74,130 C120,130 120,${l.y + 20} 166,${l.y + 20}`} pathLength={1} strokeDasharray={1} strokeDashoffset={1 - p} fill="none" stroke={f >= l.at ? C.hero : "rgba(255,255,255,0.3)"} strokeWidth={2.5} />;
+            })}
+          </svg>
+          <div style={{ position: "absolute", left: 6, top: 96, width: 68, height: 68, borderRadius: 34, ...glass({ borderRadius: 34 }), border: `1.5px solid ${C.hero}`, display: "flex", alignItems: "center", justifyContent: "center", boxShadow: `0 0 30px ${C.glow}`, ...stag(f, b + 10) }}>
+            <Icon name="route" size={32} color={C.hero} />
+          </div>
+          {L.map((l, k) => (
+            <div key={k} style={{ position: "absolute", left: 166, top: l.y, ...stag(f, l.at - 4) }}>
+              <Pill icon={k === 0 ? "file" : "code"} text={l.t} tone={f >= l.at + 4 ? C.text : C.dim} style={{ border: `1px solid ${f >= l.at + 4 ? C.hero : "rgba(255,255,255,0.12)"}` }} />
+            </div>
+          ))}
+          <div style={{ position: "absolute", left: 0, top: 182, ...mono(11, C.dim) }}>auto-routed</div>
+        </div>
+      );
+    }
+    case "memory": {
+      const chips = ["CDU-3 · operations engineer", "Four-section notes", "180 words or fewer", "Mark “Draft for review”"];
+      const ctl = A("control");
+      const on = ei(f, [ctl, ctl + 8], [0, 1], theme.ease.inOut);
+      return (
+        <div>
+          <div style={{ display: "flex", alignItems: "center", gap: 14, ...stag(f, b + 8) }}>
