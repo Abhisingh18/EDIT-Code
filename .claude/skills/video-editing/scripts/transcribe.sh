@@ -52,3 +52,30 @@ while [[ $# -gt 0 ]]; do
             print_usage
             exit 1
             ;;
+    esac
+done
+
+if [[ ! -f "$INPUT_FILE" ]]; then
+    echo "Error: Input file not found: $INPUT_FILE"
+    exit 1
+fi
+
+if ! command -v "$WHISPER_BIN" &>/dev/null; then
+    echo "Error: whisper not found at $WHISPER_BIN"
+    echo "Install: pip install openai-whisper"
+    exit 1
+fi
+
+INPUT_DIR="$(dirname "$INPUT_FILE")"
+INPUT_BASENAME="$(basename "$INPUT_FILE" | sed 's/\.[^.]*$//')"
+
+TEMP_DIR="$(mktemp -d)"
+trap 'rm -rf "$TEMP_DIR"' EXIT
+
+LANG_FLAG=""
+if [[ -n "$LANGUAGE" ]]; then
+    LANG_FLAG="--language $LANGUAGE"
+fi
+
+echo "Transcribing: $INPUT_FILE"
+echo "Model: $MODEL"
