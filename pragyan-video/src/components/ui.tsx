@@ -263,3 +263,36 @@ export const Captions: React.FC<{
       {page.items.map((w, i) => {
         const on = f >= w.s - 1;
         return (
+          <span
+            key={i}
+            style={{
+              ...display(size, 600),
+              letterSpacing: "-0.01em",
+              color: on ? C.text : "rgba(244,246,251,0.38)",
+              textShadow: "0 2px 18px rgba(0,0,0,0.75), 0 0 2px rgba(0,0,0,0.6)",
+              transform: `translateY(${on ? 0 : 3}px)`,
+            }}
+          >
+            {w.text}
+          </span>
+        );
+      })}
+    </div>
+  );
+};
+
+// pill backdrop for captions over footage
+export const CaptionPlate: React.FC<{ x: number; y: number; w: number; h: number; o?: number }> = ({ x, y, w, h, o = 1 }) => (
+  <div
+    style={{
+      position: "absolute",
+      left: x - w / 2,
+      top: y,
+      width: w,
+      height: h,
+      borderRadius: 20,
+      background: "radial-gradient(ellipse at center, rgba(3,5,10,0.62), rgba(3,5,10,0) 72%)",
+      opacity: o,
+    }}
+  />
+);
