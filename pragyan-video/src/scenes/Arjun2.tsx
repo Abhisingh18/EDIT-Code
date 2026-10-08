@@ -273,3 +273,37 @@ const Graphic: React.FC<{ g: string; f: number; t0: number }> = ({ g, f, t0 }) =
           ].map((r) => (
             <div key={r.k} style={{ ...stag(f, S(r.at)), ...glass({ borderRadius: 14 }), padding: "12px 14px", border: `1px solid ${r.tone}66` }}>
               <div style={{ ...mono(11, r.tone) }}>{r.k}</div>
+              <div style={{ display: "flex", alignItems: "center", gap: 10, marginTop: 6 }}>
+                <Icon name={r.icon} size={18} color={r.tone} /><span style={display(19, 600)}>{r.v}</span>
+              </div>
+            </div>
+          ))}
+        </div>
+      );
+  }
+  return null;
+};
+
+/* ---------- chapter stinger over Arjun's own "Next:" cards ---------- */
+const Stinger: React.FC<{ f: number; a: number; b: number; ch: Ch; prev: Ch }> = ({ f, a, b, ch, prev }) => {
+  const A0 = S(a), B0 = S(b);
+  if (f < A0 - 2 || f > B0) return null;
+  const inP = ei(f, [A0, A0 + 9], [0, 1], theme.ease.out);
+  const out = ei(f, [B0 - 9, B0], [0, 1], theme.ease.in);
+  const split = 10 * (1 - ei(f, [A0, A0 + 8], [0, 1]));
+  return (
+    <AbsoluteFill style={{ opacity: inP * (1 - out * 0.15) }}>
+      <AbsoluteFill style={{ transform: `translateX(${-out * 420}px)`, filter: `blur(${out * 12 + (1 - inP) * 8}px)` }}>
+        <BgField intensity={0.9} grid={false} />
+        <AbsoluteFill style={{ alignItems: "center", justifyContent: "center" }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 48, transform: `scale(${1.08 - 0.08 * inP})` }}>
+            <div style={{
+              ...display(230, 800), color: "transparent", WebkitTextStroke: "2px rgba(255,255,255,0.55)",
+              filter: `drop-shadow(${-split}px 0 rgba(255,70,70,0.55)) drop-shadow(${split}px 0 rgba(70,170,255,0.55))`,
+            }}>{ch.n}</div>
+            <div>
+              <MaskLine f={f} at={A0 + 2}>
+                <div style={{ ...mono(15, C.dim) }}>✓ {prev.title}</div>
+              </MaskLine>
+              <MaskLine f={f} at={A0 + 6}>
+                <div style={{ ...display(84, 750), marginTop: 10 }}>{ch.title}</div>
