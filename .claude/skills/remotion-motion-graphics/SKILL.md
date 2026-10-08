@@ -107,3 +107,30 @@ scratch: put the file in `public/`, render it as the asset layer with
 `<OffthreadVideo src={staticFile("clip.mp4")} />`, set composition duration from the
 clip length, and stack graphics/grade/grain above it. Get the clip's duration and fps
 with `ffprobe` before setting up the composition. For word-synced captions over
+speech, see the captions section of `references/motion-patterns.md`.
+
+## Reference files
+- `references/motion-patterns.md` — copy-paste component library: backgrounds,
+  grade/grain/vignette, Ken Burns, text reveals, counters, transitions, parallax,
+  audio sync, captions. Read before writing components.
+- `references/design-rules.md` — palettes, typography rules, scene architecture,
+  sound design, pre-delivery checklist. Read before designing scenes and before
+  final delivery.
+- `assets/theme.ts` — the theme template to copy into every project.
+
+## Common failure modes to actively avoid
+- **Emoji as icons.** Emoji render as full-color platform glyphs (green ✳️,
+  blue 🌐) that ignore your palette and silently break the one-hero-color rule,
+  and they sit on whatever background you gave them (orange mascot on orange
+  tile = invisible). Draw glyphs with CSS/SVG in theme colors, or verify every
+  emoji against the extracted frames.
+- **No SFX assets is not a reason to ship silent.** Synthesize a minimal kit as
+  16-bit WAVs from a Node script (noise-burst whoosh, pitch-drop pop, sine-thump
+  kick/bass, detuned-sine pad) into `public/sfx/` — see `examples/scripts/` in
+  the repo. Zero downloads, fully deterministic.
+- Generating one giant component instead of themed, reusable pieces.
+- `durationInFrames` mismatch between Composition and scene content (dead air).
+- Forgetting `--overwrite` on re-renders, then inspecting the stale file.
+- Fonts: never rely on system defaults for hero text; load a display font via
+  `@remotion/google-fonts` or `@font-face` + `staticFile`.
+- Trying to "describe" the result to the user instead of rendering and verifying it.
