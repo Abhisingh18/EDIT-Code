@@ -75,3 +75,28 @@ INPUT_BASENAME="$(basename "$INPUT_VIDEO" | sed 's/\.[^.]*$//')"
 INPUT_EXT="$(basename "$INPUT_VIDEO" | sed 's/.*\.//')"
 
 if [[ -z "$OUTPUT" ]]; then
+    OUTPUT="${INPUT_DIR}/${INPUT_BASENAME}_trimmed.${INPUT_EXT}"
+fi
+
+FFMPEG_ARGS=(-y -i "$INPUT_VIDEO")
+
+if [[ -n "$START" ]]; then
+    FFMPEG_ARGS+=(-ss "$START")
+fi
+
+if [[ -n "$END" ]]; then
+    FFMPEG_ARGS+=(-to "$END")
+elif [[ -n "$DURATION" ]]; then
+    FFMPEG_ARGS+=(-t "$DURATION")
+fi
+
+FFMPEG_ARGS+=(-c copy -avoid_negative_ts make_zero "$OUTPUT")
+
+echo "Trimming video"
+echo "Input: $INPUT_VIDEO"
+echo "Start: ${START:-beginning}"
+echo "End: ${END:-${DURATION:+${START:-0}+${DURATION}}}"
+
+ffmpeg "${FFMPEG_ARGS[@]}" 2>&1 | tail -3
+
+echo "Output: $OUTPUT"
