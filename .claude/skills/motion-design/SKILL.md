@@ -30,3 +30,34 @@ Use this skill when:
 2. Does it express brand personality? → Motion Personality archetypes
 3. Does it tell a story or guide attention? → Disney principles + choreography
 4. Is this a complex multi-element scene? → 1/3 Rule + stagger patterns
+
+---
+
+## Quick Reference: 8-Step Checklist
+
+Before creating any animation:
+
+1. **Emotional target?** — joy, calm, urgency, elegance
+2. **Motion Personality?** — Playful, Premium, Corporate, Energetic
+3. **Primary property?** — position, scale, rotation, opacity
+4. **Duration?** — see duration table below
+5. **Easing family?** — entrance=decelerate, exit=accelerate
+6. **Hero element?** — apply staging principles
+7. **Secondary + ambient layers?** — add richness
+8. **1/3 rules?** — motion distance, simultaneous elements
+
+---
+
+## Three Pillars (CRITICAL)
+
+Every animation must satisfy three pillars before any technical decisions:
+
+| Pillar | Question | Drives |
+|--------|----------|--------|
+| **Emotional Intent** | What should the viewer FEEL? | Easing, timing, amplitude |
+| **Visual Narrative** | What's the micro-story? | Setup → Action → Resolution |
+| **Motion Craft** | How do we make it believable? | Physics, secondary motion, paths |
+
+**Three motion layers** (flat animation = missing layers):
+- **Primary**: Main action the viewer follows
+- **Secondary**: Supporting richness (shadows, icons shifting)
