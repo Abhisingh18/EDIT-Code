@@ -307,3 +307,38 @@ const Stinger: React.FC<{ f: number; a: number; b: number; ch: Ch; prev: Ch }> =
               </MaskLine>
               <MaskLine f={f} at={A0 + 6}>
                 <div style={{ ...display(84, 750), marginTop: 10 }}>{ch.title}</div>
+              </MaskLine>
+              <div style={{ height: 3, width: 240 * ei(f, [A0 + 8, A0 + 26], [0, 1], theme.ease.inOut), background: C.hero, marginTop: 16 }} />
+              <MaskLine f={f} at={A0 + 12}>
+                <div style={{ ...mono(14, C.dim), marginTop: 16 }}>Chapter {ch.n} / 12 · Live demo</div>
+              </MaskLine>
+            </div>
+          </div>
+        </AbsoluteFill>
+      </AbsoluteFill>
+    </AbsoluteFill>
+  );
+};
+
+export const Arjun2: React.FC = () => {
+  const f = useCurrentFrame();
+  const sec = f / 30;
+  const enter = sp(f, 0, theme.spring.soft);
+  const endA = S(END[0]);
+  const sceneOut = ei(f, [S(286.8) - 4, S(286.8) + 4], [0, 1], theme.ease.in);
+
+  const ci = CH.reduce((acc, c, i) => (sec >= c.t ? i : acc), 0);
+  const ch = CH[ci];
+  const cStart = S(ch.t);
+  const cEnd = ci < CH.length - 1 ? S(CH[ci + 1].card![0]) : endA;
+  // slow, centred commercial push per chapter; resets are hidden behind the stingers
+  const z = 1 + 0.07 * ei(f, [cStart, cEnd], [0, 1], theme.ease.std);
+  const sweep = ei(f, [cStart, cStart + 22], [0, 1], theme.ease.inOut);
+  const ry = 2.0 * Math.sin(f / 150);
+  const rx = 1.0 * Math.cos(f / 170);
+  const winH = WIN.bar + VH;
+  const colOut = ei(f, [cEnd - 8, cEnd], [0, 1], theme.ease.in);
+
+  return (
+    <AbsoluteFill style={{ opacity: 1 - sceneOut }}>
+      <BgField intensity={1} />
