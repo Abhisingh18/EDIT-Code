@@ -156,3 +156,34 @@ Select ONE archetype per project. Apply consistently.
 
 **Material-based easing**:
 
+| Material | Duration Scale | Overshoot |
+|----------|---------------|-----------|
+| Rigid (metal, stone) | 1.2x | 0% |
+| Elastic (rubber, gel) | 0.8x | 15-25% |
+| Fluid (water, paint) | 1.5x | 5% |
+| Paper (cards, sheets) | 1.0x | 3-5% |
+| Gas (smoke, fog) | 2.0x | 0% |
+| Glass (brittle) | 0.9x | 0% |
+
+> Deep dive: [reference/timing-easing-tables.md](reference/timing-easing-tables.md)
+
+---
+
+## Common Patterns
+
+### Button Press (Playful)
+1. **Anticipation**: Scale to 0.97 (50ms, ease-out)
+2. **Squash**: Scale to [1.04, 0.96] (100ms, ease-in)
+3. **Follow through**: Overshoots to 1.02, settles to 1.0 (spring, 200ms)
+4. **Secondary**: Shadow shrinks during press, icon shifts down 2px
+5. **Total**: ~150ms press + 200ms settle
+
+### Card Entrance (Premium)
+1. **Start**: 20px below target, opacity 0
+2. **Path**: Slight curve (10px X offset at midpoint)
+3. **Easing**: ease-out-cubic deceleration
+4. **Follow through**: Shadow arrives 50ms after card
+5. **Secondary**: Content fades in 100ms after card lands
+6. **Staging**: Other cards dim to 80%
+
+### Success State (Playful)
