@@ -193,3 +193,35 @@ export const Establish: React.FC<{ f: number }> = ({ f }) => {
         </div>
         <div style={{ display: "flex", columnGap: 26, ...display(98, 700), textShadow: "0 10px 50px rgba(0,0,0,0.45)", marginTop: 6 }}>
           <MaskLine f={f} at={W("inside", 0) - 2}>inside</MaskLine>
+          <MaskLine f={f} at={W("a", 0) - 2}>a</MaskLine>
+          <MaskLine f={f} at={W("refinery") - 2}>refinery.</MaskLine>
+        </div>
+      </div>
+
+      {/* letterbox with camera telemetry */}
+      <div style={{ position: "absolute", left: 0, right: 0, top: -BAR + BAR * bars, height: BAR, background: "#000", display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0 92px", boxSizing: "border-box" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: 12, opacity: ei(f, [8, 14], [0, 1]) }}>
+          <div style={{ width: 10, height: 10, borderRadius: 5, background: C.bad, opacity: Math.floor(f / 12) % 2 ? 0.35 : 1 }} />
+          <span style={mono(14, C.text)}>Live · cam-04 · CDU-3 site</span>
+        </div>
+        <span style={{ ...mono(14, C.dim), fontVariantNumeric: "tabular-nums", opacity: ei(f, [8, 14], [0, 1]) }}>{tc} · 4K 30p</span>
+      </div>
+      <div style={{ position: "absolute", left: 0, right: 0, top: 1080 - BAR * bars, height: BAR, background: "#000", display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0 92px", boxSizing: "border-box" }}>
+        <span style={{ ...mono(13, C.dim), opacity: ei(f, [10, 16], [0, 1]) }}>Alt 120 m · hdg 284° · spd 4 m/s</span>
+        <span style={{ ...mono(13, C.dim), opacity: ei(f, [10, 16], [0, 1]) }}>Feed encrypted · on-prem</span>
+      </div>
+
+      {/* flash */}
+      <AbsoluteFill style={{ background: "#fff", opacity: ei(f, [0, 7], [0.55, 0], theme.ease.out), mixBlendMode: "screen" }} />
+
+      {/* sound */}
+      <Sfx at={0} name="thud" vol={0.55} />
+      <Sfx at={7} name="whoosh" vol={0.1} />
+      <Sfx at={24} name="tick" vol={0.14} />
+      <Sfx at={34} name="tick" vol={0.14} />
+      <Sfx at={pingAt - 1} name="pop" vol={0.2} />
+      <Sfx at={zoneAt - 1} name="tick" vol={0.18} />
+      <Sfx at={88} name="whoosh" vol={0.24} />
+    </AbsoluteFill>
+  );
+};
