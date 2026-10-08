@@ -268,3 +268,36 @@ export const Bhawna: React.FC = () => {
                   <div style={{ ...display(76, 700), fontVariantNumeric: "tabular-nums" }}>{hrs.toFixed(1)}</div>
                   <div style={mono(14, C.dim)}>hours lost</div>
                 </div>
+              </div>
+              <div style={card(540, bP, 0)}>
+                <div style={mono(18, C.faint)}>02</div>
+                <div style={{ width: 88, height: 88, borderRadius: 44, background: "rgba(242,85,85,0.12)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                  <Icon name="alert" size={46} color={C.bad} stroke={1.5} />
+                </div>
+                <div style={{ flex: 1 }}>
+                  <div style={display(42, 650)}>Paste it into public AI</div>
+                  <div style={{ ...display(22, 450, C.dim), letterSpacing: 0, marginTop: 8 }}>Confidential data leaves the building.</div>
+                </div>
+                <div style={{ width: 170, height: 150, position: "relative" }}>
+                  {leak > 0 &&
+                    Array.from({ length: 16 }).map((_, i) => {
+                      const t = ((leak + i * 6) % 48) / 48;
+                      return (
+                        <div
+                          key={i}
+                          style={{
+                            position: "absolute", left: 20 + t * 150, top: 75 + (rnd(i) - 0.5) * 110 * t,
+                            width: 7, height: 7, borderRadius: 4, background: C.bad, opacity: (1 - t) * 0.9,
+                          }}
+                        />
+                      );
+                    })}
+                </div>
+              </div>
+              <Stamp f={f} at={W("highly", 1) - 2} text="HIGH RISK" style={{ left: 1560, top: 690 }} />
+            </>
+          );
+        })()}
+      </Beat>
+
+      {/* thesis — the real challenge */}
