@@ -351,3 +351,38 @@ export const Shreya: React.FC = () => {
               </div>
               {kill > 0 && (
                 <>
+                  <div style={{ position: "absolute", left: 830, top: 506, width: 380 * kill, height: 4, background: C.bad, transform: "rotate(-28deg)", transformOrigin: "0 50%", boxShadow: `0 0 18px ${C.bad}` }} />
+                  <div style={{ position: "absolute", left: 830, width: 380, top: 752, textAlign: "center", ...mono(15, C.bad), opacity: kill }}>
+                    Not searched
+                  </div>
+                </>
+              )}
+              {f >= W("progan", 3) - 6 && <Logo x={1305} y={510} w={140} o={coreP} />}
+              <svg width={1920} height={1080} style={{ position: "absolute", inset: 0 }}>
+                <line x1={1385} y1={510} x2={lerp(1385, 1430, beam)} y2={510} stroke={C.ok} strokeWidth={2.5} strokeOpacity={0.9} />
+              </svg>
+              <div
+                style={{
+                  position: "absolute", left: 1430, top: 290, width: 390, height: 440, ...glass(), border: `1.5px solid ${C.ok}88`,
+                  boxShadow: `0 0 50px rgba(52,211,153,0.16), 0 34px 80px -26px rgba(0,0,0,0.8)`,
+                  display: "flex", flexDirection: "column", alignItems: "center", paddingTop: 54, boxSizing: "border-box", gap: 16,
+                  opacity: okP, transform: `translateY(${(1 - okP) * 40}px)`,
+                }}
+              >
+                <Icon name="shield" size={88} color={C.ok} stroke={1.3} />
+                <div style={{ ...display(32, 650), textAlign: "center" }}>Approved knowledge</div>
+                <div style={{ ...mono(12, C.faint), letterSpacing: "0.1em" }}>access-checked · cited</div>
+              </div>
+              <div style={{ position: "absolute", left: 1430, width: 390, top: 590, display: "flex", flexDirection: "column", alignItems: "center", gap: 12 }}>
+                <Chip f={f} at={W("permissions")} icon="lock" label="Security permissions" size={14} />
+                <Chip f={f} at={W("clearances")} icon="key" label="Clearance levels" size={14} />
+              </div>
+            </>
+          );
+        })()}
+      </Beat>
+
+      {/* B5 — role-based access */}
+      <Beat f={f} from={1252} to={1470}>
+        <Header f={f} at={1256} text="Role-based access" />
+        {(() => {
