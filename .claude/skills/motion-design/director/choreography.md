@@ -45,3 +45,26 @@ Leave 100-200ms stillness after resolution before new motion.
 | Reverse | Bottom-to-top | Exits, backward nav |
 
 - All staggered elements use same easing family
+- Vary only start time, not curve
+- Optional: last element gets slight overshoot (punctuation)
+
+## Shared Motion Events
+
+When multiple elements react to one trigger:
+- All start within 50ms of each other
+- Can arrive at different times (staggered landing)
+- Same easing family; motion originates from trigger point
+
+## Attention Direction
+
+| Technique | Implementation |
+|-----------|---------------|
+| Leading motion | Animate target before context |
+| Following motion | Settle on focal point |
+| Ambient motion | Subtle continuous in periphery |
+| Pointing motion | Directional toward CTA |
+
+### Depth Through Speed
+
+| Layer | Displacement | Speed |
+|-------|-------------|-------|
