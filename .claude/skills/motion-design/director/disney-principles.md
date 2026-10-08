@@ -24,3 +24,28 @@
 
 | Approach | Feel | Best For |
 |----------|------|----------|
+| Straight Ahead | Fluid, spontaneous | Particles, ambient, generative art |
+| Pose to Pose | Planned, controlled | UI transitions, state changes |
+
+## 5. Follow Through and Overlapping Action
+
+- Child delay: 50-150ms behind parent
+- Trailing elements: offset stop times by 100-200ms
+- Use spring easing for trailing parts (lower stiffness = more trailing)
+
+## 6. Slow In and Slow Out
+
+| Context | Easing | Why |
+|---------|--------|-----|
+| Entrance | ease-out | Arrives smoothly |
+| Exit | ease-in | Departs quickly |
+| On-screen | ease-in-out | Smooth journey |
+| Ambient loop | sine ease-in-out | Seamless |
+
+**NEVER** linear for spatial movement. Linear only for: rotation, progress bars, timers.
+
+## 7. Arcs
+
+- Add 10-20px perpendicular offset at path midpoint
+- Subtle (5px) for corporate, pronounced (20px+) for playful
+- Mechanical UIs can use straight paths intentionally
