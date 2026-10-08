@@ -89,3 +89,33 @@ BED = [(0, 0), (0.4, 0), (1.67, 0.42), (7.2, 0.46), (8.73, 0.34), (9.7, 0.2),
        (93.4, 0.2), (93.9, 0.4), (95.0, 0.4), (95.9, 0.2)]
 DRUMS = [(0, 0), (4.67, 0), (4.8, 0.62), (7.13, 0.62), (7.8, 0.3), (8.73, 0),
          (93.87, 0), (94.0, 0.55), (95.07, 0.55), (95.4, 0.14)]
+for a, b in CARDS:  # stinger swells over Arjun's chapter cards
+    BED += [(A0 + a - 0.25, 0.2), (A0 + a, 0.4), (A0 + b - 0.2, 0.4), (A0 + b + 0.15, 0.2)]
+    DRUMS += [(A0 + a - 0.25, 0.14), (A0 + a, 0.55), (A0 + b - 0.2, 0.55), (A0 + b + 0.15, 0.14)]
+e0, e1 = CH["endCard"]
+BED += [(A0 + e0 - 0.3, 0.2), (A0 + e0, 0.45), (OUT0, 0.55)]
+DRUMS += [(A0 + e0 - 0.3, 0.14), (A0 + e0, 0.6), (OUT0 - 0.1, 0.6), (OUT0, 0.7)]
+BED += [(t + SHIFT, v) for t, v in [(166.2, 0.55), (166.6, 0.5), (172.15, 0.5), (172.2, 0.0), (172.78, 0.0), (172.82, 0.52), (176.3, 0.45), (178.0, 0.0)]]
+DRUMS += [(t + SHIFT, v) for t, v in [(166.0, 0.7), (166.4, 0), (178.0, 0)]]
+def auto(keys):
+    k = np.array(keys, np.float64)
+    return np.interp(ts, k[:, 0], k[:, 1]).astype(np.float32)[:, None]
+
+bed = load("public/sfx/music_bed_long.wav")[:N]
+drums = load("public/sfx/music_drums_long.wav")[:N]
+# spectral duck: a copy of the bed with the speech band carved out, crossfaded in while people talk
+run(["-i", "public/sfx/music_bed_long.wav", "-af", "equalizer=f=2500:t=o:w=1.6:g=-6,equalizer=f=1000:t=o:w=1:g=-3,equalizer=f=250:t=o:w=1:g=-2",
+     "-c:a", "pcm_f32le", A + "bed_dip.wav"])
+bed_dip = load(A + "bed_dip.wav")[:N]
+DUCK_DEPTH = 0.5  # -6 dB more under speech (dialogue: ~18 dB below voice; pauses: ~12 dB)
+music = (bed * (1 - duck) + bed_dip * duck) * auto(BED) * (1 - (1 - DUCK_DEPTH) * duck)
+music += drums * auto(DRUMS) * (1 - 0.6 * duck)
+
+# ---------- sfx stem ----------
+old = load("out/stem_sfx.wav")
+sfx = np.zeros((N, 2), np.float32)
+k = int(round(A0 * SR)); fade = np.linspace(1, 0, int(0.05 * SR), dtype=np.float32)[:, None]
+head = old[:k].copy(); head[-len(fade):] *= fade
+sfx[:k] += head
+for cue in json.load(open("src/data/arjun2_sfx.json")):
+    place(sfx, load(f"public/sfx/{cue['name']}.wav") * cue["vol"], A0 + cue["t"])
