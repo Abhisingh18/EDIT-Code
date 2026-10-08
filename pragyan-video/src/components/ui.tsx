@@ -197,3 +197,36 @@ export const Chip: React.FC<{
         padding: "11px 18px",
         borderRadius: 999,
         background: tone === "neutral" ? "rgba(255,255,255,0.06)" : `${col}14`,
+        border: `1px solid ${tone === "neutral" ? "rgba(255,255,255,0.12)" : `${col}55`}`,
+        opacity: p,
+        transform: `translateY(${(1 - p) * 16}px) scale(${0.92 + 0.08 * p})`,
+        ...style,
+      }}
+    >
+      {icon && <Icon name={icon} size={size + 3} color={col} />}
+      <span style={{ ...mono(size, tone === "neutral" ? C.text : col), letterSpacing: "0.12em" }}>{label}</span>
+    </div>
+  );
+};
+
+/* ---------- sfx ---------- */
+export const Sfx: React.FC<{ at: number; name: string; vol?: number }> = ({ at, name, vol = 0.5 }) => !PLAY_SFX ? null : (
+  <Sequence from={Math.max(0, at)} durationInFrames={170} layout="none">
+    <Audio src={staticFile(`sfx/${name}.wav`)} volume={vol} />
+  </Sequence>
+);
+
+/* ---------- beat wrapper: exit faster than entrance ---------- */
+export const Beat: React.FC<{ f: number; from: number; to: number; children: React.ReactNode; exit?: number }> = ({
+  f, from, to, children, exit = 12,
+}) => {
+  if (f < from - 2 || f > to) return null;
+  const x = exitP(f, to, exit);
+  return (
+    <AbsoluteFill style={{ opacity: 1 - x, transform: `translateY(${-28 * x}px)`, filter: `blur(${x * 6}px)` }}>
+      {children}
+    </AbsoluteFill>
+  );
+};
+
+/* ---------- word-synced captions (premium, monochrome) ---------- */
