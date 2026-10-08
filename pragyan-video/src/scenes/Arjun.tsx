@@ -348,3 +348,38 @@ export const Arjun: React.FC = () => {
   const bStart = S(beat.t);
   const bEnd = bi < BEATS.length - 1 ? S(BEATS[bi + 1].t) : MAGIC;
   const beatOut = ei(f, [bEnd - 8, bEnd], [0, 1], theme.ease.in);
+  const sweep = ei(f, [bStart, bStart + 22], [0, 1], theme.ease.inOut);
+  const ry = 2.0 * Math.sin(f / 150);
+  const rx = 1.0 * Math.cos(f / 170);
+  const winH = WIN.bar + VH;
+  const uiO = enter * (1 - recede);
+
+  return (
+    <AbsoluteFill style={{ opacity: 1 - sceneOut }}>
+      <BgField intensity={1} />
+      <div style={{ opacity: 1 - recede }}>
+        <ChapterTag f={f} at={4} num="03" title="Live demo" style={{ left: 72, top: 62 }} />
+      </div>
+
+      {/* step progress */}
+      <div style={{ position: "absolute", left: RX, top: 46, width: RW, opacity: uiO }}>
+        <div style={{ display: "flex", justifyContent: "space-between" }}>
+          <span style={mono(12, C.dim)}>Step</span>
+          <span style={{ ...mono(12, C.text), fontVariantNumeric: "tabular-nums" }}>{beat.n} / 09</span>
+        </div>
+        <div style={{ display: "flex", gap: 6, marginTop: 10 }}>
+          {BEATS.map((bt, i) => {
+            const fill = i < bi ? 1 : i > bi ? 0 : ei(f, [bStart, bEnd], [0, 1], theme.ease.std);
+            return (
+              <div key={bt.n} style={{ flex: 1, height: 4, borderRadius: 2, background: "rgba(255,255,255,0.14)", overflow: "hidden" }}>
+                <div style={{ width: `${fill * 100}%`, height: 4, background: i === bi ? C.hero : "rgba(255,255,255,0.85)" }} />
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* the product screen with a virtual camera */}
+      <div style={{ position: "absolute", inset: 0, perspective: 2400 }}>
+        <div
+          style={{
