@@ -60,3 +60,34 @@ const WordReveal: React.FC<{text: string; delay?: number; per?: number;
   style?: React.CSSProperties}> = ({ text, delay = 0, per = 3, style }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
+  return (
+    <div style={{ display: "flex", flexWrap: "wrap", gap: "0.26em", ...style }}>
+      {text.split(" ").map((word, i) => {
+        const p = spring({ frame: frame - delay - i * per, fps,
+          config: theme.spring.snappy });
+        return (
+          <span key={i} style={{
+            display: "inline-block", opacity: p,
+            transform: `translateY(${interpolate(p, [0, 1], [30, 0])}px)`,
+          }}>{word}</span>
+        );
+      })}
+    </div>
+  );
+};
+```
+GOTCHA: when placing two big text blocks side by side in a flex row, use a
+pixel `gap` (e.g. `gap: 42`), NOT em — em resolves against the parent's font
+size (usually 16px), producing near-zero gaps next to 150px type.
+
+## 4. Background mesh
+```tsx
+const BgMesh: React.FC = () => {
+  const frame = useCurrentFrame();
+  const d1 = Math.sin(frame / 55) * 50, d2 = Math.cos(frame / 70) * 40;
+  return (
+    <AbsoluteFill style={{ background: theme.colors.bg }}>
+      <div style={{ position: "absolute", width: 1200, height: 1200,
+        borderRadius: "50%", top: -450, left: -300 + d1, filter: "blur(50px)",
+        background: `radial-gradient(circle, ${theme.colors.primary}33, transparent 62%)` }}/>
+      <div style={{ position: "absolute", width: 900, height: 900,
