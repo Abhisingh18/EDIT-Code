@@ -79,3 +79,29 @@ scripts/edit.sh video.mp4 \
 Pipeline order: trim → jump cut → speed → caption → overlay
 
 ## Requirements
+
+- **ffmpeg** — video processing (must be installed)
+- **whisper** — audio transcription for captions (openai-whisper CLI)
+
+## Scripts Reference
+
+| Script | Purpose |
+|--------|---------|
+| `scripts/edit.sh` | Main orchestrator — chains all operations |
+| `scripts/transcribe.sh` | Whisper transcription → SRT file |
+| `scripts/caption.sh` | Burn SRT captions into video with style |
+| `scripts/trim.sh` | Trim by timestamps |
+| `scripts/jumpcut.sh` | Auto-remove silence via silencedetect |
+| `scripts/overlay-text.sh` | Add positioned text overlays |
+
+## Agent Instructions
+
+When the user asks to edit a video:
+
+1. **Parse the request** — identify which operations are needed (trim, jumpcut, caption, overlay, speed)
+2. **Use edit.sh for multi-operation edits** — it chains operations in the correct order
+3. **Use individual scripts for single operations** — faster, simpler output
+4. **For captions**: if the user has an existing SRT, use `--caption-srt`; otherwise transcription runs automatically
+5. **Default caption style**: use "standard" unless the user specifies a style
+6. **Default whisper model**: use "base" for speed; suggest "medium" or "large" for accuracy on long/noisy videos
+7. **Output**: always tell the user the output file path and duration
