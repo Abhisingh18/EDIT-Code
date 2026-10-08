@@ -66,3 +66,36 @@ export const Bhawna: React.FC = () => {
           transformOrigin: "0 0",
           filter: "saturate(1.04) contrast(1.04)",
         }}
+      >
+        <OffthreadVideo src={staticFile("bhawna.mp4")} muted={!PLAY_VOICE} />
+      </AbsoluteFill>
+
+      {/* broadcast talent-box dressing while docked */}
+      {f < 800 && (
+        <SpeakerDecor
+          f={f} x={70} y={170} w={747} h={747} r={28} appear={104} who="bhawna" envFrame={f}
+          name="Bhavna" role="The problem" index="01 / 03"
+          o={ei(f, [786, 798], [1, 0], theme.ease.in)}
+        />
+      )}
+      {/* light sweep across the card as it opens */}
+      {f >= 110 && f < 132 && (
+        <div style={{ position: "absolute", left: 70, top: 170, width: 747, height: 747, borderRadius: 28, overflow: "hidden" }}>
+          <div style={{ position: "absolute", top: -100, bottom: -100, width: 260, left: lerp(-320, 820, ei(f, [110, 130], [0, 1], theme.ease.inOut)), background: "linear-gradient(100deg, transparent, rgba(255,255,255,0.16), transparent)", transform: "skewX(-14deg)" }} />
+        </div>
+      )}
+      {f >= 818 && (
+        <div
+          style={{
+            position: "absolute", left: 200 - 112, top: 880 - 112, width: 224, height: 224, borderRadius: "50%",
+            border: "1.5px solid rgba(255,255,255,0.35)", boxShadow: "0 0 0 8px rgba(255,255,255,0.04)",
+            opacity: ei(f, [818, 832], [0, 1]),
+          }}
+        />
+      )}
+
+
+      {/* titles */}
+      {f < 800 && (
+        <AbsoluteFill style={{ opacity: ei(f, [786, 800], [1, 0], theme.ease.in) }}>
+          <ChapterTag f={f} at={100} num="01" title="The problem" style={{ left: 72, top: 62 }} />
