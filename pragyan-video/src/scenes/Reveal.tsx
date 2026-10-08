@@ -51,3 +51,30 @@ export const Reveal: React.FC = () => {
 
       {r >= hitAt - 1 && (
         <>
+          <div
+            style={{
+              position: "absolute",
+              left: cx - w * 0.9,
+              top: cy - w * 0.9,
+              width: w * 1.8,
+              height: w * 1.8,
+              borderRadius: "50%",
+              background: `radial-gradient(circle, rgba(139,92,246,0.20), rgba(255,122,26,0.06) 40%, transparent 68%)`,
+              opacity: logoP,
+            }}
+          />
+          <Img
+            src={staticFile("logo_dark.png")}
+            style={{
+              position: "absolute",
+              left: cx - w / 2,
+              top: cy - (w * LOGO_AR) / 2,
+              width: w,
+              opacity: Math.min(1, logoP * 1.3),
+              transform: `scale(${0.86 + 0.14 * logoP})`,
+            }}
+          />
+        </>
+      )}
+
+      {/* category line synced to her words */}
