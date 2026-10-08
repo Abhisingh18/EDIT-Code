@@ -23,3 +23,27 @@ print_usage() {
     sed -n '3,15p' "$0" | sed 's/^# \?//'
 }
 
+if [[ $# -lt 2 ]]; then
+    print_usage
+    exit 1
+fi
+
+INPUT_VIDEO="$1"
+SRT_FILE="$2"
+shift 2
+
+STYLE="standard"
+OUTPUT=""
+
+while [[ $# -gt 0 ]]; do
+    case "$1" in
+        --style)
+            STYLE="$2"
+            shift 2
+            ;;
+        --output)
+            OUTPUT="$2"
+            shift 2
+            ;;
+        *)
+            echo "Error: Unknown option '$1'"
