@@ -53,3 +53,30 @@ User assets go in `public/`, loaded via `staticFile()`.
 ### Step 3 — Build
 Read `references/motion-patterns.md` for the reusable component implementations
 (BgMesh, Grade, Grain, Vignette, KenBurns, WordReveal, Stagger, Counter, Spark,
+transitions, parallax). Compose scenes from those patterns. For pacing, rhythm,
+typography, color palettes, and sound design rules, read
+`references/design-rules.md`.
+
+Scene rhythm: HIT → hold (15–20 still frames) → build → HIT. Something must move
+in the first 15 frames. Never >90 frames without a new visual element.
+
+### Step 4 — Render
+```bash
+npx remotion render src/index.ts <CompId> out/video.mp4 --codec h264 --crf 17
+```
+Remotion needs a Chromium binary. If its auto-download fails (sandboxes, offline CI),
+find one and pass it explicitly:
+```bash
+which chromium chromium-browser google-chrome 2>/dev/null
+ls /opt/pw-browsers 2>/dev/null   # Playwright installs live here
+npx remotion render ... --browser-executable=<path>
+```
+If full Chrome errors with "Old Headless mode has been removed", use a
+`headless_shell` binary instead (Playwright ships one as
+`chromium_headless_shell-*/chrome-linux/headless_shell`).
+
+### Step 5 — VERIFY (mandatory, never skip)
+Extract frames at key moments and visually inspect each one. The portable
+method — works on machines with no system ffmpeg, renders the exact frame:
+```bash
+for f in 15 45 90 150; do
