@@ -369,3 +369,36 @@ export const Bhawna: React.FC = () => {
             );
           })()}
           <div style={{ position: "absolute", left: 330, top: 846, opacity: ei(f, [826, 846], [0, 1]) }}>
+            <div style={display(30, 650)}>Bhavna</div>
+            <div style={{ ...mono(13, C.dim), marginTop: 6 }}>Team Data_Jarvis GGV</div>
+            <div style={{ marginTop: 12 }}><VoiceMeter who="bhawna" i={f} h={22} bars={18} /></div>
+          </div>
+        </AbsoluteFill>
+      )}
+
+      {/* the establishing shot: 0:09–0:12 */}
+      <Establish f={f} />
+
+      {/* captions */}
+      <Captions f={f} pages={CAPS} x={PCX} y={958} maxWidth={940} size={36} until={800} />
+
+      {/* sound */}
+      <Sfx at={101} name="pop" vol={0.12} />
+      <Sfx at={W("sensitive") - 3} name="thud" vol={0.42} />
+      <Sfx at={182} name="whoosh" vol={0.13} />
+      <Sfx at={W("analyze") - 1} name="tick" vol={0.22} />
+      <Sfx at={W("approval") - 5} name="pop" vol={0.18} />
+      <Sfx at={W("note") - 1} name="tick" vol={0.25} />
+      <Sfx at={333} name="whoosh" vol={0.13} />
+      <Sfx at={W("not") - 2} name="thud" vol={0.5} />
+      <Sfx at={W("organization") - 1} name="tick" vol={0.2} />
+      <Sfx at={W("security") - 1} name="tick" vol={0.2} />
+      <Sfx at={W("competences") - 1} name="tick" vol={0.2} />
+      <Sfx at={501} name="whoosh" vol={0.13} />
+      <Sfx at={W("either") - 5} name="pop" vol={0.16} />
+      <Sfx at={W("secondly") - 5} name="pop" vol={0.16} />
+      <Sfx at={W("highly", 1) - 3} name="thud" vol={0.45} />
+      <Sfx at={796} name="whoosh" vol={0.24} />
+    </AbsoluteFill>
+  );
+};
