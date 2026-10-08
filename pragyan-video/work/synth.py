@@ -100,3 +100,28 @@ save("hit", reverb(hit, 2.5, 0.35))
 # riser: rising noise + sine
 tt = env_t(1.6)
 r = bp(rng.standard_normal(len(tt)), 800, 9000) * (tt / tt[-1]) ** 2.5 * 0.6
+r += np.sin(2 * np.pi * np.cumsum(200 + 1400 * (tt / tt[-1]) ** 2) / SR) * (tt / tt[-1]) ** 2 * 0.3
+save("riser", reverb(r, 1.0, 0.3))
+# tick / click
+tt = env_t(0.08)
+save("tick", np.sin(2 * np.pi * 2400 * tt) * np.exp(-tt * 90) + hp(rng.standard_normal(len(tt)), 4000) * np.exp(-tt * 200) * 0.4)
+# pop
+tt = env_t(0.25)
+save("pop", np.sin(2 * np.pi * np.cumsum(900 * np.exp(-tt * 20) + 180) / SR) * np.exp(-tt * 18))
+# shimmer
+tt = env_t(2.5); sh = np.zeros(len(tt))
+for m in (86, 89, 93, 98, 101):
+    sh += np.sin(2 * np.pi * mtof(m) * tt + rng.random() * 6) * np.exp(-tt * 1.6) * np.minimum(1, tt / 0.05)
+save("shimmer", reverb(sh, 2.5, 0.5))
+print("ok")
+# short thud for kinetic type hits
+tt = env_t(0.5)
+ph = 2 * np.pi * np.cumsum(50 + 160 * np.exp(-tt * 30)) / SR
+th = np.sin(ph) * np.exp(-tt * 9) + bp(rng.standard_normal(len(tt)), 1500, 6000) * np.exp(-tt * 45) * 0.25
+save("thud", reverb(th, 0.6, 0.18))
+# low rumble for cold open
+tt = env_t(6.0)
+ru = lp(rng.standard_normal(len(tt)), 90, 4) * 6 + np.sin(2 * np.pi * 36 * tt) * 0.4
+ru *= np.minimum(1, tt / 2.5) * np.clip((6 - tt) / 1.5, 0, 1)
+save("rumble", ru)
+print("extra ok")
