@@ -78,3 +78,29 @@ export const Reveal: React.FC = () => {
       )}
 
       {/* category line synced to her words */}
+      <div style={{ position: "absolute", left: 0, right: 0, top: 720, display: "flex", justifyContent: "center", opacity: subO }}>
+        <SyncWords
+          f={r}
+          gap={20}
+          style={{ ...display(42, 500), letterSpacing: "0.005em" }}
+          items={[
+            { t: "Sovereign", at: S("sovereign") },
+            { t: "·", at: S("sovereign") + 6, color: C.faint },
+            { t: "On-Premise", at: S("on") },
+            { t: "·", at: S("on") + 8, color: C.faint },
+            { t: "Agentic AI", at: S("agent") },
+            { t: "Workbench", at: S("workbench") - 2 },
+          ]}
+        />
+      </div>
+
+      <AbsoluteFill style={{ background: "radial-gradient(circle at 50% 42%, #fff, transparent 60%)", opacity: flash, mixBlendMode: "screen" }} />
+
+      <Sfx at={1} name="shimmer" vol={0.16} />
+      <Sfx at={hitAt - 48} name="riser" vol={0.07} />
+      <Sfx at={hitAt - 1} name="hit" vol={0.4} />
+      <Sfx at={hitAt} name="shimmer" vol={0.14} />
+      <Sfx at={190} name="whoosh" vol={0.1} />
+    </AbsoluteFill>
+  );
+};
