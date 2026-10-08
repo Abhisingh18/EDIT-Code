@@ -68,3 +68,38 @@ const HLS: HL[] = [
   { a: 43.75, b: 45.4, r: [558, 183, 1592, 242], label: "Operations engineer · answered", tone: C.ok },
   { a: 43.95, b: 45.4, r: [668, 528, 1497, 600], label: "Restricted employee · hidden", tone: C.bad },
   { a: 45.85, b: 47.4, r: [938, 98, 1130, 667], label: "Access level per document", tone: C.accent },
+];
+
+const Highlight: React.FC<{ h: HL; sec: number; f: number; c: Cam }> = ({ h, sec, f, c }) => {
+  if (sec < h.a || sec > h.b) return null;
+  const a = S(h.a);
+  const draw = ei(f, [a, a + 12], [0, 1], theme.ease.out);
+  const o = 1 - ei(sec, [h.b - 0.25, h.b], [0, 1]);
+  const p0 = toScreen(h.r[0], h.r[1], c), p1 = toScreen(h.r[2], h.r[3], c);
+  const w = p1.x - p0.x, hh = p1.y - p0.y;
+  const labelAbove = p0.y > 46;
+  return (
+    <div style={{ position: "absolute", inset: 0, opacity: o }}>
+      <svg width={VW} height={VH} style={{ position: "absolute", left: 0, top: 0 }}>
+        <rect x={p0.x} y={p0.y} width={w} height={hh} rx={10} fill={`${h.tone}10`} stroke={h.tone} strokeWidth={2.5}
+          pathLength={1} strokeDasharray={1} strokeDashoffset={1 - draw} />
+      </svg>
+      <div style={{
+        position: "absolute", left: Math.max(8, Math.min(p0.x, VW - 360)), top: labelAbove ? p0.y - 40 : p1.y + 8,
+        padding: "7px 12px", borderRadius: 8, background: h.tone === "#FFFFFF" ? "#0B0F1A" : h.tone,
+        border: "1px solid rgba(255,255,255,0.2)", opacity: ei(f, [a + 6, a + 12], [0, 1]),
+        transform: `translateY(${(1 - ei(f, [a + 6, a + 14], [0, 1])) * 6}px)`, whiteSpace: "nowrap",
+        boxShadow: "0 10px 30px rgba(0,0,0,0.35)",
+      }}>
+        <span style={{ ...mono(13, "#fff"), letterSpacing: "0.1em", fontWeight: 700 }}>{h.label}</span>
+      </div>
+    </div>
+  );
+};
+
+/* ---------- right-column story beats ---------- */
+type Beat = { t: number; n: string; title: string; sub: string; g: string };
+const BEATS: Beat[] = [
+  { t: 0.0, n: "01", title: "The task", sub: "Review PSV-2034 against the current SOP revision.", g: "task" },
+  { t: 4.9, n: "02", title: "Reads the scan", sub: "Finds every failed check — and cites the page.", g: "scan" },
+  { t: 13.9, n: "03", title: "Drafts the note", sub: "Problem, evidence, action, approval — in your format.", g: "draft" },
