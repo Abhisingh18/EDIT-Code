@@ -180,3 +180,33 @@ export const Outro: React.FC = () => {
               ))}
             </div>
             <div
+              style={{
+                position: "absolute", left: 0, right: 0, top: 846, textAlign: "center",
+                opacity: ei(z, [144, 160], [0, 1]) * (0.78 + 0.22 * Math.sin(z / 14)),
+              }}
+            >
+              <div style={mono(17, C.text)}>Smart India Hackathon 2026 · SIH26117 · Team Data_Jarvis GGV</div>
+            </div>
+            <AbsoluteFill style={{ background: "radial-gradient(circle at 50% 40%, #fff, transparent 55%)", opacity: flash, mixBlendMode: "screen" }} />
+          </AbsoluteFill>
+        );
+      })()}
+
+      {/* sound */}
+      {SHOTS.map((_, i) => (
+        <Sfx key={i} at={i * SHOT - 2} name={i === 0 ? "whoosh" : "tick"} vol={i === 0 ? 0.3 : 0.2} />
+      ))}
+      <Sfx at={214} name="whoosh" vol={0.22} />
+      {STATS.map((_, k) => (
+        <Sfx key={k} at={216 + 18 + k * 18 - 1} name="pop" vol={0.16} />
+      ))}
+      <Sfx at={394} name="whoosh" vol={0.18} />
+      <Sfx at={504 + 22} name="riser" vol={0.34} />
+      <Sfx at={504 + 89} name="hit" vol={0.9} />
+      <Sfx at={504 + 90} name="shimmer" vol={0.32} />
+      {[0, 1, 2].map((i) => (
+        <Sfx key={`t${i}`} at={504 + 107 + i * 9} name="tick" vol={0.12} />
+      ))}
+    </AbsoluteFill>
+  );
+};
