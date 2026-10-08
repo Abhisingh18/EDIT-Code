@@ -150,3 +150,33 @@ export const Outro: React.FC = () => {
         const pulse = z >= 72 && z < hit ? 1 - 0.025 * Math.sin(((z - 72) / 18) * Math.PI) : 1;
         const fadeAll = ei(z, [216, 246], [0, 1], theme.ease.inOut);
         return (
+          <AbsoluteFill style={{ opacity: 1 - fadeAll }}>
+            <AbsoluteFill style={{ background: "#000", opacity: ei(z, [0, 10], [0, 0.55]) }} />
+            <div style={{ position: "absolute", inset: 0, transform: `scale(${pulse})` }}>
+              <Converge f={z} start={0} dur={48} cx={960} cy={cy} w={LW} h={LH} opacity={1 - ei(z, [hit, hit + 10], [0, 1])} />
+            </div>
+            {z >= hit - 1 && (
+              <>
+                <div
+                  style={{
+                    position: "absolute", left: 960 - LW, top: cy - LW, width: LW * 2, height: LW * 2, borderRadius: "50%",
+                    background: "radial-gradient(circle, rgba(139,92,246,0.22), rgba(255,122,26,0.07) 40%, transparent 66%)", opacity: logoP,
+                  }}
+                />
+                <Img
+                  src={staticFile("logo_dark.png")}
+                  style={{
+                    position: "absolute", left: 960 - LW / 2, top: cy - LH / 2, width: LW,
+                    opacity: Math.min(1, logoP * 1.4), transform: `scale(${(0.9 + 0.1 * logoP) * (1 + Math.sin(z / 30) * 0.006)})`,
+                  }}
+                />
+              </>
+            )}
+            <div style={{ position: "absolute", left: 0, right: 0, top: 742, display: "flex", justifyContent: "center", gap: 30 }}>
+              {["Sovereign.", "Secure.", "Agentic."].map((w, i) => (
+                <MaskLine key={w} f={z} at={108 + i * 9}>
+                  <span style={{ ...display(54, 650), letterSpacing: "0.005em" }}>{w}</span>
+                </MaskLine>
+              ))}
+            </div>
+            <div
