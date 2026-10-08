@@ -128,3 +128,36 @@ export const Establish: React.FC<{ f: number }> = ({ f }) => {
                 const t = (((f - pingAt) + k * 15) % 30) / 30;
                 return (
                   <div key={k} style={{
+                    position: "absolute", left: x - 10 - t * 34, top: y - 10 - t * 34, width: 20 + t * 68, height: 20 + t * 68,
+                    borderRadius: "50%", border: `2px solid ${C.hero}`, opacity: (1 - t) * 0.9 * p,
+                  }} />
+                );
+              })}
+              <div style={{
+                position: "absolute", left: x - 9, top: y - 9, width: 18, height: 18, borderRadius: 9, background: C.hero,
+                boxShadow: `0 0 24px ${C.hero}`, transform: `scale(${p})`,
+              }} />
+              <div style={{
+                position: "absolute", left: x + 26, top: y - 54, display: "flex", alignItems: "center", gap: 10, padding: "9px 14px",
+                borderRadius: 999, background: "rgba(6,9,16,0.7)", border: `1px solid ${C.hero}`, opacity: p,
+                transform: `translateY(${(1 - p) * 10}px)`, whiteSpace: "nowrap",
+              }}>
+                <Icon name="user" size={18} color={C.hero} />
+                <span style={{ ...mono(14, C.text), letterSpacing: "0.12em" }}>Engineer · on site</span>
+              </div>
+            </>
+          );
+        })()}
+      </AbsoluteFill>
+
+      {/* atmosphere: foreground dust for depth */}
+      {Array.from({ length: 18 }).map((_, i) => {
+        const x = (rnd(i) * 2200 + f * (0.6 + rnd(i + 7) * 1.2)) % 2100 - 90;
+        const y = 160 + rnd(i + 3) * 760 + Math.sin((f + i * 20) / 30) * 8;
+        const s = 3 + rnd(i + 11) * 9;
+        return <div key={i} style={{ position: "absolute", left: x, top: y, width: s, height: s, borderRadius: "50%", background: "rgba(255,240,220,0.5)", filter: `blur(${s / 3}px)`, opacity: 0.35 * inP }} />;
+      })}
+
+      {/* legibility for the title in the sky */}
+      <AbsoluteFill style={{ background: "radial-gradient(70% 60% at 12% 18%, rgba(4,8,18,0.55), transparent 70%)" }} />
+
