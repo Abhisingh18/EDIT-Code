@@ -210,3 +210,38 @@ export const Shreya: React.FC = () => {
               ].map((tk, i) => {
                 const t0 = EV[i];
                 if (f < t0 - 2 || f > arrive(i) + 4) return null;
+                const appear = sp(f, t0, theme.spring.snappy);
+                const toRouter = ei(f, [t0 + 4, t0 + 18], [0, 1], theme.ease.inOut);
+                const alongP = ei(f, [t0 + 16, arrive(i)], [0, 1], theme.ease.inOut);
+                const m = MODELS[i];
+                const tx = lerp(935, ROUTER.x, toRouter), ty = lerp(400, ROUTER.y, toRouter);
+                const px = bez(ROUTER.x + 74, 1352, 1352, 1420, alongP);
+                const py = bez(545, 545, m.cy, m.cy, alongP);
+                return (
+                  <React.Fragment key={i}>
+                    {toRouter < 1 && (
+                      <div
+                        style={{
+                          position: "absolute", left: tx, top: ty, transform: `translate(-50%,-50%) scale(${appear * (1 - toRouter * 0.85)})`,
+                          opacity: appear * (1 - toRouter * 0.6), display: "flex", alignItems: "center", gap: 8, padding: "10px 16px",
+                          borderRadius: 999, background: "rgba(10,14,26,0.9)", border: "1px solid rgba(255,255,255,0.2)", whiteSpace: "nowrap",
+                        }}
+                      >
+                        <Icon name={tk.icon} size={20} color={C.text} />
+                        <span style={mono(14, C.text)}>{tk.label}</span>
+                      </div>
+                    )}
+                    {alongP > 0 && alongP < 1 && (
+                      <div style={{ position: "absolute", left: px - 8, top: py - 8, width: 16, height: 16, borderRadius: 8, background: C.hero, boxShadow: `0 0 22px ${C.hero}` }} />
+                    )}
+                  </React.Fragment>
+                );
+              })}
+              <div style={{ position: "absolute", left: 830, width: 760, top: 790, display: "flex", justifyContent: "center" }}>
+                <Chip f={f} at={W("no")} icon="check" label="Auto-routed · no manual steps" tone="ok" />
+              </div>
+            </>
+          );
+        })()}
+      </Beat>
+
