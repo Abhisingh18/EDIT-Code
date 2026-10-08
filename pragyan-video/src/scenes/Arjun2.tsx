@@ -101,3 +101,38 @@ const Graphic: React.FC<{ g: string; f: number; t0: number }> = ({ g, f, t0 }) =
             {E.map(([a2, b2], k) => {
               const p = ei(f, [S(37.7) + k * 5, S(37.7) + 16 + k * 5], [0, 1], theme.ease.inOut);
               return <line key={k} x1={N[a2].x} y1={N[a2].y} x2={lerp(N[a2].x, N[b2].x, p)} y2={lerp(N[a2].y, N[b2].y, p)} stroke="rgba(255,255,255,0.35)" strokeWidth={1.5} />;
+            })}
+          </svg>
+          {N.map((nd, k) => {
+            const p = sp(f, S(nd.a), theme.spring.snappy);
+            const col = nd.k === "eq" ? C.accent : C.warn;
+            const pulse = k === 0 && f > S(37.7) ? 1 + 0.25 * Math.abs(Math.sin(f / 9)) : 1;
+            return (
+              <div key={k} style={{ position: "absolute", left: nd.x - 9, top: nd.y - 9, opacity: p, transform: `scale(${p})` }}>
+                <div style={{ width: 18, height: 18, borderRadius: 9, background: col, boxShadow: `0 0 ${14 * pulse}px ${col}`, transform: `scale(${pulse})` }} />
+                <div style={{ ...mono(11, C.text), letterSpacing: "0.06em", textTransform: "none", position: "absolute", left: 24, top: 1, whiteSpace: "nowrap" }}>{nd.t}</div>
+              </div>
+            );
+          })}
+          <div style={{ position: "absolute", left: 0, top: 286, display: "flex", gap: 16 }}>
+            <span style={mono(11, C.accent)}>● equipment</span><span style={mono(11, C.warn)}>● documents</span>
+          </div>
+          <div style={{ position: "absolute", left: 0, top: 310, ...stag(f, S(45.3)) }}><span style={mono(11, C.dim)}>company knowledge — not personal memory</span></div>
+        </div>
+      );
+    }
+    case "access":
+      return (
+        <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+          <div style={stag(f, S(52.6))}><Pill icon="db" text="Collection permission" tone={C.accent} /></div>
+          <div style={{ ...stag(f, S(54.4)), ...mono(13, C.hero), paddingLeft: 14 }}>AND</div>
+          <div style={stag(f, S(55.0))}><Pill icon="key" text="Document clearance" tone={C.accent} /></div>
+          <div style={{ display: "flex", gap: 6, marginTop: 4 }}>
+            {["Viewer", "Editor", "Owner"].map((r, k) => <div key={r} style={{ ...stag(f, S(61.5) + k * 8), ...mono(11, C.text), padding: "6px 10px", borderRadius: 8, background: "rgba(255,255,255,0.07)" }}>{r}</div>)}
+          </div>
+          <div style={{ ...stag(f, S(65.3)), marginTop: 6 }}><Pill icon="check" text="Engineer · gets the report" tone={C.ok} /></div>
+          <div style={stag(f, S(67.7))}><Pill icon="lock" text="IT employee · same question, no access" tone={C.bad} /></div>
+        </div>
+      );
+    case "requests":
+      return (
