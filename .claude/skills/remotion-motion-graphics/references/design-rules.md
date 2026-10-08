@@ -54,3 +54,31 @@ More than one glowing element per frame = Vegas. Don't.
   covers everything: 2 whooshes, 2 clicks, riser, bass hit, shimmer, tick, pop,
   reverse-swoosh.
 
+## Asset generation guidance (when user generates images for the video)
+Lock a prompt skeleton, vary only the subject, keep lighting + palette words
+identical across the set, generate at final aspect ratio:
+```
+[subject], cinematic product photography, dark moody studio, [hero color] rim
+lighting, deep shadows, shallow depth of field, 9:16
+```
+
+## Render settings
+- Masters for upload: `--codec h264 --crf 16` (platforms re-compress; give headroom)
+- Heavy transparency/blur stacks: add `--image-format png`
+- Preview suspicious motion at 0.25x in Remotion Studio — easing flaws invisible
+  at 1x are obvious at quarter speed.
+
+## PRE-DELIVERY CHECKLIST — run against every video before presenting it
+- [ ] Zero linear easing anywhere; every interpolate clamped
+- [ ] Entrances = 2–3 properties, staggered; nothing enters simultaneously
+- [ ] Exits animated, faster than entrances
+- [ ] Every still has Ken Burns; fast moves have motion blur
+- [ ] 5-layer stack present (bg mesh, assets, graphics, grade, grain+vignette)
+- [ ] One hero color, ≤1 hero-colored/glowing element per frame
+- [ ] Display font ≥600 weight on heroes; no default-font hero text
+- [ ] Pixel gaps (not em) between large text blocks
+- [ ] Holds exist: ≥3 moments of stillness
+- [ ] SFX on major hits, cuts on beat (if audio in scope)
+- [ ] Text inside safe zone; nothing touching frame edges
+- [ ] Rendered, frames extracted with ffmpeg, every extracted frame visually
+      inspected, issues fixed, re-rendered, re-inspected
