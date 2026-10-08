@@ -58,3 +58,33 @@ const EDGES: [number, number][] = (() => {
       .slice(0, i < N_OUT ? 3 : 2);
     near.forEach(([j]) => {
       const k = i < j ? `${i}-${j}` : `${j}-${i}`;
+      if (!e.has(k)) {
+        e.add(k);
+        out.push([Math.min(i, j), Math.max(i, j)]);
+      }
+    });
+  });
+  return out;
+})();
+
+export const Lattice: React.FC<{
+  f: number;
+  spawnAt: number;
+  camZ: number;
+  yaw: number;
+  pitch: number;
+  focal?: number;
+  opacity?: number;
+  cx?: number;
+  cy?: number;
+}> = ({ f, spawnAt, camZ, yaw, pitch, focal = 900, opacity = 1, cx = 960, cy = 540 }) => {
+  const P = LATTICE.map((p, i) => {
+    const g = sp(f, spawnAt + (i % 48) * 0.45, { damping: 24, stiffness: 55, mass: 1 });
+    const q = rot([p[0] * g, p[1] * g, p[2] * g], yaw, pitch);
+    const pr = project(q, camZ, focal, cx, cy);
+    return pr ? { ...pr, g } : null;
+  });
+  const fade = (d: number) => clamp01((d - 0.12) / 0.5) * clamp01(1.55 - d * 0.1);
+  return (
+    <svg width={1920} height={1080} style={{ position: "absolute", inset: 0, opacity }}>
+      <defs>
