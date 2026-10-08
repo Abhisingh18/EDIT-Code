@@ -56,3 +56,32 @@ pad = lp(pad, 1800)
 # slow filter-ish swell
 pad *= 0.75 + 0.25 * np.sin(2 * np.pi * t / (CH * 2))
 arp = lp(arp, 4000)
+# ping-pong delay for arp
+dl = int(BEAT * 0.75 * SR); arpL = arp.copy(); arpR = np.zeros(N)
+arpR[dl:] += arp[:-dl] * 0.5; arpL[2 * dl:] += arp[:-2 * dl] * 0.3
+bed_dry = np.stack([pad + arpL * 0.6, pad + arpR * 0.6], 1)
+wet = reverb(pad + arp * 0.5, 3.5, 0.45)
+bed = bed_dry / np.max(np.abs(bed_dry)) * 0.6 + wet * 0.5
+bed[:, 0] += lp(bass, 200) * 0.45; bed[:, 1] += lp(bass, 200) * 0.45
+fade = np.minimum(1, t / 1.0) * np.clip((DUR - t) / 3, 0, 1)
+bed *= fade[:, None]
+save("music_bed_long", bed)
+
+# ---- drums (kick + hat + clap), separate stem ----
+dr = np.zeros(N)
+nb = int(DUR / BEAT)
+for b in range(nb):
+    s = int(b * BEAT * SR); e = min(N, s + int(0.45 * SR)); kt = np.arange(e - s) / SR
+    ph = 2 * np.pi * np.cumsum(45 + 90 * np.exp(-kt * 28)) / SR
+    dr[s:e] += np.sin(ph) * np.exp(-kt * 7) * 0.9
+    hs = int((b + 0.5) * BEAT * SR); he = min(N, hs + int(0.07 * SR))
+    if hs < N:
+        ht = np.arange(he - hs) / SR
+        dr[hs:he] += hp(rng.standard_normal(he - hs), 7000) * np.exp(-ht * 60) * 0.25
+    if b % 4 in (1, 3):
+        cs = s; ce = min(N, cs + int(0.25 * SR)); ct = np.arange(ce - cs) / SR
+        dr[cs:ce] += bp(rng.standard_normal(ce - cs), 900, 3500) * np.exp(-ct * 22) * 0.35
+save("music_drums_long", reverb(dr, 1.2, 0.15) * fade[:, None])
+
+
+print("long music ok")
