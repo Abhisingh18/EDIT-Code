@@ -52,3 +52,30 @@ for who, t0 in OFF.items():
 
 # ---------- speech activity from word timings (what is actually said, not energy) ----------
 words = json.load(open("src/data/words.json", encoding="utf-8"))
+CR = 200  # control rate (Hz)
+nc = int(DUR * CR) + 1
+act = np.zeros(nc, np.float32)
+for who, t0 in OFF.items():
+    ws = words[who]
+    spans = [[t0 + w["s"] - 0.12, t0 + w["e"] + 0.20] for w in ws]
+    merged = []
+    for s, e in spans:  # bridge short gaps so the bed doesn't pump between words
+        if merged and s - merged[-1][1] < 0.6:
+            merged[-1][1] = max(merged[-1][1], e)
+        else:
+            merged.append([s, e])
+    for s, e in merged:
+        act[max(0, int(s * CR)):min(nc, int(e * CR))] = 1.0
+# smooth: quick duck (120 ms), slow recovery (550 ms) -> sidechain-style, no pumping
+env = np.zeros_like(act)
+a_att, a_rel = 1 - np.exp(-1 / (0.12 * CR)), 1 - np.exp(-1 / (0.55 * CR))
+v = 0.0
+for i, x in enumerate(act):
+    v += (x - v) * (a_att if x > v else a_rel)
+    env[i] = v
+tc = np.arange(nc) / CR
+ts = np.arange(N) / SR
+duck = np.interp(ts, tc, env).astype(np.float32)[:, None]
+
+# ---------- music: section levels (pause level during dialogue; ducking does the rest) ----------
+BED = [(0, 0), (0.4, 0), (1.67, 0.42), (7.2, 0.46), (8.73, 0.34), (9.7, 0.2),
