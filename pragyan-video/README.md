@@ -1,6 +1,6 @@
 # Pragyan — SIH 2026 pitch film
 
-Remotion project for Team Data_Jarvis GGV (SIH26117). Output: `E:\EDIT\Pragyan_SIH26117_Final.mp4` (1920×1080, 30 fps, ~6:47 — v3 with Arjun's full walkthrough).
+Technical reference for the Remotion project (overview: see the root `README.md`). Team Data_Jarvis GGV (SIH26117). Output: `E:\EDIT\Pragyan_SIH26117_Final.mp4` (1920×1080, 30 fps, ~6:47 — v3 with Arjun's full walkthrough).
 
 ## Structure
 
@@ -19,7 +19,7 @@ Master timings: `src/timeline.ts`. Colours, fonts and easings: `src/theme.ts`. M
 
 ```bash
 npm run studio   # live preview in the browser
-npm run render   # writes out/pragyan_final.mp4
+npm run render   # single-pass render (needs lots of RAM; on this machine use the chunked pipeline below)
 ```
 
 - Caption wording fixes (Whisper hears "Pragyan" as "ProGaN"): `src/captions.ts`.
@@ -29,16 +29,16 @@ npm run render   # writes out/pragyan_final.mp4
 
 ## Final delivery files
 
-- `E:\EDIT\Pragyan_SIH26117_Final.mp4` — H.264 1080p30 + AAC 256k, −16 LUFS, true peak ≈ −2.3 dBTP. Use this for upload / submission / WhatsApp.
+- `E:\EDIT\Pragyan_SIH26117_Final.mp4` — H.264 1080p30 + AAC 256k, 6:47, −16 LUFS, true peak ≈ −2.2 dBTP. Use this for upload / submission / WhatsApp.
 - `E:\EDIT\Pragyan_SIH26117_preview_vscode.mp4` — same video with Opus audio. VS Code's built-in player can't play AAC, so use this one there.
-- Previous version (v1) is kept in `out/v1/`.
+- Previous versions are kept in `out/v1/` (2:58 cut) and `out/v2/` (old Arjun demo).
 
 ## Audio post-production (voice-first mix)
 
-1. `work/audio/dfenv/Scripts/python work/audio/df_enhance.py` — DeepFilterNet3 noise removal (isolated venv, numpy<2; never install it globally — global numpy must stay 2.x).
-2. `python work/audio/voice_chain.py` — match-EQ to a speech curve (80% strength), de-ess, gentle compression, slow levelling, −16 LUFS per speaker; Shreya's jump cuts are rebuilt frame-accurately from her VFR source; writes `src/data/voice_env.json` for the on-screen voice meters.
+1. `work/audio/dfenv/Scripts/python work/audio/df_enhance.py` (+ `df_enhance2.py` for Arjun's new walkthrough) — DeepFilterNet3 noise removal (isolated venv, numpy<2; never install it globally — global numpy must stay 2.x).
+2. `python work/audio/voice_chain.py` (+ `voice_arjun2.py` for Arjun's new walkthrough) — match-EQ to a speech curve (80% strength), de-ess, gentle compression, slow levelling, −16 LUFS per speaker; Shreya's jump cuts are rebuilt frame-accurately from her VFR source; writes `src/data/voice_env.json` for the on-screen voice meters.
 3. Render the effects stem: `npx remotion render src/index.ts Pragyan out/stem_sfx.wav --codec wav --props work/props_sfx.json --concurrency 2`.
-4. `python work/audio/mix.py` — word-timed sidechain ducking (+ spectral dip) for the music, ducked SFX, bus compression, −16 LUFS, 4x-oversampled limiter.
+4. `python work/audio/mix2.py` (current; `mix.py` was the 2:58 cut) — word-timed sidechain ducking (+ spectral dip) for the music, ducked SFX, bus compression, −16 LUFS, 4x-oversampled limiter.
 
 ## Picture render and assembly (low-RAM machine: ≤3 workers)
 
