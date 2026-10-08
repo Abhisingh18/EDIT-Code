@@ -280,3 +280,38 @@ export const Shreya: React.FC = () => {
                       strokeDashoffset={1 - p} fill="none" stroke="rgba(255,255,255,0.3)" strokeWidth={2} />
                   );
                 })}
+              </svg>
+              {f >= W("connects") - 4 && <Logo x={930} y={545} w={150} o={coreP} />}
+              <div
+                style={{
+                  position: "absolute", left: 1250 - 95, top: 545 - 95, width: 190, height: 190, borderRadius: 95, ...glass({ borderRadius: 95 }),
+                  display: "flex", alignItems: "center", justifyContent: "center", opacity: dbP, transform: `scale(${0.6 + 0.4 * dbP})`,
+                }}
+              >
+                <Icon name="db" size={78} color={C.text} stroke={1.4} />
+              </div>
+              <div style={{ position: "absolute", left: 1250 - 160, width: 320, top: 660, textAlign: "center", opacity: dbP }}>
+                <div style={mono(15, C.text)}>Knowledge base</div>
+                <div style={{ ...mono(12, C.faint), marginTop: 8, letterSpacing: "0.1em" }}>your organisation's own</div>
+              </div>
+              {docs.map((d, i) => {
+                const p = sp(f, d.at - 3, theme.spring.snappy);
+                const flowT = f - d.at - 14;
+                return (
+                  <React.Fragment key={d.t}>
+                    <div
+                      style={{
+                        position: "absolute", left: 1480, top: d.cy - 50, width: 330, height: 100, ...glass({ borderRadius: 18 }),
+                        display: "flex", alignItems: "center", gap: 18, padding: "0 24px", boxSizing: "border-box",
+                        opacity: p, transform: `translateX(${(1 - p) * 80}px)`,
+                      }}
+                    >
+                      <Icon name={d.icon} size={32} color={C.text} stroke={1.5} />
+                      <span style={display(28, 600)}>{d.t}</span>
+                    </div>
+                    {flowT > 0 &&
+                      [0, 1, 2].map((k) => {
+                        const t = ((flowT + k * 9) % 27) / 27;
+                        return (
+                          <div key={k} style={{
+                            position: "absolute", left: bez(1480, 1410, 1410, 1345, t) - 4, top: bez(d.cy, d.cy, 545, 545, t) - 4,
