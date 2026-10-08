@@ -61,3 +61,34 @@ const Fragment: React.FC<{ fr: Frag; l: number; tint?: string }> = ({ fr, l, tin
         boxShadow: "0 40px 90px -30px rgba(0,0,0,0.9)",
         opacity: 0.5 * (1 - enter * 0.6),
         filter: `grayscale(0.92) brightness(0.62) contrast(1.15) blur(${enter * 6}px)`,
+      }}
+    >
+      <Img src={staticFile(fr.img)} style={{ width: "100%", display: "block" }} />
+      {tint && <AbsoluteFill style={{ background: tint, mixBlendMode: "color" }} />}
+    </div>
+  );
+};
+
+export const ColdOpen: React.FC = () => {
+  const f = useCurrentFrame();
+
+  // camera: push from far away through the structure
+  const camZ = ei(f, [36, 262], [4.4, 0.42], theme.ease.inOut);
+  const yaw = 0.25 + f * 0.0052;
+  const pitch = 0.32 + Math.sin(f / 80) * 0.08;
+  const latticeO =
+    ei(f, [36, 60], [0, 1]) * (f >= 144 && f < 216 ? 0.32 : 1) * ei(f, [250, 268], [1, 0], theme.ease.in);
+
+  const pointSize = sp(f, 12, theme.spring.snappy) * 7 * ei(f, [38, 70], [1, 0]);
+  const hookOut = ei(f, [128, 140], [0, 1], theme.ease.in);
+
+  const phrase = PHRASES.findIndex((p, i) => f >= p.at && f < (PHRASES[i + 1]?.at ?? 216));
+
+  return (
+    <AbsoluteFill style={{ background: "#000" }}>
+      <AbsoluteFill style={{ opacity: ei(f, [30, 90], [0, 1]) }}>
+        <BgField intensity={0.8} grid={false} />
+      </AbsoluteFill>
+
+      <Lattice f={f} spawnAt={36} camZ={camZ} yaw={yaw} pitch={pitch} opacity={latticeO} />
+      {f < 72 && <PointOfLight size={pointSize} o={ei(f, [12, 16], [0, 1])} />}
