@@ -96,3 +96,35 @@ export const Establish: React.FC<{ f: number }> = ({ f }) => {
         )}
         {/* drifting cloud shadow */}
         <div
+          style={{
+            position: "absolute", left: 200 + f * 4, top: 520, width: 1100, height: 520, borderRadius: "50%",
+            background: "radial-gradient(ellipse, rgba(10,20,40,0.32), transparent 65%)", mixBlendMode: "multiply",
+          }}
+        />
+        {/* pinned markers */}
+        <Marker f={f} appear={24} x={755} y={622} lx={560} ly={540} title="V-201" sub="Overhead receiver" />
+        <Marker f={f} appear={34} x={1210} y={800} lx={1330} ly={742} title="PSV-2034" sub="Inspection due" dot={C.warn} />
+        {f >= zoneAt && (
+          <div
+            style={{
+              position: "absolute", left: 225, top: 488, width: 1090, height: 470, borderRadius: 10,
+              border: "1.5px dashed rgba(255,255,255,0.7)", opacity: sp(f, zoneAt, theme.spring.snappy),
+              transform: `scale(${1.06 - 0.06 * sp(f, zoneAt, theme.spring.snappy)})`,
+            }}
+          >
+            <div style={{ position: "absolute", left: 0, top: -34, display: "flex", gap: 10, alignItems: "center", whiteSpace: "nowrap" }}>
+              <span style={{ ...mono(13, C.text), background: "rgba(6,9,16,0.6)", padding: "5px 10px", borderRadius: 6 }}>Tank farm · zone B</span>
+              <span style={{ ...mono(13, C.bad), background: "rgba(6,9,16,0.6)", padding: "5px 10px", borderRadius: 6 }}>Restricted</span>
+            </div>
+          </div>
+        )}
+        {/* the engineer — hero element */}
+        {f >= pingAt && (() => {
+          const p = sp(f, pingAt, theme.spring.bouncy);
+          const x = 1120, y = 880;
+          return (
+            <>
+              {[0, 1].map((k) => {
+                const t = (((f - pingAt) + k * 15) % 30) / 30;
+                return (
+                  <div key={k} style={{
