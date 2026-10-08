@@ -22,3 +22,27 @@
 | Card | Scale 1.01-1.02 + shadow lift | <100ms |
 | Link | Color change + underline | <100ms |
 | Icon | Scale 1.1 + rotation 2-5° | <100ms |
+| Image | Scale 1.03 (overflow hidden) | 150ms |
+
+Hover enter <100ms; hover exit 150-200ms (slower = polished).
+
+## Toggle / Switch
+- Thumb slides (120-180ms, ease-in-out); track color transitions simultaneously
+- Slight squash in movement direction
+- Playful: bounce at destination; Premium: smooth, no overshoot
+
+## Success State
+
+### Checkmark Success
+1. Container: scale 0.9→1.0 (200ms, ease-out-back, 5-10% overshoot)
+2. Checkmark: stroke draw (150ms, ease-out, 100ms delay)
+3. Color: to green (200ms); ambient glow/particles (300ms)
+4. Total: 400-500ms
+
+### Confirmation Badge
+1. Badge scales from 0 (200ms, ease-out-back)
+2. Text fades in (150ms, 50ms delay)
+3. Background pulse (300ms, sine)
+
+### Payment Success
+1. Spinner → checkmark crossfade (200ms)
