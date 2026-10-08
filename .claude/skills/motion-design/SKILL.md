@@ -282,3 +282,34 @@ Select ONE archetype per project. Apply consistently.
 |---------|-------------|-----|
 | Looks robotic | Linear easing or no arcs | Add easing curves + arc paths |
 | Feels too slow | Duration too long for element type | Check duration table, use ease-out |
+| Feels cheap/flat | Missing secondary + ambient | Add shadow motion + background life |
+| Too distracting | Too many elements moving | Apply 1/3 rule, reduce amplitude |
+| No personality | Generic easing everywhere | Apply personality archetype consistently |
+
+> Deep dive: [reference/troubleshooting.md](reference/troubleshooting.md)
+
+---
+
+## File Reference
+
+**Philosophy** (director/):
+- [core-philosophy.md](director/core-philosophy.md) — Three Pillars deep dive
+- [decision-framework.md](director/decision-framework.md) — Full decision pipeline
+- [disney-principles.md](director/disney-principles.md) — 12 principles, UI-adapted
+- [motion-personality.md](director/motion-personality.md) — 4 archetypes + brand identity
+- [emotion-mapping.md](director/emotion-mapping.md) — Emotion → motion + color psychology
+- [choreography.md](director/choreography.md) — Multi-element coordination
+- [narrative-structure.md](director/narrative-structure.md) — Micro-story framework
+- [context-adaptation.md](director/context-adaptation.md) — Platform, a11y, performance
+
+**Reference** (reference/):
+- [timing-easing-tables.md](reference/timing-easing-tables.md) — Duration + easing lookups
+- [property-selection.md](reference/property-selection.md) — Property communication guide
+- [troubleshooting.md](reference/troubleshooting.md) — Animation smells + fixes
+- [quality-checklist.md](reference/quality-checklist.md) — Evaluation criteria
+
+**Patterns** (patterns/):
+- [entrance-exit.md](patterns/entrance-exit.md) — Entrance/exit recipes
+- [state-feedback.md](patterns/state-feedback.md) — Success, error, loading, hover
+- [ambient-continuous.md](patterns/ambient-continuous.md) — Looping, breathing, parallax
+- [multi-element.md](patterns/multi-element.md) — Stagger + choreography recipes
