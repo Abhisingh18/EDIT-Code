@@ -418,3 +418,38 @@ export const Arjun: React.FC = () => {
       {/* the explainer column */}
       <div key={beat.n} style={{ position: "absolute", left: RX, top: 130, width: RW, opacity: uiO * (1 - beatOut), transform: `translateY(${-14 * beatOut}px)` }}>
         <MaskLine f={f} at={bStart + 2}>
+          <span style={{ ...display(96, 800), color: "transparent", WebkitTextStroke: "1.5px rgba(255,255,255,0.6)" }}>{beat.n}</span>
+        </MaskLine>
+        <MaskLine f={f} at={bStart + 6}>
+          <div style={{ ...display(40, 700), marginTop: 6 }}>{beat.title}</div>
+        </MaskLine>
+        <div style={{ fontFamily: theme.fonts.body, fontSize: 20, lineHeight: 1.4, color: C.dim, marginTop: 12, ...stag(f, bStart + 10) }}>{beat.sub}</div>
+        <div style={{ height: 1, background: "rgba(255,255,255,0.1)", margin: "26px 0 22px", width: RW * ei(f, [bStart + 8, bStart + 24], [0, 1]) }} />
+        <Graphic g={beat.g} f={f} t0={beat.t} />
+      </div>
+
+      {/* presenter plate with live voice meter */}
+      <div style={{
+        position: "absolute", left: WIN.x, top: 996, height: 58, padding: "0 18px", borderRadius: 14, display: "flex", alignItems: "center", gap: 16,
+        background: "rgba(6,9,16,0.62)", border: "1px solid rgba(255,255,255,0.14)", opacity: uiO,
+      }}>
+        <span style={display(24, 650)}>Arjun</span>
+        <span style={mono(11, C.dim)}>Live demo · Team Data_Jarvis GGV</span>
+        <div style={{ width: 1, height: 28, background: "rgba(255,255,255,0.14)" }} />
+        <VoiceMeter who="arjun" i={f} h={22} bars={18} />
+      </div>
+
+      {/* the magic moment: scattered information -> a useful draft */}
+      {f >= MAGIC && (() => {
+        const g = f - MAGIC;
+        const draftAt = A("useful") - MAGIC;
+        const gather = ei(g, [draftAt - 10, draftAt + 8], [0, 1], theme.ease.inOut);
+        const cardP = sp(g, draftAt + 4, theme.spring.smooth);
+        return (
+          <AbsoluteFill>
+            <div style={{ position: "absolute", left: 0, right: 0, top: 142, textAlign: "center" }}>
+              <MaskLine f={g} at={2}>
+                <span style={{ ...display(62, 600), color: C.dim }}>From scattered information</span>
+              </MaskLine>
+              <MaskLine f={g} at={draftAt - 6}>
+                <span style={display(62, 700)}>
