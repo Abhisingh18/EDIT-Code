@@ -65,3 +65,25 @@ Use for: gaming, sports, music, events, marketing, fitness apps.
 | (unspecified) + UI | Corporate (default) |
 | (unspecified) + illustration | Playful (default) |
 
+## Brand Motion Identity
+
+Define three constants for recognizable motion:
+
+### 1. Signature Easing (80% of animations)
+Playful: ease-out-back | Premium: (0.4,0,0.2,1) | Corporate: (0.2,0,0,1) | Energetic: ease-out-expo
+
+### 2. Duration Palette
+
+| Tier | Playful | Premium | Corporate | Energetic |
+|------|---------|---------|-----------|-----------|
+| Quick | 150ms | 350ms | 200ms | 100ms |
+| Standard | 250ms | 500ms | 300ms | 180ms |
+| Slow | 400ms | 800ms | 450ms | 300ms |
+
+### 3. Entrance Pattern
+Playful: bounce up from below | Premium: slow fade + scale 98%→100% | Corporate: slide right + opacity | Energetic: snap from edge + overshoot
+
+## Mixing Archetypes
+- 90% primary archetype; specific moments can borrow another
+- Ease into personality shifts, don't snap
+- Example: corporate dashboard borrows Playful for success state only
