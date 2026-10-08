@@ -74,3 +74,28 @@ export const DocCard: React.FC<{
 };
 
 // red rubber stamp
+export const Stamp: React.FC<{ f: number; at: number; text: string; color?: string; style?: React.CSSProperties }> = ({
+  f, at, text, color = C.bad, style,
+}) => {
+  if (f < at) return null;
+  const p = sp(f, at, { damping: 13, stiffness: 260, mass: 0.6 });
+  return (
+    <div
+      style={{
+        position: "absolute",
+        ...mono(30, color),
+        fontWeight: 700,
+        letterSpacing: "0.14em",
+        border: `4px solid ${color}`,
+        borderRadius: 8,
+        padding: "8px 18px",
+        transform: `rotate(-12deg) scale(${1.9 - 0.9 * p})`,
+        opacity: Math.min(1, p * 1.4) * 0.95,
+        background: "rgba(255,255,255,0.05)",
+        ...style,
+      }}
+    >
+      {text}
+    </div>
+  );
+};
