@@ -239,3 +239,37 @@ const Graphic: React.FC<{ g: string; f: number; t0: number }> = ({ g, f, t0 }) =
         <div style={{ display: "flex", gap: 18 }}>
           <div style={{ width: 120, height: 236, borderRadius: 22, border: "2px solid rgba(255,255,255,0.5)", background: "#0B0F1A", padding: "22px 10px", boxSizing: "border-box", flexShrink: 0, opacity: ph, transform: `translateY(${(1 - ph) * 40}px) rotate(${(1 - ph) * -8}deg)` }}>
             <div style={{ width: 36, height: 5, borderRadius: 3, background: "rgba(255,255,255,0.3)", margin: "-12px auto 12px" }} />
+            <div style={mono(9, C.hero)}>Pragyan</div>
+            <div style={{ marginTop: 10, padding: 6, borderRadius: 8, background: "rgba(255,255,255,0.08)" }}>{line(70)}{line(50)}</div>
+            <div style={{ marginTop: 8, marginLeft: 20, padding: 6, borderRadius: 8, background: "rgba(76,141,255,0.25)" }}>{line(60)}{line(40)}</div>
+          </div>
+          <div style={{ display: "flex", flexDirection: "column", gap: 8, paddingTop: 6 }}>
+            {[["user", "Same account", 209.4], ["file", "Files & images", 212.6], ["key", "Same permissions", 216.6], ["book", "Offline reading", 218.6]].map(([ic, t, a]) => (
+              <div key={t as string} style={stag(f, S(a as number))}><Pill icon={ic as string} text={t as string} tone={C.ok} /></div>
+            ))}
+          </div>
+        </div>
+      );
+    }
+    case "workspace":
+      return (
+        <div>
+          <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
+            {[["list", "Projects", 229.0], ["file", "Files", 230.6], ["sheet", "Tables", 232.4], ["code", "Code", 233.8], ["graph", "Diagrams", 234.2]].map(([ic, t, a]) => (
+              <div key={t as string} style={stag(f, S(a as number))}><Pill icon={ic as string} text={t as string} /></div>
+            ))}
+          </div>
+          <div style={{ ...stag(f, S(236.4)), marginTop: 14 }}><Pill icon="spark" text="Agents & reusable skills" tone={C.hero} /></div>
+          <div style={{ ...stag(f, S(242.4)), marginTop: 8 }}><Pill icon="lock" text="No extra document access" tone={C.ok} /></div>
+        </div>
+      );
+    case "status":
+      return (
+        <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+          {[
+            { k: "Today", v: "Configured model services", at: 262.4, tone: C.warn, icon: "cloud" },
+            { k: "Deployment", v: "100% local · open-weight models", at: 269.3, tone: C.ok, icon: "server" },
+            { k: "Planned monitor", v: "Zero third-party API calls", at: 276.1, tone: C.ok, icon: "shield" },
+          ].map((r) => (
+            <div key={r.k} style={{ ...stag(f, S(r.at)), ...glass({ borderRadius: 14 }), padding: "12px 14px", border: `1px solid ${r.tone}66` }}>
+              <div style={{ ...mono(11, r.tone) }}>{r.k}</div>
