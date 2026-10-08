@@ -63,3 +63,36 @@ JUMPCUT_PADDING="0.1"
 
 DO_CAPTION=false
 CAPTION_STYLE="standard"
+CAPTION_MODEL="base"
+CAPTION_LANGUAGE=""
+CAPTION_SRT=""
+
+DO_OVERLAY=false
+OVERLAY_TEXT=""
+OVERLAY_START="0"
+OVERLAY_END=""
+OVERLAY_POSITION="center"
+OVERLAY_FONTSIZE="48"
+
+DO_SPEED=false
+SPEED_FACTOR=""
+
+OUTPUT=""
+
+while [[ $# -gt 0 ]]; do
+    case "$1" in
+        --trim-start)
+            DO_TRIM=true
+            TRIM_START="$2"
+            shift 2
+            ;;
+        --trim-end)
+            DO_TRIM=true
+            TRIM_END="$2"
+            shift 2
+            ;;
+        --trim-duration)
+            DO_TRIM=true
+            TRIM_DURATION="$2"
+            shift 2
+            ;;
