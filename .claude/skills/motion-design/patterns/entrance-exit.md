@@ -53,3 +53,30 @@ Best for: modals, dialogs, notifications, popovers, tooltips.
 
 ### 4. Transfer Exit (Move Away)
 - Position toward destination + scale shrink; ease-in-out; 250-400ms
+- Best for: add-to-cart, save-to-collection, move-to-folder
+
+## Entrance-Exit Continuity
+- Eye follows naturally from exit to entrance
+- Exit point near entry point when possible
+- 100-150ms timing overlap between exit and entrance
+- Same easing family for paired entrance-exit
+
+## Common Recipes
+
+### Notification Slide-In
+1. Slide from right + opacity (250ms, ease-out)
+2. Overshoot 3-5% (corporate) or 10-15% (playful)
+3. Icon appears (100ms, 50ms delay)
+
+### Toast Dismiss
+1. Slide toward edge + opacity (180ms, ease-in)
+2. Remaining toasts shift up (200ms, ease-in-out)
+
+### Dropdown Open
+1. Scale Y 0→100% (200ms, ease-out)
+2. Items stagger fade in (30ms apart, 50ms after container)
+
+### Page Transition (Forward)
+1. Current page slides left + fades (300ms, ease-in)
+2. New page from right + fades in (400ms, ease-out, 100ms delay)
+3. Shared elements morph (400ms, ease-in-out)
