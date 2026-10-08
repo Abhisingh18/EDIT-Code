@@ -161,3 +161,35 @@ while [[ $# -gt 0 ]]; do
         --output)
             OUTPUT="$2"
             shift 2
+            ;;
+        *)
+            echo "Error: Unknown option '$1'"
+            print_usage
+            exit 1
+            ;;
+    esac
+done
+
+INPUT_DIR="$(dirname "$INPUT_VIDEO")"
+INPUT_BASENAME="$(basename "$INPUT_VIDEO" | sed 's/\.[^.]*$//')"
+INPUT_EXT="$(basename "$INPUT_VIDEO" | sed 's/.*\.//')"
+
+if [[ -z "$OUTPUT" ]]; then
+    OUTPUT="${INPUT_DIR}/${INPUT_BASENAME}_edited.${INPUT_EXT}"
+fi
+
+WORK_DIR="$(mktemp -d)"
+trap 'rm -rf "$WORK_DIR"' EXIT
+
+CURRENT_FILE="$INPUT_VIDEO"
+STEP=0
+
+next_intermediate() {
+    STEP=$((STEP + 1))
+    echo "${WORK_DIR}/step_${STEP}.${INPUT_EXT}"
+}
+
+echo "=== Video Edit Pipeline ==="
+echo "Input: $INPUT_VIDEO"
+echo ""
+
