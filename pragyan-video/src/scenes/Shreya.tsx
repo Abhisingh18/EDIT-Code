@@ -69,3 +69,38 @@ export const Shreya: React.FC = () => {
           opacity: cardP, transform: `translateX(${(1 - cardP) * -90}px) scale(${0.95 + 0.05 * cardP})`,
         }}
       >
+        <OffthreadVideo src={staticFile("shreya.mp4")} muted={!PLAY_VOICE} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+        <AbsoluteFill style={{ background: "linear-gradient(180deg, rgba(0,0,0,0.35), transparent 22%, transparent 62%, rgba(2,4,9,0.85))" }} />
+      </div>
+      <SpeakerDecor
+        f={f} x={CARD.x} y={CARD.y} w={CARD.w} h={CARD.h} r={28} appear={204} who="shreya" envFrame={f}
+        name="Shreya" role="The solution" index="02 / 03" plate="top"
+      />
+      <div style={{ position: "absolute", left: 0, top: 0, opacity: cardP }}>
+        <Captions f={f} pages={CAPS} x={CARD.x + CARD.w / 2} y={CARD.y + CARD.h - 142} maxWidth={560} size={34} />
+      </div>
+
+      <ChapterTag f={f} at={196} num="02" title="The solution" style={{ left: 792, top: 66 }} />
+
+      {/* B1 — sovereign: everything inside your boundary */}
+      <Beat f={f} from={198} to={306}>
+        <Header f={f} at={204} text="Sovereign by design" />
+        {(() => {
+          const reveal = ei(f, [W("inside", 0) - 12, W("inside", 0) + 30], [0, 1], theme.ease.inOut);
+          return (
+            <div
+              style={{
+                position: "absolute", left: 830, top: 220, width: 970, height: 650, borderRadius: 36,
+                border: "2px dashed rgba(255,255,255,0.3)", clipPath: `inset(0 ${(1 - reveal) * 100}% 0 0)`,
+              }}
+            />
+          );
+        })()}
+        <Logo x={CORE.x} y={CORE.y} w={CORE.w * (1 + Math.sin(f / 24) * 0.008)} />
+        {["Your data", "Your models", "Your tools"].map((t, i) => {
+          const a = (i / 3) * Math.PI * 2 + f * 0.007 - 0.6;
+          const p = sp(f, W("productivity") + i * 5, theme.spring.snappy);
+          return (
+            <div
+              key={t}
+              style={{
