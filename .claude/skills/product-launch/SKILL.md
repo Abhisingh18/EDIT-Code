@@ -172,3 +172,37 @@ Scale up early access while generating external buzz.
 **Goal:** Build buzz and refine product with broader feedback.
 
 ### Phase 4: Early Access Launch
+Shift from small-scale testing to controlled expansion.
+
+**Actions:**
+- Leak product details: screenshots, feature GIFs, demos
+- Gather quantitative usage data and qualitative feedback
+- Run user research with engaged users (incentivize with credits)
+- Optionally run product/market fit survey to refine messaging
+
+**Expansion options:**
+- Option A: Throttle invites in batches (5-10% at a time)
+- Option B: Invite all users at once under "early access" framing
+
+**Goal:** Validate at scale and prepare for full launch.
+
+### Phase 5: Full Launch
+Open the floodgates.
+
+**Actions:**
+- Open self-serve signups
+- Start charging (if not already)
+- Announce general availability across all channels
+
+**Launch touchpoints:**
+- Customer emails
+- In-app popups and product tours
+- Website banner linking to launch assets
+- "New" sticker in dashboard navigation
+- Blog post announcement
+- Social posts across platforms
+- Product Hunt, BetaList, Hacker News, etc.
+
+**Goal:** Maximum visibility and conversion to paying users.
+
+---
