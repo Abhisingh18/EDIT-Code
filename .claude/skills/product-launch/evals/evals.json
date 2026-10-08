@@ -25,3 +25,29 @@
         "Applies Product Hunt strategy section",
         "Covers timing (day and time selection)",
         "Covers asset preparation",
+        "Addresses hunter network and supporter activation",
+        "Recommends preparation timeline",
+        "Mentions common mistakes to avoid",
+        "Sets realistic expectations"
+      ],
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "we just shipped a major feature update. how should we announce it? it's not a full product launch, just a big new feature.",
+      "expected_output": "Should trigger on casual phrasing. Should apply the ongoing launch strategy section, specifically the major/medium/minor update matrix. Should identify this as a major feature update. Should recommend appropriate channels and tactics for a feature launch (less than a full product launch but more than a changelog entry). Should include: announcement email, blog post, social media push, in-app notification, and possibly a mini Product Hunt launch. Should provide a feature announcement framework.",
+      "assertions": [
+        "Triggers on casual phrasing",
+        "Applies ongoing launch strategy / update matrix",
+        "Identifies as major feature update",
+        "Scales tactics appropriately (not full launch)",
+        "Recommends announcement channels",
+        "Includes email, blog, social, and in-app notification",
+        "Provides feature announcement framework"
+      ],
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "Our launch flopped. We launched 3 weeks ago and only got 50 signups. We expected at least 500. What went wrong and what can we do now?",
+      "expected_output": "Should apply the post-launch product marketing section. Should diagnose potential failure causes: insufficient audience building pre-launch, wrong channels, weak value proposition messaging, poor launch execution, targeting the wrong audience. Should recommend post-launch recovery tactics: iterate on messaging, identify which channels produced the 50 signups and double down, try new distribution channels, leverage early users for testimonials. Should provide a specific 30-day recovery plan.",
