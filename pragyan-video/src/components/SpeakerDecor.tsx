@@ -82,3 +82,31 @@ export const SpeakerDecor: React.FC<{
           <React.Fragment key={k}>
             <div style={{ position: "absolute", left: sx > 0 ? bx : bx - bracket, top: by - 1, width: bracket, height: 2, background: "rgba(255,255,255,0.7)" }} />
             <div style={{ position: "absolute", left: bx - 1, top: sy > 0 ? by : by - bracket, width: 2, height: bracket, background: "rgba(255,255,255,0.7)" }} />
+          </React.Fragment>
+        ),
+      )}
+      {/* REC + index */}
+      <div style={{ position: "absolute", left: x + w - 190, top: y + 18, width: 170, display: "flex", justifyContent: "flex-end", alignItems: "center", gap: 10 }}>
+        <div style={{ width: 8, height: 8, borderRadius: 4, background: C.bad, opacity: live ? 1 : 0.35 }} />
+        <span style={{ ...mono(12, C.text), fontVariantNumeric: "tabular-nums", textShadow: "0 1px 6px rgba(0,0,0,0.7)" }}>REC {tc}</span>
+        <span style={{ ...mono(12, C.dim), textShadow: "0 1px 6px rgba(0,0,0,0.7)" }}>{index}</span>
+      </div>
+      {/* name plate with live voice meter */}
+      {plate !== "none" && (
+        <div style={{
+          position: "absolute", left: x + 18, top: plate === "bottom" ? y + h - 18 - 70 : y + 18,
+          height: 70, padding: "0 18px", borderRadius: 16, display: "flex", alignItems: "center", gap: 18,
+          background: "rgba(6,9,16,0.62)", border: "1px solid rgba(255,255,255,0.14)", backdropFilter: "blur(10px)",
+          transform: `translateY(${(1 - p) * 14}px)`,
+        }}>
+          <div>
+            <div style={{ ...display(26, 650), letterSpacing: "-0.01em" }}>{name}</div>
+            <div style={{ ...mono(11, C.dim), marginTop: 5 }}>{role}</div>
+          </div>
+          <div style={{ width: 1, height: 34, background: "rgba(255,255,255,0.14)" }} />
+          <VoiceMeter who={who} i={envFrame} />
+        </div>
+      )}
+    </div>
+  );
+};
