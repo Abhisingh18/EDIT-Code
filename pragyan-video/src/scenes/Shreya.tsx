@@ -139,3 +139,39 @@ export const Shreya: React.FC = () => {
                     d={`M${ROUTER.x + 74},545 C1352,545 1352,${m.cy} 1420,${m.cy}`}
                     pathLength={1}
                     strokeDasharray={1}
+                    strokeDashoffset={1 - fan}
+                    fill="none"
+                    stroke={active === i ? C.hero : "rgba(255,255,255,0.3)"}
+                    strokeWidth={active === i ? 3 : 2}
+                  />
+                ))}
+              </svg>
+              {/* server */}
+              <div
+                style={{
+                  position: "absolute", left: 830, top: 470, width: 210, height: 150, ...glass(), display: "flex", flexDirection: "column",
+                  alignItems: "center", justifyContent: "center", gap: 10, opacity: srvP, transform: `translateY(${(1 - srvP) * 40}px)`,
+                }}
+              >
+                <Icon name="server" size={46} color={C.text} stroke={1.5} />
+                <div style={mono(15, C.text)}>One server</div>
+                <div style={{ ...mono(11, C.faint), letterSpacing: "0.1em" }}>on-prem GPU</div>
+              </div>
+              {/* router */}
+              <div
+                style={{
+                  position: "absolute", left: ROUTER.x - 74, top: ROUTER.y - 74, width: 148, height: 148, borderRadius: 74,
+                  ...glass({ borderRadius: 74 }), border: `1.5px solid ${C.hero}`,
+                  boxShadow: `0 0 50px ${C.glow}, 0 0 110px rgba(255,122,26,0.18), inset 0 1px 0 rgba(255,255,255,0.1)`,
+                  display: "flex", alignItems: "center", justifyContent: "center", opacity: rtP, transform: `scale(${rtP})`,
+                }}
+              >
+                <Icon name="route" size={58} color={C.hero} stroke={1.6} />
+              </div>
+              <div style={{ position: "absolute", left: ROUTER.x - 100, width: 200, top: 640, textAlign: "center", opacity: rtP }}>
+                <span style={mono(15, C.text)}>Smart router</span>
+              </div>
+              {/* models */}
+              <div style={{ position: "absolute", left: 1420, top: 222 }}>
+                <MaskLine f={f} at={W("open", 0)}>
+                  <span style={mono(14, C.dim)}>Open-weight models</span>
