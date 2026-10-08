@@ -49,3 +49,29 @@
 - Add 10-20px perpendicular offset at path midpoint
 - Subtle (5px) for corporate, pronounced (20px+) for playful
 - Mechanical UIs can use straight paths intentionally
+
+## 8. Secondary Action
+
+- Amplitude: 30-50% of primary; timing: 50-100ms after primary
+- Different easing than primary
+- Examples: card enters → shadow grows; button presses → ripple expands
+
+## 9. Timing
+
+| Weight/Mood | Duration |
+|-------------|----------|
+| Heavy (modals, pages) | 400-800ms |
+| Light (tooltips, toggles) | 100-250ms |
+| Sad/serious | 600ms+ |
+| Happy/light | 200-400ms |
+| Urgent | 100-200ms |
+
+Enter-exit asymmetry: entrances 30-50% longer than exits.
+
+## 10. Exaggeration
+
+| Personality | Exaggeration |
+|-------------|-------------|
+| Playful | 15-25% |
+| Energetic | 20-30% |
+| Corporate | 0-5% |
