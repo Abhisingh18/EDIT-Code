@@ -230,3 +230,36 @@ export const Beat: React.FC<{ f: number; from: number; to: number; children: Rea
 };
 
 /* ---------- word-synced captions (premium, monochrome) ---------- */
+export const Captions: React.FC<{
+  f: number;
+  pages: Page[];
+  x: number;
+  y: number;
+  maxWidth: number;
+  size?: number;
+  until?: number;
+}> = ({ f, pages, x, y, maxWidth, size = 36, until = Infinity }) => {
+  if (f >= until) return null;
+  const page = pages.find((p) => f >= p.start && f < p.end);
+  if (!page) return null;
+  const p = sp(f, page.start, theme.spring.snappy);
+  const out = ei(f, [page.end - 4, page.end], [1, 0], theme.ease.in);
+  return (
+    <div
+      style={{
+        position: "absolute",
+        left: x - maxWidth / 2,
+        top: y,
+        width: maxWidth,
+        display: "flex",
+        flexWrap: "wrap",
+        justifyContent: "center",
+        columnGap: 11,
+        rowGap: 4,
+        opacity: p * out,
+        transform: `translateY(${(1 - p) * 12}px)`,
+      }}
+    >
+      {page.items.map((w, i) => {
+        const on = f >= w.s - 1;
+        return (
