@@ -1,4 +1,4 @@
-# Pragyan — SIH 2026 Pitch Film
+# Pragyan — SIH 2026 Pitch Films
 
 The code behind **Team Data_Jarvis GGV**'s Smart India Hackathon 2026 pitch video for **Pragyan**, a sovereign, on-premise agentic AI workbench (Problem Statement **SIH26117**, Smart Automation).
 
